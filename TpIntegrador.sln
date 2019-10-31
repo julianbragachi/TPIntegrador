@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TpIntegrador", "TpIntegrador\TpIntegrador.csproj", "{BC532B72-6797-4588-AB09-B3DC46C92DDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyudandoAlProjimo.Web", "TpIntegrador\AyudandoAlProjimo.Web.csproj", "{BC532B72-6797-4588-AB09-B3DC46C92DDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
