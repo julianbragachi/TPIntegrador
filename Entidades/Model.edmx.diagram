@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9c8eeb1d458c4ec6a71753a768b346fc" Name="Diagram1">
+        <EntityTypeShape EntityType="Entities.Denuncias" Width="1.5" PointX="5.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.DonacionesHorasTrabajo" Width="1.5" PointX="7.5" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.DonacionesInsumos" Width="1.5" PointX="7.5" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.DonacionesMonetarias" Width="1.5" PointX="10.5" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.MotivoDenuncia" Width="1.5" PointX="3" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Propuestas" Width="1.5" PointX="3" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.PropuestasDonacionesHorasTrabajo" Width="1.5" PointX="5.25" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.PropuestasDonacionesInsumos" Width="1.5" PointX="5.25" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.PropuestasDonacionesMonetarias" Width="1.5" PointX="5.25" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.PropuestasReferencias" Width="1.5" PointX="5.25" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.PropuestasValoraciones" Width="1.5" PointX="8.25" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.Usuarios" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <AssociationConnector Association="Entities.FK_Denuncias_MotivoDenuncia" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_Denuncias_Propuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_Denuncias_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_DonacionesHorasTrabajo_PropuestasDonacionesHorasTrabajo" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_DonacionesHorasTrabajo_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_DonacionesInsumos_PropuestasDonacionesInsumos" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_DonacionesInsumos_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_DonacionesMonetarias_PropuestasDonacionesMonetarias" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_DonacionesMonetarias_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_Propuestas_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_PropuestasDonacionesHorasTrabajo_Propuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_PropuestasDonacionesInsumos_Propuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_PropuestasDonacionesMonetarias_Propuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_PropuestasReferencias_Propuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_PropuestasValoraciones_Propuestas" ManuallyRouted="false" />
+        <AssociationConnector Association="Entities.FK_PropuestasValoraciones_Usuarios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
