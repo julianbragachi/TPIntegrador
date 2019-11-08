@@ -1,1 +1,31 @@
-﻿
+﻿@font-face {
+    font-family: "WCManoNegraBta";
+    src: url("WCManoNegraBta.otf") format("opentype")
+}
+
+.fixed-top-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.container-top-navbar {
+    padding: 5px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+    .container-top-navbar a {
+        margin: 0 5px;
+    }
+
+.parallax-title {
+    font-family: 'WCManoNegraBta';
+    z-index: 999;
+    position: absolute;
+    color: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
