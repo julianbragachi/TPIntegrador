@@ -9,7 +9,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
 {
     public class RegistroViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Ingrese un nombre de usuario")]
         [Display(Name = "Nombre de usuario")]
         public string UserName { get; set; }
         [Required]
@@ -21,13 +21,14 @@ namespace AyudandoAlProjimo.Data.ViewModels
         [StringLength(50, ErrorMessage = "Ingrese un apellido", MinimumLength = 1)]
         public string Apellido { get; set; }
         [Required]
+        [Range(typeof(DateTime), "1/1/1930", "1/1/2001")]
         [Display(Name = "Fecha de Nacimiento")]
         public DateTime FechaNacimiento { get; set; }
         [Required]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,50}$",
+        ErrorMessage = "La contraseña debe tener por lo menos una mayúscula y un número.")]
         [StringLength(20, ErrorMessage = "La contraseña debe tener al menos 8 caracteres", MinimumLength = 8)]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$",
-         ErrorMessage = "Debe tener al menos una mayúscula y un número.")]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
         [DataType(DataType.Password)]

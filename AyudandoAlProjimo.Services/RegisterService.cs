@@ -11,10 +11,11 @@ namespace AyudandoAlProjimo.Services
     {
         Entities context = new Entities();
 
-        public void Registrar(RegistroViewModel model)
+        public void Registrar(RegistroViewModel model, string enlace)
         {
             try
             {
+                string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
                 var user = new Usuarios
                 {
                     UserName = model.UserName,
@@ -22,34 +23,52 @@ namespace AyudandoAlProjimo.Services
                     Activo = false,
                     Nombre = model.Nombre,
                     Apellido = model.Nombre,
+                    Password = model.Password,
                     FechaNacimiento = model.FechaNacimiento,
                     FechaCracion = DateTime.Now,
-                    Token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+                    Token = token,
+                    TipoUsuario = 1
                 };
                 context.Usuarios.Add(user);
-                if (context.SaveChanges() > 0)
-                    {   //traer el cuerpo que deberia linkear el mail desde el controlador, a menos que se le tire localhostyadayada.
-                        System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
-                        new System.Net.Mail.MailAddress("sender@mydomain.com", "Web Registration"),
-                        new System.Net.Mail.MailAddress(user.Email));
-                        m.Subject = "Verificación de correo electrónico";
-                        m.Body = string.Format("Estimado {0}<BR/>Gracias por registrarse en NombreNombre, por favor haga click en el enlace:" +
-                        " <a href=\"{1}\" title=\"User Email Confirm\">{1}</a>", user.UserName, Url.Action("ConfirmEmail", "Account",
-                        new { Token = user.Id, Email = user.Email }, Request.Url.Scheme));
-                        m.IsBodyHtml = true;
-                        System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.mydomain.com");
-                        smtp.Credentials = new System.Net.NetworkCredential("sender@mydomain.com", "password");
-                        smtp.EnableSsl = true;
-                        smtp.Send(m);
-                    }
+                context.SaveChanges(); //traer el cuerpo que deberia linkear el mail desde el controlador, a menos que se le tire localhostyadayada.
+                System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
+                new System.Net.Mail.MailAddress("EmailAutomaticoTPW3@gmail.com", "Web Registration"),
+                new System.Net.Mail.MailAddress(user.Email));
+                m.Subject = "Verificación de correo electrónico";
+                m.Body = string.Format("Estimado <BR/>Gracias por registrarse en NombreNombre, por favor haga click en el enlace:" +
+                enlace.ToString() + "?token=" + token.ToString());
+                m.IsBodyHtml = true;
+                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
+                smtp.Credentials = new System.Net.NetworkCredential("EmailAutomaticoTPW3@gmail.com", "TestUnitario8");
+                smtp.EnableSsl = true;
+                smtp.Send(m);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
         }
-
-            // If we got this far, something failed, redisplay formreturn View(model); 
+        public int ActivarUsuario(string token)
+        {
+            Usuarios u = context.Usuarios.Where(t => t.Token == token).Single();
+            if (u != null)
+            {
+                if (u.Activo == false)
+                {
+                    u.Activo = true;
+                    context.SaveChanges();
+                    return 1;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+            else
+            {
+                return 3;
+            }
+            
         }
     }
 }
