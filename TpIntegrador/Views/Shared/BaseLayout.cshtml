@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | Ayudando al projimo</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+
+    @RenderBody()
+
+
+    @Scripts.Render("~/bundles/ui-libs")
+    @Scripts.Render("~/bundles/Views")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

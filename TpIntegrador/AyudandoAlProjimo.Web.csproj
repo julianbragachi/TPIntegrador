@@ -131,6 +131,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Views\Home\Index.js" />
     <Content Include="Scripts\Views\_Layout.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\materialize.min.js" />
@@ -144,7 +145,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\BaseLayout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -155,8 +156,11 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\WCManoNegraBta.otf" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\pv_Footer.cshtml" />
+    <Content Include="Views\Shared\AnonimoLayout.cshtml" />
+    <Content Include="Views\Shared\PropuestasLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">

@@ -13,12 +13,13 @@ namespace TpIntegrador
                         "~/Scripts/materialize.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/Views").Include(
-                        "~/Scripts/Views/_Layout.js"));
+                        "~/Scripts/Views/_Layout.js",
+                        "~/Scripts/Views/Home/Index.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/materialize.min.css",
-                      "~/Content/site.css"));
-
+                      "~/Content/WCManoNegraBta.otf",
+                      "~/Content/Site.css"));
 
         }
     }
