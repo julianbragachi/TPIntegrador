@@ -122,6 +122,7 @@
       <LastGenOutput>BD.Context.cs</LastGenOutput>
       <DependentUpon>BD.edmx</DependentUpon>
     </Content>
+    <Content Include="BD.edmx.sql" />
     <Content Include="BD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BD.edmx</DependentUpon>
