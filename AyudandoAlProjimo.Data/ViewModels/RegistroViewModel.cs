@@ -9,9 +9,6 @@ namespace AyudandoAlProjimo.Data.ViewModels
 {
     public class RegistroViewModel
     {
-        [Required(ErrorMessage = "Ingrese un nombre de usuario")]
-        [Display(Name = "Nombre de usuario")]
-        public string UserName { get; set; }
         [Required]
         [Display(Name = "Nombre")]
         [StringLength(50, ErrorMessage = "Ingrese un nombre", MinimumLength = 1)]
@@ -37,7 +34,27 @@ namespace AyudandoAlProjimo.Data.ViewModels
         public string ConfirmPassword { get; set; }
         [Required]
         [EmailAddress]
+        [CustomValidation(typeof(RegistroViewModel), "ValidarEmailUnico")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+        public static ValidationResult ValidarEmailUnico(object value, ValidationContext context)
+        {
+            var usuario = context.ObjectInstance as RegistroViewModel;
+
+            if (usuario == null || string.IsNullOrEmpty(usuario.Email))
+                return new ValidationResult(string.Format("Email es requerido."));
+
+            //para validar que no exista otro email igual, debo chequear en la base
+            Entities db = new Entities();
+
+            var existeEmail = db.Usuarios.Any(o => o.Email == usuario.Email);
+
+            if (existeEmail)
+            {
+                return new ValidationResult(string.Format("El Email {0} ya está siendo usado.", usuario.Email));
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }

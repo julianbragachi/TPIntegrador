@@ -18,7 +18,6 @@ namespace AyudandoAlProjimo.Services
                 string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
                 var user = new Usuarios
                 {
-                    UserName = model.UserName,
                     Email = model.Email,
                     Activo = false,
                     Nombre = model.Nombre,
@@ -29,6 +28,20 @@ namespace AyudandoAlProjimo.Services
                     Token = token,
                     TipoUsuario = 1
                 };
+                string username = model.Nombre + model.Apellido;
+                int cantidad_usernames = context.Usuarios.Where(t => t.UserName.StartsWith(username)).Count();
+                if (cantidad_usernames > 1)
+                {
+                    user.UserName = username + (cantidad_usernames+1).ToString();
+                }
+                else if (cantidad_usernames == 1)
+                {
+                    user.UserName = username + 1;
+                }
+                else
+                {
+                    user.UserName = username;
+                }
                 context.Usuarios.Add(user);
                 context.SaveChanges(); //traer el cuerpo que deberia linkear el mail desde el controlador, a menos que se le tire localhostyadayada.
                 System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
@@ -43,7 +56,7 @@ namespace AyudandoAlProjimo.Services
                 smtp.EnableSsl = true;
                 smtp.Send(m);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
