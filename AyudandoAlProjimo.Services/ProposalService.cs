@@ -16,6 +16,10 @@ namespace AyudandoAlProjimo.Services
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == 1).ToList();
         }
+        public List<Propuestas> BusquedaMisPropuestasActivas()
+        {
+            return context.Propuestas.Where(p => p.IdUsuarioCreador == 1 && p.Estado == 1).ToList();
+        }
         public List<Propuestas> BusquedaPropuestasAjenas()
         {
             List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != 1)
