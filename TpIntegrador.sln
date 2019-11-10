@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyudandoAlProjimo.Web", "Tp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyudandoAlProjimo.Data", "AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj", "{603A342A-B4E4-46DC-BFF6-1F1F783F82F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyudandoAlProjimo.Services", "AyudandoAlProjimo.Services\AyudandoAlProjimo.Services.csproj", "{4740FA29-9A0A-4EF4-9988-4798FB4D5212}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{603A342A-B4E4-46DC-BFF6-1F1F783F82F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{603A342A-B4E4-46DC-BFF6-1F1F783F82F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{603A342A-B4E4-46DC-BFF6-1F1F783F82F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4740FA29-9A0A-4EF4-9988-4798FB4D5212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4740FA29-9A0A-4EF4-9988-4798FB4D5212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4740FA29-9A0A-4EF4-9988-4798FB4D5212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4740FA29-9A0A-4EF4-9988-4798FB4D5212}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
