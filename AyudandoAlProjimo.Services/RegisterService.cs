@@ -26,7 +26,7 @@ namespace AyudandoAlProjimo.Services
                     FechaNacimiento = model.FechaNacimiento,
                     FechaCracion = DateTime.Now,
                     Token = token,
-                    TipoUsuario = 1
+                    TipoUsuario = 2
                 };
                 string username = model.Nombre + model.Apellido;
                 int cantidad_usernames = context.Usuarios.Where(t => t.UserName.StartsWith(username)).Count();
@@ -61,7 +61,7 @@ namespace AyudandoAlProjimo.Services
                 throw;
             }
         }
-        public int ActivarUsuario(string token)
+        public string ActivarUsuario(string token)
         {
             Usuarios u = context.Usuarios.Where(t => t.Token == token).Single();
             if (u != null)
@@ -70,16 +70,16 @@ namespace AyudandoAlProjimo.Services
                 {
                     u.Activo = true;
                     context.SaveChanges();
-                    return 1;
+                    return "Se ha verificado exitosamente.";
                 }
                 else
                 {
-                    return 2;
+                    return "Este mail ya ha sido verificado.";
                 }
             }
             else
             {
-                return 3;
+                return "Token invalido.";
             }
             
         }

@@ -32,19 +32,7 @@ namespace TpIntegrador.Controllers
         [HttpGet]
         public ActionResult ConfirmEmail(string token)
         {
-            var m = rs.ActivarUsuario(token);
-            switch (m)
-            {
-                case 1:
-                    ViewBag.Mensaje= "Se ha verificado exitosamente.";
-                    break;
-                case 2:
-                    ViewBag.Mensaje = "Este mail ya ha sido verificado.";
-                    break;
-                case 3:
-                    ViewBag.Mensaje = "Direccion invalida.";
-                    break;
-            }
+            ViewBag.Mensaje = rs.ActivarUsuario(token);
             return View();
         }
     }
