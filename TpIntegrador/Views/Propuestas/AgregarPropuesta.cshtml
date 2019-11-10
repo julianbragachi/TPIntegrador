@@ -1,0 +1,103 @@
+﻿@model AyudandoAlProjimo.Data.Propuestas
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Nueva propuesta";
+}
+
+@using (Html.BeginForm())
+{
+
+    <div class="container">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">account_circle</i>
+                @Html.EditorFor(x => x.Nombre, new { htmlAttributes = new { @class = "validate", @id = "namePropuesta" } })
+                <label for="namePropuesta">Nombre de la propuesta</label>
+            </div>
+
+            <div class="input-field col s12">
+                <i class="material-icons prefix">edit</i>
+                @Html.TextAreaFor(x => x.Descripcion, new { @class = "validate materialize-textarea", @id = "description" })
+                <label for="description">Descripcion</label>
+            </div>
+
+            <div class="input-field col s6">
+                <i class="material-icons prefix">date_range</i>
+                @Html.EditorFor(x => x.FechaFin, new { htmlAttributes = new { @class = "validate", @id = "endDate" } })
+                <label for="endDate">Fecha fin (dd/mm/aaaa)</label>
+            </div>
+
+            <div class="input-field col s6">
+                <i class="material-icons prefix">phone</i>
+                @Html.EditorFor(x => x.TelefonoContacto, new { htmlAttributes = new { @class = "validate", @id = "phone" } })
+                <label for="phone">Telefono de contacto</label>
+            </div>
+
+            <div class="input-field col s12">
+                <i class="material-icons prefix">add_photo_alternate</i>
+                @Html.EditorFor(x => x.TelefonoContacto, new { htmlAttributes = new { @class = "validate", @id = "photo" } })
+                <label for="photo">Foto (link)</label>
+            </div>
+
+            <p>Tipo de donacion</p>
+
+            <label class="m-2">
+                @Html.RadioButtonFor(x => x.TipoDonacion, 0, new { @class = "with-gap", @id = "DonationType" })
+                <span>Monetaria</span>
+            </label>
+
+            <label class="m-2">
+                @Html.RadioButtonFor(x => x.TipoDonacion, 1, new { @class = "with-gap", @id = "DonationType" })
+                <span>Insumos</span>
+            </label>
+
+            <label class="m-2">
+                @Html.RadioButtonFor(x => x.TipoDonacion, 2, new { @class = "with-gap", @id = "DonationType" })
+                <span>Horas de trabajo</span>
+            </label>
+
+            <div id="monetaria-section" style="display: none;">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">attach_money</i>
+                    @Html.EditorFor(x => x.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero, new { htmlAttributes = new { @class = "validate", @id = "money" } })
+                    <label for="money">Dinero</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">error_outline</i>
+                    @Html.EditorFor(x => x.PropuestasDonacionesMonetarias.FirstOrDefault().CBU, new { htmlAttributes = new { @class = "validate", @id = "moneyDestination" } })
+                    <label for="moneyDestination">CBU - Alias</label>
+                </div>
+            </div>
+
+            <div id="insumos-section" style="display: none;">
+                <h1>insumos</h1>
+            </div>
+
+            <div id="horas-section" style="display: none;">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">timer</i>
+                    @Html.EditorFor(x => x.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "hourstime" } })
+                    <label for="hourstime">Cantidad de horas</label>
+                </div>
+
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">wc</i>
+                    @Html.DropDownListFor(x => x.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion,
+                        new SelectList(new[] {
+                            new { ID = "1", Name = "name1" },
+                            new { ID = "2", Name = "name2" },
+                            new { ID = "3", Name = "name3" }
+                        }, "ID", "Name", 1)
+                        , new { @class = "with-gap", @id = "DonationType" })
+                    <label for="moneyDestination">Profesion</label>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn waves-effect waves-light" type="submit" name="action">
+            Enviar
+            <i class="material-icons right">send</i>
+        </button>
+    </div>
+}

@@ -138,6 +138,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\PropuestasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,6 +150,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Views\Home\Index.js" />
+    <Content Include="Scripts\Views\Propuestas\AgregarPropuestas.js" />
     <Content Include="Scripts\Views\_Layout.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\materialize.min.js" />
@@ -163,8 +165,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\BaseLayout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +180,8 @@
     <Content Include="Views\Shared\PropuestasLayout.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\ConfirmEmail.cshtml" />
+    <Content Include="Views\Propuestas\Index.cshtml" />
+    <Content Include="Views\Propuestas\AgregarPropuesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">

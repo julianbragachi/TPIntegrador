@@ -3,6 +3,10 @@
     src: url("WCManoNegraBta.otf") format("opentype")
 }
 
+m-2 {
+    margin: 10px;
+}
+
 .fixed-top-navbar {
     position: fixed;
     top: 0;
