@@ -7,7 +7,10 @@ using TpIntegrador.Filters;
 
 namespace TpIntegrador.Controllers
 {
+    //Si da exepcion algun controlador o metodo con filtro
+    //agregar [CheckUser] [CheckAdmin] como decoracion
     [CheckUser]
+    [CheckAdmin]
     public class UserPruebaController : Controller
     {
         // GET: UserPrueba
@@ -15,5 +18,6 @@ namespace TpIntegrador.Controllers
         {
             return View();
         }
+
     }
 }

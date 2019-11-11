@@ -43,6 +43,19 @@ namespace TpIntegrador.Controllers
             return View(loginViewModel);
         }
 
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            /*
+               Session.Remove("IdRolPermiso");
+               Session("IdRolPermiso") = null;
+             */
+            Session["ID"] = null;
+            Session["User"] = null;
+
+            return Redirect("/Home/Index");
+        }
+
         
     }
 }
