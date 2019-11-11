@@ -136,8 +136,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IngresarController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UserPruebaController.cs" />
+    <Compile Include="Filters\CheckSession.cs" />
+    <Compile Include="Filters\CheckAdmin.cs" />
+    <Compile Include="Filters\CheckUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,6 +186,9 @@
     <Content Include="Views\Shared\PropuestasLayout.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\ConfirmEmail.cshtml" />
+    <Content Include="Views\Ingresar\Login.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\UserPrueba\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">
@@ -209,7 +218,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50321</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44341/</IISUrl>
+          <IISUrl>http://localhost:44341/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
