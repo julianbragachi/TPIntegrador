@@ -9,16 +9,16 @@ namespace AyudandoAlProjimo.Data.ViewModels
 {
     public class RegistroViewModel
     {
+        //[Required]
+        //[Display(Name = "Nombre")]
+        //[StringLength(50, ErrorMessage = "Ingrese un nombre", MinimumLength = 1)]
+        //public string Nombre { get; set; }
+        //[Required]
+        //[Display(Name = "Apellido")]
+        //[StringLength(50, ErrorMessage = "Ingrese un apellido", MinimumLength = 1)]
+        //public string Apellido { get; set; }
         [Required]
-        [Display(Name = "Nombre")]
-        [StringLength(50, ErrorMessage = "Ingrese un nombre", MinimumLength = 1)]
-        public string Nombre { get; set; }
-        [Required]
-        [Display(Name = "Apellido")]
-        [StringLength(50, ErrorMessage = "Ingrese un apellido", MinimumLength = 1)]
-        public string Apellido { get; set; }
-        [Required]
-        [Range(typeof(DateTime), "1/1/1930", "1/1/2001")]
+        [CustomValidation(typeof(RegistroViewModel),"ValidarEdadCorrespondiente")]
         [Display(Name = "Fecha de Nacimiento")]
         public DateTime FechaNacimiento { get; set; }
         [Required]
@@ -37,11 +37,9 @@ namespace AyudandoAlProjimo.Data.ViewModels
         [CustomValidation(typeof(RegistroViewModel), "ValidarEmailUnico")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
-        public static ValidationResult ValidarEmailUnico(object value, ValidationContext context)
+        public static ValidationResult ValidarEmailUnico(ValidationContext context)
         {
-            var usuario = context.ObjectInstance as RegistroViewModel;
-
-            if (usuario == null || string.IsNullOrEmpty(usuario.Email))
+            if (!(context.ObjectInstance is RegistroViewModel usuario) || string.IsNullOrEmpty(usuario.Email))
                 return new ValidationResult(string.Format("Email es requerido."));
 
             //para validar que no exista otro email igual, debo chequear en la base
@@ -55,6 +53,17 @@ namespace AyudandoAlProjimo.Data.ViewModels
             }
 
             return ValidationResult.Success;
+        }
+        public static ValidationResult ValidarEdadCorrespondiente(ValidationContext context)
+        {
+            if (!(context.ObjectInstance is RegistroViewModel fecha) || string.IsNullOrEmpty(fecha.FechaNacimiento.ToLongDateString()))
+                return new ValidationResult(string.Format("Fecha es requerida."));
+            int edad = DateTime.Now.Year - fecha.FechaNacimiento.Year;
+            if (edad >= 18)
+            {
+                return ValidationResult.Success;
+            }
+            return new ValidationResult(string.Format("No es mayor de 18"));
         }
     }
 }

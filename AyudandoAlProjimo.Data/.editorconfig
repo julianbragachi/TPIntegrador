@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE0067: Desechar (Dispose) objetos antes de perder el ámbito
+dotnet_diagnostic.IDE0067.severity = none

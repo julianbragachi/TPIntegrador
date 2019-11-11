@@ -10,7 +10,7 @@ namespace AyudandoAlProjimo.Services
 {
     public class ProposalService
     {
-        Entities context = new Entities();
+        readonly Entities context = new Entities();
 
         public List<Propuestas> BusquedaMisPropuestas()
         {

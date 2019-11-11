@@ -9,7 +9,7 @@ namespace AyudandoAlProjimo.Services
 {
     public class RegisterService
     {
-        Entities context = new Entities();
+        readonly Entities context = new Entities();
 
         public void Registrar(RegistroViewModel model, string enlace)
         {
@@ -20,40 +20,44 @@ namespace AyudandoAlProjimo.Services
                 {
                     Email = model.Email,
                     Activo = false,
-                    Nombre = model.Nombre,
-                    Apellido = model.Nombre,
                     Password = model.Password,
                     FechaNacimiento = model.FechaNacimiento,
                     FechaCracion = DateTime.Now,
                     Token = token,
                     TipoUsuario = 2
                 };
-                string username = model.Nombre + model.Apellido;
-                int cantidad_usernames = context.Usuarios.Where(t => t.UserName.StartsWith(username)).Count();
-                if (cantidad_usernames > 1)
-                {
-                    user.UserName = username + (cantidad_usernames+1).ToString();
-                }
-                else if (cantidad_usernames == 1)
-                {
-                    user.UserName = username + 1;
-                }
-                else
-                {
-                    user.UserName = username;
-                }
+                //string username = model.Nombre + model.Apellido;
+                //int cantidad_usernames = context.Usuarios.Where(t => t.UserName.StartsWith(username)).Count();
+                //if (cantidad_usernames > 1)
+                //{
+                //    user.UserName = username + (cantidad_usernames+1).ToString();
+                //}
+                //else if (cantidad_usernames == 1)
+                //{
+                //    user.UserName = username + 1;
+                //}
+                //else
+                //{
+                //    user.UserName = username;
+                //}
+                //Como es necesario que se le agregue un username, se le pondrá uno por defecto.
+                user.UserName = "User" + context.Usuarios.Count()+1.ToString();
                 context.Usuarios.Add(user);
                 context.SaveChanges(); //traer el cuerpo que deberia linkear el mail desde el controlador, a menos que se le tire localhostyadayada.
                 System.Net.Mail.MailMessage m = new System.Net.Mail.MailMessage(
                 new System.Net.Mail.MailAddress("EmailAutomaticoTPW3@gmail.com", "Web Registration"),
-                new System.Net.Mail.MailAddress(user.Email));
-                m.Subject = "Verificación de correo electrónico";
-                m.Body = string.Format("Estimado <BR/>Gracias por registrarse en NombreNombre, por favor haga click en el enlace:" +
-                enlace.ToString() + "?token=" + token.ToString());
-                m.IsBodyHtml = true;
-                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com");
-                smtp.Credentials = new System.Net.NetworkCredential("EmailAutomaticoTPW3@gmail.com", "TestUnitario8");
-                smtp.EnableSsl = true;
+                new System.Net.Mail.MailAddress(user.Email))
+                {
+                    Subject = "Verificación de correo electrónico",
+                    Body = string.Format("Estimado <BR/>Gracias por registrarse en NombreNombre, por favor haga click en el enlace:" +
+                enlace.ToString() + "?token=" + token.ToString()),
+                    IsBodyHtml = true
+                };
+                System.Net.Mail.SmtpClient smtp = new System.Net.Mail.SmtpClient("smtp.gmail.com")
+                {
+                    Credentials = new System.Net.NetworkCredential("EmailAutomaticoTPW3@gmail.com", "TestUnitario8"),
+                    EnableSsl = true
+                };
                 smtp.Send(m);
             }
             catch (Exception)
