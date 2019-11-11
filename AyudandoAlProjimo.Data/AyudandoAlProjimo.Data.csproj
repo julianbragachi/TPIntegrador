@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="ViewModels\PerfilViewModel.cs" />
     <Compile Include="ViewModels\PropuestaViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistroViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +131,7 @@
       <DependentUpon>BD.edmx</DependentUpon>
       <LastGenOutput>BD.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="BD.edmx.sql" />
     <Content Include="BD.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BD.edmx</DependentUpon>
