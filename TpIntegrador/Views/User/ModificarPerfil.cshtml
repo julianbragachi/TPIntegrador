@@ -8,7 +8,7 @@
 <h2>ModificarPerfil</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("ModificarPerfil", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -58,7 +58,7 @@
             @Html.LabelFor(m => m.Foto)
             @if (!string.IsNullOrEmpty(Model.Foto))
             {
-                <img src="@Model.Foto" height="300" class="img-responsive" alt="@Model.Nombre @Model.Apellido" />
+                <img src="@Model.Foto" height="300" class="img-responsive" alt="@Model.Nombre @Model.Apellido" /><br />
             }
             @Html.TextBoxFor(m => m.Foto, new { type = "file" })
         </div>

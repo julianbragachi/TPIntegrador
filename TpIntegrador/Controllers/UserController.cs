@@ -55,7 +55,7 @@ namespace TpIntegrador.Controllers
                     //recordar eliminar la foto anterior si tenia
                     if (!string.IsNullOrEmpty(usuarioBD.Foto))
                     {
-                        ImagenesUtility.Borrar(pvm.Foto);
+                        ImagenesUtility.Borrar(usuarioBD.Foto);
                     }
 
                     //creo un nombre significativo en este caso apellidonombre pero solo un caracter del nombre, ejemplo BatistutaG
@@ -65,6 +65,8 @@ namespace TpIntegrador.Controllers
                     usuarioBD.Foto = pathRelativoImagen;
                 }
             }
+            usuarioBD.Nombre = pvm.Nombre;
+            usuarioBD.Apellido = pvm.Apellido;
             us.ActualizarPerfilDelUsuario(usuarioBD);
             return Redirect("/Home/Index");
         }

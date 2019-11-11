@@ -37,7 +37,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
         [CustomValidation(typeof(RegistroViewModel), "ValidarEmailUnico")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
-        public static ValidationResult ValidarEmailUnico(ValidationContext context)
+        public static ValidationResult ValidarEmailUnico(object value, ValidationContext context)
         {
             if (!(context.ObjectInstance is RegistroViewModel usuario) || string.IsNullOrEmpty(usuario.Email))
                 return new ValidationResult(string.Format("Email es requerido."));
@@ -54,7 +54,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
 
             return ValidationResult.Success;
         }
-        public static ValidationResult ValidarEdadCorrespondiente(ValidationContext context)
+        public static ValidationResult ValidarEdadCorrespondiente(object value, ValidationContext context)
         {
             if (!(context.ObjectInstance is RegistroViewModel fecha) || string.IsNullOrEmpty(fecha.FechaNacimiento.ToLongDateString()))
                 return new ValidationResult(string.Format("Fecha es requerida."));

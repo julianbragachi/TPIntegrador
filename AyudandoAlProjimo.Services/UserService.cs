@@ -23,7 +23,9 @@ namespace AyudandoAlProjimo.Services
             UserModificado.Apellido = user.Apellido;
             UserModificado.Foto = user.Foto;
             string username = user.Nombre + user.Apellido;
-            int cantidad_usernames = context.Usuarios.Where(t => t.UserName.StartsWith(username)).Count();
+            int cantidad_usernames = context.Usuarios
+                .Where(t => t.UserName.StartsWith(username) && t.IdUsuario !=UserModificado.IdUsuario)
+                .Count();
             if (cantidad_usernames > 1)
             {
                 UserModificado.UserName = username + (cantidad_usernames + 1).ToString();
