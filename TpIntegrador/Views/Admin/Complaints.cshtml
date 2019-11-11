@@ -1,0 +1,53 @@
+﻿@model List<AyudandoAlProjimo.Data.Denuncias>
+
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Index admin</h2>
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col m6 s12">
+            <div class="card hoverable">
+                @foreach (var denuncia in Model)
+                {
+                    <div class="card-image">
+                        <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                        <span class="card-title">@denuncia.FechaCreacion</span>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                           @denuncia.Comentarios
+                        </p>
+                        <p>
+                            @denuncia.IdUsuario
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Ver mas</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+ 
+<table>
+    <tr>
+        <th> columna 1</th>
+        <th> columna 2</th>
+        <th> columna 3</th>
+    </tr>
+    @foreach (var denuncia in Model)
+    {
+    <tr>
+        <td> @denuncia.Comentarios</td>
+        <td> @denuncia.FechaCreacion</td>
+    </tr>
+    }
+</table>
+
