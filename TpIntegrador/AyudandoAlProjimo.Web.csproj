@@ -186,8 +186,8 @@
     <Content Include="Views\Shared\PropuestasLayout.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\ConfirmEmail.cshtml" />
-    <Content Include="Views\Propuestas\Index.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuesta.cshtml" />
+    <Content Include="Views\Propuestas\AgregarPropuestaMonetaria.cshtml" />
     <Content Include="Views\User\ModificarPerfil.cshtml" />
     <Content Include="Views\Ingresar\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />

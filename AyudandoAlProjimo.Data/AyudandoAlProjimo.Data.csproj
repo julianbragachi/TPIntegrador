@@ -80,6 +80,7 @@
     <Compile Include="DonacionesMonetarias.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
+    <Compile Include="ErrorCodeAddProposalEnum.cs" />
     <Compile Include="MotivoDenuncia.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
@@ -106,7 +107,12 @@
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PropuestaViewModel.cs" />
+    <Compile Include="ViewModels\AgregarPropuestaBase.cs" />
+    <Compile Include="ViewModels\AgregarPropuestaHoraTrabajoViewModel.cs" />
+    <Compile Include="ViewModels\AgregarPropuestaInsumosViewModel.cs" />
+    <Compile Include="ViewModels\AgregarPropuestaMonetariaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ReferenciasViewModel.cs" />
     <Compile Include="ViewModels\RegistroViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

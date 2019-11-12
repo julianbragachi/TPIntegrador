@@ -11,6 +11,31 @@ namespace AyudandoAlProjimo.Services
     public class ProposalService
     {
         readonly Entities context = new Entities();
+        private UserService UserService = new UserService();
+
+
+        public int AgregarPropuestaMonetaria(AgregarPropuestaMonetariaViewModel pm, Usuarios user)
+        {
+            Propuestas p = new Propuestas();
+
+            p.Nombre = pm.Nombre;
+            p.Descripcion = pm.Descripcion;
+            p.FechaCreacion = DateTime.Now;
+            p.FechaFin = DateTime.Parse(pm.FechaFin);
+            p.TipoDonacion = pm.TipoDonacion;
+            p.TelefonoContacto = pm.TelefonoContacto;
+            p.Foto = pm.Foto;
+            p.IdUsuarioCreador = user.IdUsuario;
+
+            PropuestasDonacionesMonetarias pdm = new PropuestasDonacionesMonetarias();
+
+            pdm.CBU = pm.CBU;
+            pdm.Dinero = pm.Dinero;
+
+            p.PropuestasDonacionesMonetarias.Add(pdm);
+
+            return AgregarPropuesta(p);
+        }
 
         public List<Propuestas> BusquedaMisPropuestas(int id)
         {
@@ -39,6 +64,7 @@ namespace AyudandoAlProjimo.Services
                 .ToList();
             return lista;
         }
+
         public PropuestaViewModel VerPropuestaYDonaciones(int id)
         {
             try
@@ -76,6 +102,31 @@ namespace AyudandoAlProjimo.Services
 
                 throw;
             }
+        }
+
+        private int AgregarPropuesta(Propuestas p) {
+            context.Propuestas.Add(p);
+
+            return context.SaveChanges();
+        }
+
+        public ErrorCodeAddProposalEnum ValidateBeforeCreate(Usuarios u)
+        {
+            var hasValidProfile = UserService.isProfileValid(u);
+
+            if (!hasValidProfile)
+            {
+                return ErrorCodeAddProposalEnum.InvalidProfile;
+            }
+
+            var hasLessThan3ProposalActives = BusquedaMisPropuestasActivas(u.IdUsuario).Count < 3;
+
+            if(!hasLessThan3ProposalActives)
+            {
+                return ErrorCodeAddProposalEnum.InvalidProposalCount;
+            }
+
+            return ErrorCodeAddProposalEnum.None;
         }
     }
 }

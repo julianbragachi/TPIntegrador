@@ -1,0 +1,133 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.AgregarPropuestaMonetariaViewModel
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Nueva propuesta";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="container">
+        @if (ViewBag.Error != null)
+        {
+            <div class="card red">
+                <div class="card-content white-text">
+                    @if (ViewBag.Error == AyudandoAlProjimo.Data.ErrorCodeAddProposalEnum.InvalidProfile)
+                    {
+                        <p>Aún no tienes completado todos los datos en tu perfil, haz click aqui para completarlos. @Html.ActionLink("Mi Perfil", "", "", null, new { @class = "white-text waves-effect waves-teal btn-flat" })</p>
+                    }
+
+                    @if (ViewBag.Error == AyudandoAlProjimo.Data.ErrorCodeAddProposalEnum.InvalidProposalCount)
+                    {
+                        <p>Actualmente tiene mas de 3 propuestas activas</p>
+                    }
+                </div>
+            </div>
+        }
+        <div class="card">
+            <div class="card-content">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        @Html.EditorFor(x => x.Nombre, new { htmlAttributes = new { @class = "validate", @id = "namePropuesta", @required = true } })
+                        <label for="namePropuesta">Nombre de la propuesta</label>
+                        @Html.ValidationMessageFor(x => x.Nombre, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">edit</i>
+                        @Html.TextAreaFor(x => x.Descripcion, new { @class = "validate materialize-textarea", @id = "description", @required = true })
+                        <label for="description">Descripcion</label>
+                        @Html.ValidationMessageFor(x => x.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">date_range</i>
+                        @Html.EditorFor(x => x.FechaFin, new { htmlAttributes = new { @class = "validate", @id = "endDate", @required = true } })
+                        <label for="endDate" class="active">Fecha fin (dd/mm/aaaa)</label>
+                        @Html.ValidationMessageFor(x => x.FechaFin, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">phone</i>
+                        @Html.EditorFor(x => x.TelefonoContacto, new { htmlAttributes = new { @class = "validate", @id = "phone", @required = true } })
+                        <label for="phone">Telefono de contacto</label>
+                        @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">add_photo_alternate</i>
+                        @Html.EditorFor(x => x.Foto, new { htmlAttributes = new { @class = "validate", @id = "photo", @required = true } })
+                        <label for="photo">Foto (link)</label>
+                        @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">attach_money</i>
+                        @Html.EditorFor(x => x.Dinero, new { htmlAttributes = new { @class = "validate", @id = "money" } })
+                        <label for="money">Dinero</label>
+                        @Html.ValidationMessageFor(x => x.Dinero, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">error_outline</i>
+                        @Html.EditorFor(x => x.CBU, new { htmlAttributes = new { @class = "validate", @id = "moneyDestination" } })
+                        <label for="moneyDestination">CBU - Alias</label>
+                        @Html.ValidationMessageFor(x => x.CBU, "", new { @class = "text-danger" })
+                    </div>
+
+                    @*<div id="insumos-section" style="display: none;">
+                            <h1>insumos</h1>
+                        </div>*@
+
+                    @*<div id="horas-section" style="display: none;">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">timer</i>
+                                @Html.EditorFor(x => x.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "hourstime" } })
+                                <label for="hourstime">Cantidad de horas</label>
+                            </div>
+
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">wc</i>
+                                @Html.DropDownListFor(x => x.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion,
+                                    new SelectList(new[] {
+                                        new { ID = "1", Name = "name1" },
+                                        new { ID = "2", Name = "name2" },
+                                        new { ID = "3", Name = "name3" }
+                                    }, "ID", "Name", 1)
+                                    , new { @class = "with-gap", @id = "DonationType" })
+                                <label for="moneyDestination">Profesion</label>
+                            </div>
+                        </div>*@
+
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">account_circle</i>
+                            @Html.EditorFor(x => x.Referencias[i].Nombre, new { htmlAttributes = new { @class = "validate", @id = "namePropuesta", @required = true } })
+                            <label for="namePropuesta">Nombre del referente</label>
+                            @Html.ValidationMessageFor(x => x.Nombre, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">add_photo_alternate</i>
+                            @Html.EditorFor(x => x.Referencias[i].Telefono, new { htmlAttributes = new { @class = "validate", @id = "photo", @required = true } })
+                            <label for="photo">Telefono del referente</label>
+                            @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
+                        </div>
+                    }
+
+
+
+
+                </div>
+
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Enviar
+                    <i class="material-icons right">send</i>
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+}
