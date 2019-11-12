@@ -13,9 +13,9 @@ namespace AyudandoAlProjimo.Services
 
         public List<Denuncias> ListarDenuncias()
         {
-            var result = (from d in ctx.Denuncias
-                          select d
-               ).ToList();
+            var result = ctx.Denuncias
+                            .Include("MotivoDenuncia")
+                            .Where(d => d.Estado == 1).ToList();
 
             return result;
         }

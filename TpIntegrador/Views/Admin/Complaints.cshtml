@@ -14,15 +14,22 @@
             <div class="card hoverable">
                 <div class="card-image">
                     <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
-                    <span class="card-title">@denuncia.FechaCreacion</span>
+                    <span class="card-title">@denuncia.MotivoDenuncia.Descripcion</span>
                 </div>
                 <div class="card-content">
                     <p>
                         @denuncia.Comentarios
                     </p>
+                    <p>
+                        @denuncia.FechaCreacion
+                    </p>
                 </div>
                 <div class="card-action">
-                    <a href="#">Ver mas</a>
+                    <a href="#">Detalle Denuncia</a>                  
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect waves-light btn">Desestimar</a>
+                    <a class="waves-effect waves-light btn">Aceptar</a>
                 </div>
             </div>
         </div>
