@@ -26,5 +26,26 @@ namespace TpIntegrador.Controllers
         {
             return View(adminService.ListarDenuncias());
         }
+
+        [HttpGet]
+        public ActionResult DesestimarDenuncia(int id)
+        {
+            adminService.DesestimarDenuncia(id);
+            return Redirect("/Admin/Complaints");
+        }
+
+        [HttpGet]
+        public ActionResult AceptarDenuncia(int id)
+        {
+            adminService.AceptarDenuncia(id);
+            return Redirect("/Admin/Complaints");
+        }
+
+        [HttpGet]
+        public ActionResult DetalleDenuncia(int id)
+        {
+
+        }
     }
+
 }

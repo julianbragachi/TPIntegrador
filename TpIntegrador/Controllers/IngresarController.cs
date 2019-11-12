@@ -61,17 +61,17 @@ namespace TpIntegrador.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            /*
-               Session.Remove("IdRolPermiso");
-               Session("IdRolPermiso") = null;
-             */
-            Session["ID"] = null;
-            Session["User"] = null;
+        //[HttpGet]
+        //public ActionResult Logout()
+        //{
+        //    /*
+        //       Session.Remove("IdRolPermiso");
+        //       Session("IdRolPermiso") = null;
+        //     */
+        //    Session["ID"] = null;
+        //    Session["User"] = null;
 
-            return Redirect("/Home/Index");
-        }
+        //    return Redirect("/Home/Index");
+        //}
     }
 }

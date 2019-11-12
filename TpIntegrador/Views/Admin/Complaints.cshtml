@@ -25,11 +25,15 @@
                     </p>
                 </div>
                 <div class="card-action">
-                    <a href="#">Detalle Denuncia</a>                  
+                    <!-- ES UN LINK DEL DETALLE DE LA PROPUESTA-->
+                    <a href="@Url.Action("DetallePropuesta", "Admin", new { id = denuncia.IdPropuesta })">
+                                                                                                Detalle Denuncia</a>                  
                 </div>
                 <div class="card-action">
-                    <a class="waves-effect waves-light btn">Desestimar</a>
-                    <a class="waves-effect waves-light btn">Aceptar</a>
+                    <a href="@Url.Action("DesestimarDenuncia", "Admin", new { id = denuncia.IdDenuncia })"
+                                                                class="waves-effect waves-light btn">Desestimar</a>
+                    <a href="@Url.Action("AceptarDenuncia", "Admin", new { id = denuncia.IdDenuncia })"
+                                                                class="waves-effect waves-light btn">Aceptar</a>
                 </div>
             </div>
         </div>
