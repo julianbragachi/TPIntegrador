@@ -54,11 +54,24 @@ namespace TpIntegrador.Controllers
             }
             return View(loginViewModel);
         }
+		
         public ActionResult Logout()
         {
             Session.Abandon(); // it will clear the session at the end of request
             return RedirectToAction("Index", "Home");
         }
 
+        //[HttpGet]
+        //public ActionResult Logout()
+        //{
+        //    /*
+        //       Session.Remove("IdRolPermiso");
+        //       Session("IdRolPermiso") = null;
+        //     */
+        //    Session["ID"] = null;
+        //    Session["User"] = null;
+
+        //    return Redirect("/Home/Index");
+        //}
     }
 }

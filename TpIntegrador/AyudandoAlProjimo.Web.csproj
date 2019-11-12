@@ -191,6 +191,8 @@
     <Content Include="Views\User\ModificarPerfil.cshtml" />
     <Content Include="Views\Ingresar\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\UserPrueba\Index.cshtml" />
+    <Content Include="Views\Admin\Complaints.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\User\VerPerfil.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaHoraTrabajo.cshtml" />

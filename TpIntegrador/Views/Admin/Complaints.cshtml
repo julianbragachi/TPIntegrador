@@ -1,0 +1,43 @@
+﻿@model List<AyudandoAlProjimo.Data.Denuncias>
+
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Index admin</h2>
+
+<div class="row">
+    @foreach (var denuncia in @Model)
+    {
+        <div class="col m6 s12">
+            <div class="card hoverable">
+                <div class="card-image">
+                    <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                    <span class="card-title">@denuncia.MotivoDenuncia.Descripcion</span>
+                </div>
+                <div class="card-content">
+                    <p>
+                        @denuncia.Comentarios
+                    </p>
+                    <p>
+                        @denuncia.FechaCreacion
+                    </p>
+                </div>
+                <div class="card-action">
+                    <!-- ES UN LINK DEL DETALLE DE LA PROPUESTA-->
+                    <a href="@Url.Action("DetallePropuesta", "Admin", new { id = denuncia.IdPropuesta })">
+                                                                                                Detalle Denuncia</a>                  
+                </div>
+                <div class="card-action">
+                    <a href="@Url.Action("DesestimarDenuncia", "Admin", new { id = denuncia.IdDenuncia })"
+                                                                class="waves-effect waves-light btn">Desestimar</a>
+                    <a href="@Url.Action("AceptarDenuncia", "Admin", new { id = denuncia.IdDenuncia })"
+                                                                class="waves-effect waves-light btn">Aceptar</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
