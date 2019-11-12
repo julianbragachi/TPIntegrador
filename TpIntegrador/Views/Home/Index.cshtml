@@ -3,144 +3,112 @@
     ViewBag.Title = "Home Page";
 }
 
-            
-            <a class="white-text">Registrarse</a>
-        
-    <div class="teal fixed-top-navbar">
-        <div class="container container-top-navbar">
-            @{
-                if (Session["User"] == null)
-                {
-                    @Html.ActionLink("Log In", "Login", "Ingresar", null, new { @class = "waves-effect waves-teal btn-flat" })
-
-                    @Html.ActionLink("Sign up", "Register", "User", null, new { @class = "waves-effect waves-teal btn-flat" })
-                }
-                else
-                {
-                    @Html.ActionLink("Log out", "Logout", "Ingresar", null, new { @class = "waves-effect waves-teal btn-flat" })
-                    if ((int)Session["User"] == 1)
-                    { 
-                        @Html.ActionLink("Complaints", "Complaints", "Admin", null, new { @class = "waves-effect waves-teal btn-flat" })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("User things", "Login", "Ingresar", null, new { @class = "waves-effect waves-teal btn-flat" })
-                    }
-                }
-
-
-            }
-        </div>
+<div class="parallax-container">
+    <div class="parallax">
+        <h1 class="parallax-title header">Ayudando al projimo</h1>
+        <img src="https://redjoven.com.ar/wp-content/uploads/2018/09/daniel-chekalov-614447-unsplash.jpg">
     </div>
+</div>
 
+<div class="section white">
+    <div class="row container">
+        <h2 class="header" style="font-family: 'WCManoNegraBta';">Propuestas mas Valoradas</h2>
 
-
-        <div class="parallax-container">
-            <div class="parallax">
-                <h1 class="parallax-title header">Ayudando al projimo</h1>
-                <img src="https://redjoven.com.ar/wp-content/uploads/2018/09/daniel-chekalov-614447-unsplash.jpg">
-            </div>
-        </div>
-
-        <div class="section white">
-            <div class="row container">
-                <h2 class="header" style="font-family: 'WCManoNegraBta';">Propuestas mas Valoradas</h2>
-
-                <div class="row">
-                    <div class="col m6 s12">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
-                                <span class="card-title">Propuesta 1</span>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.
-                                </p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">Ver mas</a>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col m6 s12">
+                <div class="card hoverable">
+                    <div class="card-image">
+                        <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                        <span class="card-title">Propuesta 1</span>
                     </div>
-
-                    <div class="col m6 s12">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
-                                <span class="card-title">Propuesta 1</span>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.
-                                </p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">Ver mas</a>
-                            </div>
-                        </div>
+                    <div class="card-content">
+                        <p>
+                            I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.
+                        </p>
                     </div>
-
-                    <div class="col m6 s12">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
-                                <span class="card-title">Propuesta 1</span>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.
-                                </p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">Ver mas</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col m6 s12">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
-                                <span class="card-title">Propuesta 1</span>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.
-                                </p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">Ver mas</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col m6 s12">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
-                                <span class="card-title">Propuesta 1</span>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.
-                                </p>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">Ver mas</a>
-                            </div>
-                        </div>
+                    <div class="card-action">
+                        <a href="#">Ver mas</a>
                     </div>
                 </div>
+            </div>
 
+            <div class="col m6 s12">
+                <div class="card hoverable">
+                    <div class="card-image">
+                        <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                        <span class="card-title">Propuesta 1</span>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col m6 s12">
+                <div class="card hoverable">
+                    <div class="card-image">
+                        <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                        <span class="card-title">Propuesta 1</span>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col m6 s12">
+                <div class="card hoverable">
+                    <div class="card-image">
+                        <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                        <span class="card-title">Propuesta 1</span>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Ver mas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col m6 s12">
+                <div class="card hoverable">
+                    <div class="card-image">
+                        <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                        <span class="card-title">Propuesta 1</span>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">Ver mas</a>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="parallax-container">
-            <div class="parallax"><img src="https://assets.survivornet.com/wp-content/uploads/2019/09/10182939/everton-vila-AsahNlC0VhQ-unsplash-1200x630.jpg"></div>
-        </div>
+    </div>
+</div>
+
+<div class="parallax-container">
+    <div class="parallax"><img src="https://assets.survivornet.com/wp-content/uploads/2019/09/10182939/everton-vila-AsahNlC0VhQ-unsplash-1200x630.jpg"></div>
+</div>

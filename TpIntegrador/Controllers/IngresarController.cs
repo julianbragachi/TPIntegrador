@@ -32,7 +32,18 @@ namespace TpIntegrador.Controllers
                 {
                     Session["ID"] = user.IdUsuario;
                     Session["User"] = user.TipoUsuario;
-                    return Redirect("/Home/Index");
+                    HttpCookie returnCookie = Request.Cookies["returnUrl"];
+                    if ((returnCookie == null) || string.IsNullOrEmpty(returnCookie.Value))
+                    {
+                        return Redirect("/Home/Index");
+                    }
+                    else
+                    {
+                        HttpCookie deleteCookie = new HttpCookie("returnUrl");
+                        deleteCookie.Expires = DateTime.Now.AddDays(-1);
+                        Response.Cookies.Add(deleteCookie);
+                        Response.Redirect(returnCookie.Value);
+                    }
                 }
                 else
                 {

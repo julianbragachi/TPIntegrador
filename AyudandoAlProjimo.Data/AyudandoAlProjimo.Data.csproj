@@ -105,6 +105,7 @@
     <Compile Include="Usuarios.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\PropuestaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistroViewModel.cs" />
   </ItemGroup>
@@ -113,6 +114,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BD.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include=".editorconfig" />
     <None Include="App.Config" />
     <None Include="BD.edmx.diagram">
       <DependentUpon>BD.edmx</DependentUpon>
