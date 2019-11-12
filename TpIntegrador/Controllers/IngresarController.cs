@@ -26,11 +26,12 @@ namespace TpIntegrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                Usuarios user= loginService.VerifyUser(loginViewModel);
-             
+                Usuarios user = loginService.VerifyUser(loginViewModel);
+
                 if (user != null)
                 {
                     Session["ID"] = user.IdUsuario;
+                    Session["UserNombre"] = user.Email;
                     Session["User"] = user.TipoUsuario;
                     HttpCookie returnCookie = Request.Cookies["returnUrl"];
                     if ((returnCookie == null) || string.IsNullOrEmpty(returnCookie.Value))
@@ -53,6 +54,12 @@ namespace TpIntegrador.Controllers
             }
             return View(loginViewModel);
         }
+		
+        public ActionResult Logout()
+        {
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Index", "Home");
+        }
 
         [HttpGet]
         public ActionResult Logout()
@@ -66,7 +73,5 @@ namespace TpIntegrador.Controllers
 
             return Redirect("/Home/Index");
         }
-
-        
     }
 }

@@ -1,0 +1,23 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.AgregarPropuestaMonetariaViewModel
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Nueva propuesta";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <div class="row no-margin">
+
+                <h5>¿Que tipo de donacion desea que tenga su propuesta?</h5>
+
+                <ul>
+                    <li>@Html.ActionLink("Monetaria", "AgregarPropuestaMonetaria", "Propuestas", null, new { @class = "waves-effect waves-teal btn-flat" })</li>
+                    <li>@Html.ActionLink("Horas de trabajo", "AgregarPropuestaMonetaria", "Propuestas", null, new { @class = "waves-effect waves-teal btn-flat" })</li>
+                    <li>@Html.ActionLink("Insumos", "AgregarPropuestaMonetaria", "Propuestas", null, new { @class = "waves-effect waves-teal btn-flat" })</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>

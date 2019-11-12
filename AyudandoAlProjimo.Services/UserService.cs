@@ -11,6 +11,11 @@ namespace AyudandoAlProjimo.Services
     {
         readonly Entities context = new Entities();
 
+        public bool isProfileValid(Usuarios u)
+        {
+            return !String.IsNullOrEmpty(u.Nombre) && !String.IsNullOrEmpty(u.Apellido) && !String.IsNullOrEmpty(u.Foto) && u.FechaNacimiento != null;
+        }
+
         public Usuarios TraerPerfilDelUsuario(int id)
         {
             return context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
@@ -25,7 +30,7 @@ namespace AyudandoAlProjimo.Services
             {
                 string username = user.Nombre + user.Apellido;
                 int cantidad_usernames = context.Usuarios
-                    .Where(t => t.UserName.StartsWith(username) && 
+                    .Where(t => t.UserName.StartsWith(username) &&
                     t.IdUsuario != UserModificado.IdUsuario)
                     .Count();
                 if (cantidad_usernames > 1)

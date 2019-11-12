@@ -1,21 +1,19 @@
 ﻿@{
     Layout = "~/Views/Shared/BaseLayout.cshtml";
-    ViewBag.Title = "Home Page";
 }
 
-@*<nav class="teal">
+<nav class="teal">
     <div class="container nav-wrapper">
-        @Html.ActionLink("Ayudando al projimo", "Index", "Home", new { area = "" }, new { @class = "brand-logo right" })
         <ul id="nav-mobile" class="left hide-on-med-and-down">
             <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-            <li>@Html.ActionLink("Crear propuesta", "About", "Home")</li>
-            <li>@Html.ActionLink("Mi perfil", "Contact", "Home")</li>
+            <li>@Html.ActionLink("Crear propuesta", "AgregarPropuesta", "Propuestas")</li>
+            <li>@Html.ActionLink("Mi perfil", "VerPerfil", "User")</li>
             <li>@Html.ActionLink("Acerca de", "Contact", "Home")</li>
             <li>@Html.ActionLink("Denuncias", "Contact", "Home")</li>
 
         </ul>
     </div>
-</nav>*@
+</nav>
 
 <main>
     @RenderBody()

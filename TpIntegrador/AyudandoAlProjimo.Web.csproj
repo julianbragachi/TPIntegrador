@@ -140,7 +140,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngresarController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Controllers\UserPruebaController.cs" />
+    <Compile Include="Controllers\PropuestasController.cs" />
     <Compile Include="Filters\CheckSession.cs" />
     <Compile Include="Filters\CheckAdmin.cs" />
     <Compile Include="Filters\CheckUser.cs" />
@@ -156,6 +156,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Views\Home\Index.js" />
+    <Content Include="Scripts\Views\Propuestas\AgregarPropuestas.js" />
     <Content Include="Scripts\Views\_Layout.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\materialize.min.js" />
@@ -169,8 +170,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\BaseLayout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -187,12 +186,15 @@
     <Content Include="Views\Shared\PropuestasLayout.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\ConfirmEmail.cshtml" />
+    <Content Include="Views\Propuestas\AgregarPropuesta.cshtml" />
+    <Content Include="Views\Propuestas\AgregarPropuestaMonetaria.cshtml" />
     <Content Include="Views\User\ModificarPerfil.cshtml" />
     <Content Include="Views\Ingresar\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\UserPrueba\Index.cshtml" />
     <Content Include="Views\Admin\Complaints.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\User\VerPerfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">

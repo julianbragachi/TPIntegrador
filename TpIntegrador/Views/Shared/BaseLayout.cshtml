@@ -5,14 +5,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title | Ayudando al projimo</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     @Styles.Render("~/Content/css")
 </head>
 <body>
     <div class="teal fixed-top-navbar">
-    <div class="container container-top-navbar">
-        @Html.ActionLink("Login", "Login", "Ingresar", null, new { @class = "waves-effect waves-teal btn-flat" })
-        @Html.ActionLink("Registrarse", "Register", "User", null, new { @class = "waves-effect waves-teal btn-flat" })
-    </div>
+        <div class="container container-top-navbar">
+            @if (Session["ID"] == null)
+            {
+                @Html.ActionLink("Login", "Login", "Ingresar", null, new { @class = "white-text waves-effect waves-teal btn-flat" })
+                @Html.ActionLink("Registrarse", "Register", "User", null, new { @class = "white-text waves-effect waves-teal btn-flat" })
+            } else
+            {
+                <a class="white-text waves-effect waves-teal btn-flat">Hola, <strong>@Session["UserNombre"]</strong></a>
+                @Html.ActionLink("Logout", "Logout", "Ingresar",null, new { @class = "white-text waves-effect waves-teal btn-flat" })
+            }
+
+        </div>
 </div>
 
     @RenderBody()
