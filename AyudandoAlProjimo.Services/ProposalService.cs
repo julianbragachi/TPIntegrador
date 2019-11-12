@@ -15,6 +15,9 @@ namespace AyudandoAlProjimo.Services
 
         public int AgregarPropuestaInsumos(AgregarPropuestaInsumosViewModel pm, Usuarios user)
         {
+            //Tipo 1 para insumos
+            pm.TipoDonacion = 1;
+
             Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
             pm.Insumos.ForEach(x => {
