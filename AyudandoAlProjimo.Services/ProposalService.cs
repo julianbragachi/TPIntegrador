@@ -16,16 +16,7 @@ namespace AyudandoAlProjimo.Services
 
         public int AgregarPropuestaMonetaria(AgregarPropuestaMonetariaViewModel pm, Usuarios user)
         {
-            Propuestas p = new Propuestas();
-
-            p.Nombre = pm.Nombre;
-            p.Descripcion = pm.Descripcion;
-            p.FechaCreacion = DateTime.Now;
-            p.FechaFin = DateTime.Parse(pm.FechaFin);
-            p.TipoDonacion = pm.TipoDonacion;
-            p.TelefonoContacto = pm.TelefonoContacto;
-            p.Foto = pm.Foto;
-            p.IdUsuarioCreador = user.IdUsuario;
+            Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
             PropuestasDonacionesMonetarias pdm = new PropuestasDonacionesMonetarias();
 
@@ -37,13 +28,27 @@ namespace AyudandoAlProjimo.Services
             return AgregarPropuesta(p);
         }
 
+        public int AgregarPropuestaHoraTrabajo(AgregarPropuestaHoraTrabajoViewModel pm, Usuarios user)
+        {
+            Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
+
+            PropuestasDonacionesHorasTrabajo pht = new PropuestasDonacionesHorasTrabajo();
+
+            pht.CantidadHoras = pm.CantidadHoras;
+            pht.Profesion = pm.Profesion;
+
+            p.PropuestasDonacionesHorasTrabajo.Add(pht);
+
+            return AgregarPropuesta(p);
+        }
+
         public List<Propuestas> BusquedaMisPropuestas(int id)
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == id).ToList();
         }
         public List<Propuestas> BusquedaMisPropuestasActivas(int id)
         {
-            return context.Propuestas.Where(p => p.IdUsuarioCreador == 1 && p.Estado == 1).ToList();
+            return context.Propuestas.Where(p => p.IdUsuarioCreador == id && p.Estado == 1).ToList();
         }
         public List<Propuestas> BusquedaPropuestasAjenas()
         {
@@ -104,12 +109,6 @@ namespace AyudandoAlProjimo.Services
             }
         }
 
-        private int AgregarPropuesta(Propuestas p) {
-            context.Propuestas.Add(p);
-
-            return context.SaveChanges();
-        }
-
         public ErrorCodeAddProposalEnum ValidateBeforeCreate(Usuarios u)
         {
             var hasValidProfile = UserService.isProfileValid(u);
@@ -127,6 +126,30 @@ namespace AyudandoAlProjimo.Services
             }
 
             return ErrorCodeAddProposalEnum.None;
+        }
+
+        private int AgregarPropuesta(Propuestas p)
+        {
+            context.Propuestas.Add(p);
+
+            return context.SaveChanges();
+        }
+
+        private Propuestas MapDTOToEntities(AgregarPropuestaBase pm, int idUsuario)
+        {
+            Propuestas p = new Propuestas();
+
+            p.Nombre = pm.Nombre;
+            p.Descripcion = pm.Descripcion;
+            p.FechaCreacion = DateTime.Now;
+            p.FechaFin = DateTime.Parse(pm.FechaFin);
+            p.TipoDonacion = pm.TipoDonacion;
+            p.TelefonoContacto = pm.TelefonoContacto;
+            p.Foto = pm.Foto;
+            p.IdUsuarioCreador = idUsuario;
+            p.Valoracion = 0;
+
+            return p;
         }
     }
 }

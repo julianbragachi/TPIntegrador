@@ -1,4 +1,4 @@
-﻿@model AyudandoAlProjimo.Data.ViewModels.AgregarPropuestaMonetariaViewModel
+﻿@model AyudandoAlProjimo.Data.ViewModels.AgregarPropuestaHoraTrabajoViewModel
 @{
     Layout = "~/Views/Shared/PropuestasLayout.cshtml";
     ViewBag.Title = "Nueva propuesta";
@@ -62,18 +62,30 @@
                     </div>
 
                     <div class="input-field col s6">
-                        <i class="material-icons prefix">attach_money</i>
-                        @Html.EditorFor(x => x.Dinero, new { htmlAttributes = new { @class = "validate", @id = "money" } })
-                        <label for="money">Dinero</label>
-                        @Html.ValidationMessageFor(x => x.Dinero, "", new { @class = "text-danger" })
+                        <i class="material-icons prefix">timer</i>
+                        @Html.EditorFor(x => x.CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "hourstime" } })
+                        <label for="hourstime">Cantidad de horas</label>
                     </div>
 
                     <div class="input-field col s6">
-                        <i class="material-icons prefix">error_outline</i>
-                        @Html.EditorFor(x => x.CBU, new { htmlAttributes = new { @class = "validate", @id = "moneyDestination" } })
-                        <label for="moneyDestination">CBU - Alias</label>
-                        @Html.ValidationMessageFor(x => x.CBU, "", new { @class = "text-danger" })
+                        <i class="material-icons prefix">wc</i>
+                        @Html.DropDownListFor(x => x.Profesion,
+                            new SelectList(new[] {
+                                new { ID = "1", Name = "Albañil" },
+                                new { ID = "2", Name = "Plomero" },
+                                new { ID = "3", Name = "Electricista" },
+                                new { ID = "4", Name = "Abogado" },
+                                new { ID = "5", Name = "Contador" },
+                                new { ID = "6", Name = "Trabajador Social" },
+                                new { ID = "7", Name = "Psicologa" },
+                                new { ID = "8", Name = "Psicopedagoga" },
+                                new { ID = "9", Name = "Cocinero" },
+                                new { ID = "10", Name = "Otro" },
+                            }, "ID", "Name", 1)
+                            , new { @class = "with-gap", @id = "DonationType" })
+                        <label for="moneyDestination">Profesion</label>
                     </div>
+
 
                     @for (int i = 0; i < 2; i++)
                     {

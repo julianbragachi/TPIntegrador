@@ -59,6 +59,42 @@ namespace TpIntegrador.Controllers
             return View(p);
         }
 
+        public ActionResult AgregarPropuestaHoraTrabajo()
+        {
+            var isLoggedIn = isValidUserSession();
+
+            if (!isLoggedIn) return Redirect("/Ingresar/Login");
+
+            AgregarPropuestaHoraTrabajoViewModel p = new AgregarPropuestaHoraTrabajoViewModel();
+
+            p.TipoDonacion = 1;
+
+            return View(p);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarPropuestaHoraTrabajo(AgregarPropuestaHoraTrabajoViewModel p)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(p);
+            }
+
+            var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
+            var error = ProposalService.ValidateBeforeCreate(user);
+
+            if (error != ErrorCodeAddProposalEnum.None)
+            {
+                ViewBag.Error = error;
+
+                return View(p);
+            }
+
+            ProposalService.AgregarPropuestaHoraTrabajo(p, user);
+
+            return View(p);
+        }
+
         private bool isValidUserSession()
         {
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;

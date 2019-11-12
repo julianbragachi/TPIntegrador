@@ -7,11 +7,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AyudandoAlProjimo.Data.ViewModels
 {
-    class AgregarPropuestaHoraTrabajoViewModel : AgregarPropuestaBase
+    public class AgregarPropuestaHoraTrabajoViewModel : AgregarPropuestaBase
     {
         [Required]
         public int CantidadHoras { get; set; }
-        [Required]
+  
         public string Profesion { get; set; }
     }
 }
