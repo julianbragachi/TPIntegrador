@@ -99,6 +99,43 @@ namespace TpIntegrador.Controllers
         {
             return View(ProposalService.VerPropuestaYDonaciones(id));
         }
+
+        public ActionResult AgregarPropuestaInsumos()
+        {
+            var isLoggedIn = isValidUserSession();
+
+            if (!isLoggedIn) return Redirect("/Ingresar/Login");
+
+            AgregarPropuestaInsumosViewModel p = new AgregarPropuestaInsumosViewModel();
+
+            p.TipoDonacion = 2;
+
+            return View(p);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarPropuestaInsumos(AgregarPropuestaInsumosViewModel p)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(p);
+            }
+
+            var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
+            var error = ProposalService.ValidateBeforeCreate(user);
+
+            if (error != ErrorCodeAddProposalEnum.None)
+            {
+                ViewBag.Error = error;
+
+                return View(p);
+            }
+
+            ProposalService.AgregarPropuestaInsumos(p, user);
+
+            return View(p);
+        }
+
         private bool isValidUserSession()
         {
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;
