@@ -13,14 +13,11 @@ namespace AyudandoAlProjimo.Services
 
         public List<Denuncias> ListarDenuncias()
         {
-            //var result = (from d in ctx.Denuncias
-            //                 join art in db.Articulos on kar.ArticuloID equals art.ArticuloID
-            //                 join bod in db.Bodegas on art.BodegaID equals bod.BodegaID
+            var result = (from d in ctx.Denuncias
+                          select d
+               ).ToList();
 
-            //                 where bod.BodegaID == busqueda
-            //                 select kar
-            //   );
-
+            return result;
         }
     }
 }

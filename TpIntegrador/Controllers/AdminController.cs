@@ -24,9 +24,7 @@ namespace TpIntegrador.Controllers
         [HttpGet]
         public ActionResult Complaints()
         {
-            //return View(adminService.ListarDenuncias());
-            List<Denuncias> denuncias = ctx.Denuncias.Where(o => o.Estado == 1).ToList();
-            return View(denuncias);
+            return View(adminService.ListarDenuncias());
         }
     }
 }
