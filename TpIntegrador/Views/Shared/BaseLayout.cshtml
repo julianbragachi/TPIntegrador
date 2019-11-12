@@ -11,10 +11,17 @@
 </head>
 <body>
     <div class="teal fixed-top-navbar">
-    <div class="container container-top-navbar">
-        @Html.ActionLink("Login", "Login", "Ingresar", null, new { @class = "waves-effect waves-teal btn-flat" })
-        @Html.ActionLink("Registrarse", "Register", "User", null, new { @class = "waves-effect waves-teal btn-flat" })
-    </div>
+        <div class="container container-top-navbar">
+            @if (Session["ID"] == null)
+            {
+                @Html.ActionLink("Login", "Login", "Ingresar", null, new { @class = "white-text waves-effect waves-teal btn-flat" })
+                @Html.ActionLink("Registrarse", "Register", "User", null, new { @class = "white-text waves-effect waves-teal btn-flat" })
+            } else
+            {
+                <a class="white-text waves-effect waves-teal btn-flat">Hola, <strong>@Session["UserNombre"]</strong></a>
+            }
+
+        </div>
 </div>
 
     @RenderBody()

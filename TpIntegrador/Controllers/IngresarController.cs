@@ -31,6 +31,7 @@ namespace TpIntegrador.Controllers
                 if (user != null)
                 {
                     Session["ID"] = user.IdUsuario;
+                    Session["UserNombre"] = user.Email;
                     Session["User"] = user.TipoUsuario;
                     HttpCookie returnCookie = Request.Cookies["returnUrl"];
                     if ((returnCookie == null) || string.IsNullOrEmpty(returnCookie.Value))
