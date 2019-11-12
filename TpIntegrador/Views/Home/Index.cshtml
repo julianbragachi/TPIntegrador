@@ -1,5 +1,7 @@
-﻿@{
-    Layout = Session["ID"] == null ?  "~/Views/Shared/AnonimoLayout.cshtml" : "~/Views/Shared/PropuestasLayout.cshtml"; 
+﻿@model List<AyudandoAlProjimo.Data.Propuestas>
+
+@{
+    Layout = Session["ID"] == null ? "~/Views/Shared/AnonimoLayout.cshtml" : "~/Views/Shared/PropuestasLayout.cshtml";
     ViewBag.Title = "Home Page";
 }
 
@@ -15,24 +17,25 @@
         <h2 class="header" style="font-family: 'WCManoNegraBta';">Propuestas mas Valoradas</h2>
 
         <div class="row">
-            <div class="col m6 s12">
-                <div class="card hoverable">
-                    <div class="card-image">
-                        <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
-                        <span class="card-title">Propuesta 1</span>
-                    </div>
-                    <div class="card-content">
-                        <p>
-                            I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.
-                        </p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">Ver mas</a>
+            @foreach (var propuesta in Model)
+            {
+                <div class="col m6 s12">
+                    <div class="card hoverable">
+                        <div class="card-image">
+                            <img class="materialboxed" src="https://media-cdn.tripadvisor.com/media/photo-s/16/72/0d/c7/monteagudo484.jpg">
+                            <span class="card-title">@propuesta.Nombre</span>
+                        </div>
+                        <div class="card-content">
+                            <p>
+                                @propuesta.Descripcion
+                            </p>
+                        </div>
+                        <div class="card-action">
+                            @Html.ActionLink("Ver Detalles","VerDetalles","Propuestas",new{ id=@propuesta.IdPropuesta},null)
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            }
             <div class="col m6 s12">
                 <div class="card hoverable">
                     <div class="card-image">

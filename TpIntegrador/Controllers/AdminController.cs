@@ -41,11 +41,11 @@ namespace TpIntegrador.Controllers
             return Redirect("/Admin/Complaints");
         }
 
-        [HttpGet]
-        public ActionResult DetalleDenuncia(int id)
-        {
+        //[HttpGet]
+        //public ActionResult DetalleDenuncia(int id)
+        //{
 
-        }
+        //}
     }
 
 }

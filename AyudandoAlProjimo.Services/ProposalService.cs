@@ -16,6 +16,9 @@ namespace AyudandoAlProjimo.Services
 
         public int AgregarPropuestaMonetaria(AgregarPropuestaMonetariaViewModel pm, Usuarios user)
         {
+            //Tipo 3 para monetarias
+            pm.TipoDonacion = 3;
+
             Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
             PropuestasDonacionesMonetarias pdm = new PropuestasDonacionesMonetarias();
@@ -30,6 +33,8 @@ namespace AyudandoAlProjimo.Services
 
         public int AgregarPropuestaHoraTrabajo(AgregarPropuestaHoraTrabajoViewModel pm, Usuarios user)
         {
+            //Tipo 2 para horas de trabajo
+            pm.TipoDonacion = 2;
             Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
             PropuestasDonacionesHorasTrabajo pht = new PropuestasDonacionesHorasTrabajo();
@@ -50,9 +55,17 @@ namespace AyudandoAlProjimo.Services
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == id && p.Estado == 1).ToList();
         }
+        public List<Propuestas> BusquedaPropuestasAjenas(int id)
+        {
+            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id)
+                .OrderByDescending(c => c.FechaFin)
+                .ThenByDescending(c => c.Valoracion)
+                .ToList();
+            return lista;
+        }
         public List<Propuestas> BusquedaPropuestasAjenas()
         {
-            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != 1)
+            List<Propuestas> lista = context.Propuestas
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
@@ -85,6 +98,7 @@ namespace AyudandoAlProjimo.Services
                         PropuestasDonacionesHorasTrabajo propuestadht = context.PropuestasDonacionesHorasTrabajo.
                             Where(pdht => pdht.IdPropuesta == propuesta.IdPropuesta).Single();
                         pvm.DonacionesHorasTrabajo = context.DonacionesHorasTrabajo
+                            .Include("Usuarios")
                             .Where(p => p.IdPropuestaDonacionHorasTrabajo == propuestadht.IdPropuesta).ToList();
                         return pvm;
                     case 2:

@@ -4,15 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TpIntegrador.Filters;
+using AyudandoAlProjimo.Services;
+using AyudandoAlProjimo.Data;
 
 namespace TpIntegrador.Controllers
 {
     
     public class HomeController : Controller
     {
+        private readonly ProposalService ps = new ProposalService();
         public ActionResult Index()
         {
-            return View();
+            if (HttpContext.Session["ID"] != null)
+            {
+                List<Propuestas> lista = ps.BusquedaPropuestasAjenas((int)HttpContext.Session["ID"]);
+                return View(lista);
+            }
+            else
+            {
+                List<Propuestas> lista = ps.BusquedaPropuestasAjenas();
+                return View(lista);
+            }
         }
         
         public ActionResult About()

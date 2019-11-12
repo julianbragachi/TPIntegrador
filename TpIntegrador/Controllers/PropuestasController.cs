@@ -94,7 +94,11 @@ namespace TpIntegrador.Controllers
 
             return View(p);
         }
-
+        [HttpGet]
+        public ActionResult VerDetalles(int id)
+        {
+            return View(ProposalService.VerPropuestaYDonaciones(id));
+        }
         private bool isValidUserSession()
         {
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;

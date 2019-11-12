@@ -1,0 +1,24 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
+
+@{
+    ViewBag.Title = "VerDetalles";
+}
+
+<h2>VerDetalles</h2>
+
+<div>
+    <h4>PropuestaViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<p>
+    @Model.Propuesta.FechaFin
+    @Model.Propuesta.Nombre
+    @Model.Propuesta.Descripcion
+    @foreach (var donacion in Model.DonacionesMonetarias)
+    {
+        @donacion.Usuarios.Nombre
+    }
+    @Html.ActionLink("Back to List", "Index")
+</p>

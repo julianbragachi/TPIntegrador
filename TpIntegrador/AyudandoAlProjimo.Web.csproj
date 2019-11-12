@@ -196,6 +196,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\User\VerPerfil.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaHoraTrabajo.cshtml" />
+    <Content Include="Views\Propuestas\VerDetalles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">
