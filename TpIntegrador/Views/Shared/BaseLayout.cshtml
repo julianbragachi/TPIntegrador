@@ -19,6 +19,7 @@
             } else
             {
                 <a class="white-text waves-effect waves-teal btn-flat">Hola, <strong>@Session["UserNombre"]</strong></a>
+                @Html.ActionLink("Logout", "Logout", "Ingresar",null, new { @class = "white-text waves-effect waves-teal btn-flat" })
             }
 
         </div>

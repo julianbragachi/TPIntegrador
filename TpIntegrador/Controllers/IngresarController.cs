@@ -54,7 +54,11 @@ namespace TpIntegrador.Controllers
             }
             return View(loginViewModel);
         }
-
+        public ActionResult Logout()
+        {
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }

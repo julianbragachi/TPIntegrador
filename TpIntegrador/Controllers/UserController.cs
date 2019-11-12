@@ -41,6 +41,12 @@ namespace TpIntegrador.Controllers
         }
         [CheckUser]
         [HttpGet]
+        public ActionResult VerPerfil()
+        {
+            return View(us.TraerPerfilDelUsuario((int)Session["ID"]));
+        }
+        [CheckUser]
+        [HttpGet]
         public ActionResult ModificarPerfil()
         {
             return View(us.TraerPerfilDelUsuario((int)Session["ID"]));
