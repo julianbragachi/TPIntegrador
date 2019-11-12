@@ -26,8 +26,8 @@ namespace TpIntegrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                Usuarios user= loginService.VerifyUser(loginViewModel);
-             
+                Usuarios user = loginService.VerifyUser(loginViewModel);
+
                 if (user != null)
                 {
                     Session["ID"] = user.IdUsuario;
@@ -54,6 +54,6 @@ namespace TpIntegrador.Controllers
             return View(loginViewModel);
         }
 
-        
+
     }
 }

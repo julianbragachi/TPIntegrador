@@ -61,7 +61,7 @@ namespace TpIntegrador.Controllers
                     }
 
                     //creo un nombre significativo en este caso apellidonombre pero solo un caracter del nombre, ejemplo BatistutaG
-                    string nombreSignificativo = pvm.Nombre+pvm.Apellido;
+                    string nombreSignificativo = pvm.Nombre + pvm.Apellido;
                     //Guardar Imagen
                     string pathRelativoImagen = ImagenesUtility.Guardar(Request.Files[0], nombreSignificativo);
                     usuarioBD.Foto = pathRelativoImagen;

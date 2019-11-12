@@ -141,7 +141,6 @@
     <Compile Include="Controllers\IngresarController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\PropuestasController.cs" />
-    <Compile Include="Controllers\UserPruebaController.cs" />
     <Compile Include="Filters\CheckSession.cs" />
     <Compile Include="Filters\CheckAdmin.cs" />
     <Compile Include="Filters\CheckUser.cs" />
@@ -192,7 +191,6 @@
     <Content Include="Views\User\ModificarPerfil.cshtml" />
     <Content Include="Views\Ingresar\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\UserPrueba\Index.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>

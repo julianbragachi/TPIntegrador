@@ -3,13 +3,28 @@
     src: url("WCManoNegraBta.otf") format("opentype")
 }
 
+.row.no-margin {
+    margin: 0 !important;
+}
+
 m-2 {
     margin: 10px;
+}
+
+.margin-top-bottom-20 {
+    margin: 20px 0;
 }
 
 .fixed-top-navbar {
     position: fixed;
     top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.fixed-top-footer {
+    position: fixed;
+    bottom: 0;
     width: 100%;
     z-index: 100;
 }
