@@ -10,6 +10,12 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
+    <div class="teal fixed-top-navbar">
+    <div class="container container-top-navbar">
+        @Html.ActionLink("Login", "Login", "Ingresar", null, new { @class = "waves-effect waves-teal btn-flat" })
+        @Html.ActionLink("Registrarse", "Register", "User", null, new { @class = "waves-effect waves-teal btn-flat" })
+    </div>
+</div>
 
     @RenderBody()
 

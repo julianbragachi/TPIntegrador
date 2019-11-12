@@ -1,4 +1,10 @@
 ﻿@{
-    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
-    ViewBag.Title = "Bienvenido";
+    Layout = "~/Views/Shared/BaseLayout.cshtml";
 }
+
+<main>
+    @RenderBody()
+</main>
+
+
+@Html.Partial("pv_Footer")
