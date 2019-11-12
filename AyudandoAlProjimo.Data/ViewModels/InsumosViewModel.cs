@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace AyudandoAlProjimo.Data.ViewModels
 {
-    public class AgregarPropuestaInsumosViewModel : AgregarPropuestaBase
+    public class InsumosViewModel
     {
         [Required]
-        public List<InsumosViewModel> Insumos { get; set; }
+        public string Nombre { get; set; }
+
+        [Required]
+        public int Cantidad { get; set; }
+
+
     }
 }

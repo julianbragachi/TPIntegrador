@@ -13,6 +13,22 @@ namespace AyudandoAlProjimo.Services
         readonly Entities context = new Entities();
         private UserService UserService = new UserService();
 
+        public int AgregarPropuestaInsumos(AgregarPropuestaInsumosViewModel pm, Usuarios user)
+        {
+            Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
+
+            pm.Insumos.ForEach(x => {
+                PropuestasDonacionesInsumos pdi = new PropuestasDonacionesInsumos();
+
+                pdi.Cantidad = x.Cantidad;
+                pdi.Nombre = x.Nombre;
+
+                p.PropuestasDonacionesInsumos.Add(pdi);
+            });
+
+
+            return AgregarPropuesta(p);
+        }
 
         public int AgregarPropuestaMonetaria(AgregarPropuestaMonetariaViewModel pm, Usuarios user)
         {
