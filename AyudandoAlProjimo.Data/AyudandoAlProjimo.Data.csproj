@@ -105,7 +105,6 @@
     <Compile Include="Usuarios.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\PerfilViewModel.cs" />
     <Compile Include="ViewModels\PropuestaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegistroViewModel.cs" />

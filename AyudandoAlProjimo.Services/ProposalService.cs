@@ -12,11 +12,11 @@ namespace AyudandoAlProjimo.Services
     {
         readonly Entities context = new Entities();
 
-        public List<Propuestas> BusquedaMisPropuestas()
+        public List<Propuestas> BusquedaMisPropuestas(int id)
         {
-            return context.Propuestas.Where(p => p.IdUsuarioCreador == 1).ToList();
+            return context.Propuestas.Where(p => p.IdUsuarioCreador == id).ToList();
         }
-        public List<Propuestas> BusquedaMisPropuestasActivas()
+        public List<Propuestas> BusquedaMisPropuestasActivas(int id)
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == 1 && p.Estado == 1).ToList();
         }

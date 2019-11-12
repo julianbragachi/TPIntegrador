@@ -10,7 +10,13 @@ namespace TpIntegrador.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            HttpContext ctx = HttpContext.Current;
+            if (HttpContext.Current.Session["ID"] == null)
+            {
+                HttpCookie cookie = new HttpCookie("returnUrl", HttpContext.Current.Request.Path);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+                filterContext.Result = new RedirectResult("~/Ingresar/Login");
+                return;
+            }
             //sino es user que no me deje entrara a la pag
             if ((int) HttpContext.Current.Session["User"] != 2)
             {

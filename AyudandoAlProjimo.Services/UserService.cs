@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AyudandoAlProjimo.Data;
-using AyudandoAlProjimo.Data.ViewModels;
 
 namespace AyudandoAlProjimo.Services
 {
@@ -22,21 +21,25 @@ namespace AyudandoAlProjimo.Services
             UserModificado.Nombre = user.Nombre;
             UserModificado.Apellido = user.Apellido;
             UserModificado.Foto = user.Foto;
-            string username = user.Nombre + user.Apellido;
-            int cantidad_usernames = context.Usuarios
-                .Where(t => t.UserName.StartsWith(username) && t.IdUsuario !=UserModificado.IdUsuario)
-                .Count();
-            if (cantidad_usernames > 1)
+            if (string.IsNullOrEmpty(UserModificado.UserName))
             {
-                UserModificado.UserName = username + (cantidad_usernames + 1).ToString();
-            }
-            else if (cantidad_usernames == 1)
-            {
-                UserModificado.UserName = username + 1;
-            }
-            else
-            {
-                UserModificado.UserName = username;
+                string username = user.Nombre + user.Apellido;
+                int cantidad_usernames = context.Usuarios
+                    .Where(t => t.UserName.StartsWith(username) && 
+                    t.IdUsuario != UserModificado.IdUsuario)
+                    .Count();
+                if (cantidad_usernames > 1)
+                {
+                    UserModificado.UserName = username + (cantidad_usernames + 1).ToString();
+                }
+                else if (cantidad_usernames == 1)
+                {
+                    UserModificado.UserName = username + 1;
+                }
+                else
+                {
+                    UserModificado.UserName = username;
+                }
             }
             context.SaveChanges();
         }

@@ -168,7 +168,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\BaseLayout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -192,6 +191,7 @@
     <Content Include="Views\Ingresar\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\UserPrueba\Index.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">

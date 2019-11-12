@@ -13,10 +13,11 @@ namespace TpIntegrador.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            HttpContext ctx = HttpContext.Current;
             if (HttpContext.Current.Session["ID"] == null)
-
             {
+                HttpContext.Current.Request.Cookies.Add(new HttpCookie("returnUrl",
+                                            HttpContext.Current.Request.Path + "?" +
+                                            HttpContext.Current.Request.QueryString));
                 filterContext.Result = new RedirectResult("~/Ingresar/Login");
                 return;
             }

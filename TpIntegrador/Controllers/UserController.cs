@@ -7,6 +7,7 @@ using AyudandoAlProjimo.Data.ViewModels;
 using AyudandoAlProjimo.Services;
 using AyudandoAlProjimo.Data;
 using TpIntegrador.Utilities;
+using TpIntegrador.Filters;
 
 namespace TpIntegrador.Controllers
 {
@@ -38,13 +39,14 @@ namespace TpIntegrador.Controllers
             ViewBag.Mensaje = rs.ActivarUsuario(token);
             return View();
         }
+        [CheckUser]
         [HttpGet]
         public ActionResult ModificarPerfil()
         {
             return View(us.TraerPerfilDelUsuario((int)Session["ID"]));
         }
         [HttpPost]
-        public ActionResult ModificarPerfil(PerfilViewModel pvm)
+        public ActionResult ModificarPerfil(Usuarios pvm)
         {
             Usuarios usuarioBD = us.TraerPerfilDelUsuario((int)Session["ID"]);
             if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
