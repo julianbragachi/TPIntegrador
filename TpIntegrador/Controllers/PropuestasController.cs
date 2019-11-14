@@ -151,5 +151,19 @@ namespace TpIntegrador.Controllers
             ProposalService.Valorar(id, (int)Session["ID"], valor);
             return Redirect("/Home/Index");
         }
+
+        [CheckSession]
+        [HttpGet]
+        public ActionResult Busqueda()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Buscar()
+        {
+            List<Propuestas> resultado= ProposalService.Buscar();
+            return View(resultado);
+        }
     }
 }

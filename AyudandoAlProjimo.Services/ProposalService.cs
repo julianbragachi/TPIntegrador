@@ -238,5 +238,10 @@ namespace AyudandoAlProjimo.Services
             propuesta.Valoracion = (a/b) * 100;
             context.SaveChanges();
         }
+
+        public List<Propuestas> Buscar()
+        {
+
+        }
     }
 }
