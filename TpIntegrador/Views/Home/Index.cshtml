@@ -31,8 +31,26 @@
                             </p>
                         </div>
                         <div class="card-action">
-                            @Html.ActionLink("Ver Detalles","VerDetalles","Propuestas",new{ id=@propuesta.IdPropuesta},null)
+                            @Html.ActionLink("Ver Detalles", "VerDetalles", "Propuestas", new { id = @propuesta.IdPropuesta }, null)
                         </div>
+
+                        <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Like" } )" class="btn btn-primary">
+                            <i class="material-icons">
+                                thumb_up_alt
+                            </i>
+                            <span>
+                                <strong>Like</strong>
+                            </span>
+                        </a>
+
+                        <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Dislike" } )" class="btn btn-primary">
+                            <i class="material-icons">
+                                thumb_down_alt
+                            </i>
+                            <span>
+                                <strong>Dislike</strong>
+                            </span>
+                        </a>
                     </div>
                 </div>
             }
