@@ -108,6 +108,7 @@
     </Compile>
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
     <Compile Include="ViewModels\InsumosViewModel.cs" />
+    <Compile Include="ViewModels\PerfilViewModel.cs" />
     <Compile Include="ViewModels\PropuestaViewModel.cs" />
     <Compile Include="ViewModels\AgregarPropuestaBase.cs" />
     <Compile Include="ViewModels\AgregarPropuestaHoraTrabajoViewModel.cs" />

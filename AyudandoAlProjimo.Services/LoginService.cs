@@ -19,7 +19,7 @@ namespace AyudandoAlProjimo.Services
                         select u)
                         .FirstOrDefault();
 
-            if(user.Activo == true)
+            if(user != null && user.Activo == true)
             {
                 return user;
             }

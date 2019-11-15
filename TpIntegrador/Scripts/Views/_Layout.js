@@ -1,3 +1,3 @@
-﻿//$(document).ready(function () {
-//    alert("Estoy en layout");
-//});
+﻿$(document).ready(function () {
+    $('.datepicker').datepicker();
+});

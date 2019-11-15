@@ -139,6 +139,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngresarController.cs" />
+    <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\PropuestasController.cs" />
     <Compile Include="Filters\CheckSession.cs" />
@@ -189,18 +190,17 @@
     <Content Include="Views\User\ConfirmEmail.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuesta.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaMonetaria.cshtml" />
-    <Content Include="Views\User\ModificarPerfil.cshtml" />
     <Content Include="Views\Ingresar\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\UserPrueba\Index.cshtml" />
     <Content Include="Views\Admin\Complaints.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\User\VerPerfil.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaHoraTrabajo.cshtml" />
     <Content Include="Views\Propuestas\VerDetalles.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaInsumos.cshtml" />
     <Content Include="Views\Propuestas\Busqueda.cshtml" />
     <Content Include="Views\Propuestas\Buscar.cshtml" />
+    <Content Include="Views\Perfil\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">

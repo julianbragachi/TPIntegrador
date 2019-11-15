@@ -18,9 +18,10 @@ namespace AyudandoAlProjimo.Data.ViewModels
         //[StringLength(50, ErrorMessage = "Ingrese un apellido", MinimumLength = 1)]
         //public string Apellido { get; set; }
         [Required]
-        [CustomValidation(typeof(RegistroViewModel),"ValidarEdadCorrespondiente")]
+        [CustomValidation(typeof(RegistroViewModel), "ValidarEdadCorrespondiente")]
         [Display(Name = "Fecha de Nacimiento")]
         public DateTime FechaNacimiento { get; set; }
+
         [Required]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,50}$",
         ErrorMessage = "La contraseña debe tener por lo menos una mayúscula y un número.")]
@@ -28,15 +29,18 @@ namespace AyudandoAlProjimo.Data.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirme su contraseña")]
         [Compare("Password", ErrorMessage = "La contraseña no coincide con la anterior.")]
         public string ConfirmPassword { get; set; }
+
         [Required]
         [EmailAddress]
         [CustomValidation(typeof(RegistroViewModel), "ValidarEmailUnico")]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
+
         public static ValidationResult ValidarEmailUnico(object value, ValidationContext context)
         {
             if (!(context.ObjectInstance is RegistroViewModel usuario) || string.IsNullOrEmpty(usuario.Email))

@@ -8,6 +8,10 @@ body {
     min-height: 100vh;
 }
 
+.d-flex {
+    display: flex;
+}
+
 .row.no-margin {
     margin: 0 !important;
 }
@@ -16,8 +20,8 @@ m-2 {
     margin: 10px;
 }
 
-.margin-top-bottom-20 {
-    margin: 20px 0;
+.margin-top-bottom-50 {
+    margin: 50px 0;
 }
 
 .fixed-top-navbar {
@@ -53,4 +57,16 @@ m-2 {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+.avatar-my-profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.text-danger {
+    color: red;
+    font-weight: 500;
 }

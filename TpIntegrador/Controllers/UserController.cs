@@ -14,7 +14,6 @@ namespace TpIntegrador.Controllers
     public class UserController : Controller
     {
         private readonly RegisterService rs = new RegisterService();
-        private readonly UserService us = new UserService();
 
         [HttpGet]
         public ActionResult Register()
@@ -22,6 +21,7 @@ namespace TpIntegrador.Controllers
             RegistroViewModel rvm = new RegistroViewModel();
             return View(rvm);
         }
+
         [HttpPost]
         public ActionResult Register(RegistroViewModel rvm)
         {
@@ -29,54 +29,18 @@ namespace TpIntegrador.Controllers
             {
                 string link = Url.Action("ConfirmEmail", "User", null, Request.Url.Scheme);
                 rs.Registrar(rvm, link);
+
                 return Redirect("/Home/Index");
             }
+
             return View(rvm);
         }
+
         [HttpGet]
         public ActionResult ConfirmEmail(string token)
         {
             ViewBag.Mensaje = rs.ActivarUsuario(token);
             return View();
-        }
-        [CheckUser]
-        [HttpGet]
-        public ActionResult VerPerfil()
-        {
-            return View(us.TraerPerfilDelUsuario((int)Session["ID"]));
-        }
-        [CheckUser]
-        [HttpGet]
-        public ActionResult ModificarPerfil()
-        {
-            return View(us.TraerPerfilDelUsuario((int)Session["ID"]));
-        }
-        [HttpPost]
-        public ActionResult ModificarPerfil(Usuarios pvm)
-        {
-            Usuarios usuarioBD = us.TraerPerfilDelUsuario((int)Session["ID"]);
-            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
-            {
-                //TODO: Agregar validacion para confirmar que el archivo es una imagen
-                if (!string.IsNullOrEmpty(pvm.Foto))
-                {
-                    //recordar eliminar la foto anterior si tenia
-                    if (!string.IsNullOrEmpty(usuarioBD.Foto))
-                    {
-                        ImagenesUtility.Borrar(usuarioBD.Foto);
-                    }
-
-                    //creo un nombre significativo en este caso apellidonombre pero solo un caracter del nombre, ejemplo BatistutaG
-                    string nombreSignificativo = pvm.Nombre + pvm.Apellido;
-                    //Guardar Imagen
-                    string pathRelativoImagen = ImagenesUtility.Guardar(Request.Files[0], nombreSignificativo);
-                    usuarioBD.Foto = pathRelativoImagen;
-                }
-            }
-            usuarioBD.Nombre = pvm.Nombre;
-            usuarioBD.Apellido = pvm.Apellido;
-            us.ActualizarPerfilDelUsuario(usuarioBD);
-            return Redirect("/Home/Index");
         }
     }
 }
