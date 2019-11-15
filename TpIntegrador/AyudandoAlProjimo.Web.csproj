@@ -176,6 +176,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="fonts\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\MiPerfil\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\WCManoNegraBta.otf" />
@@ -198,6 +199,8 @@
     <Content Include="Views\Propuestas\AgregarPropuestaHoraTrabajo.cshtml" />
     <Content Include="Views\Propuestas\VerDetalles.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaInsumos.cshtml" />
+    <Content Include="Views\Propuestas\Busqueda.cshtml" />
+    <Content Include="Views\Propuestas\Buscar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">

@@ -99,12 +99,12 @@ namespace AyudandoAlProjimo.Services
             return lista;
         }
 
-        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string texto)
+        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
         {
-            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(texto)).ToList();
+            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
-            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != 1 && 
-                (p.Nombre.Contains(texto) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
+            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id && 
+                (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
@@ -193,5 +193,60 @@ namespace AyudandoAlProjimo.Services
 
             return p;
         }
+
+        public void Valorar(int id, int idUser, string valor)
+        {
+            var result =context.PropuestasValoraciones.Where(p => p.IdPropuesta == id)
+                                .Where(p => p.IdUsuario == idUser).FirstOrDefault();
+
+            if (result == null)
+            {
+                PropuestasValoraciones valoracion = new PropuestasValoraciones();
+                valoracion.IdPropuesta = id;
+                valoracion.IdUsuario = idUser;
+                if (valor == "Like")
+                {
+                    valoracion.Valoracion = true;  
+                }
+                else if(valor == "Dislike")
+                {
+                    valoracion.Valoracion = false;
+                }
+                else
+                {
+                    return;
+                }
+                context.PropuestasValoraciones.Add(valoracion);
+            }
+            else
+            {
+                if(valor == "Like")
+                {
+                    result.Valoracion = true;
+                }
+                else if (valor == "Dislike")
+                {
+                    result.Valoracion = false;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            context.SaveChanges();
+            CalcularValoracion(id);
+        }
+
+        private void CalcularValoracion(int id)
+        {
+            Propuestas propuesta = context.Propuestas.Where(p => p.IdPropuesta == id).FirstOrDefault();
+            int a = context.PropuestasValoraciones
+                        .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
+            int b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
+            
+            propuesta.Valoracion = (a/b) * 100;
+            context.SaveChanges();
+        }
+
     }
 }

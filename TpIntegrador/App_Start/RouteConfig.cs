@@ -18,6 +18,12 @@ namespace TpIntegrador
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "DosParametros",
+                url: "{controller}/{action}/{id}/{string}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, valor = UrlParameter.Optional }
+            );
         }
     }
 }

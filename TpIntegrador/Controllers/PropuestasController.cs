@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AyudandoAlProjimo.Data;
 using AyudandoAlProjimo.Data.ViewModels;
 using AyudandoAlProjimo.Services;
+using TpIntegrador.Filters;
 
 namespace TpIntegrador.Controllers
 {
@@ -139,6 +140,32 @@ namespace TpIntegrador.Controllers
         private bool isValidUserSession()
         {
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;
+        }
+
+        [CheckSession]
+        //Falta modificar para que rediriga al boton Megusta 
+        //si no esta logeado al apretar el boton
+        [HttpGet]
+        public ActionResult Valoracion(int id, string valor)
+        {
+            ProposalService.Valorar(id, (int)Session["ID"], valor);
+            return Redirect("/Home/Index");
+        }
+
+        [CheckSession]
+        [HttpGet]
+        public ActionResult Busqueda()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Buscar()
+        {
+            int id = int.Parse(Request["id"]);
+            string busqueda = Request["Busqueda"];
+            List<Propuestas> resultado= ProposalService.BusquedaPropuestasAjenasPorParametro(busqueda, id);
+            return View(resultado);
         }
     }
 }
