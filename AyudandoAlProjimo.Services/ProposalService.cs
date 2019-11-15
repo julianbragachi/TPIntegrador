@@ -90,12 +90,12 @@ namespace AyudandoAlProjimo.Services
                 .ToList();
             return lista;
         }
-        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string texto)
+        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
         {
-            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(texto)).ToList();
+            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
-            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != 1 && 
-                (p.Nombre.Contains(texto) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
+            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id && 
+                (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
@@ -215,7 +215,7 @@ namespace AyudandoAlProjimo.Services
                 {
                     result.Valoracion = true;
                 }
-                else if (valor == "false")
+                else if (valor == "Dislike")
                 {
                     result.Valoracion = false;
                 }
@@ -239,9 +239,5 @@ namespace AyudandoAlProjimo.Services
             context.SaveChanges();
         }
 
-        public List<Propuestas> Buscar()
-        {
-
-        }
     }
 }

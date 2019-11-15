@@ -162,7 +162,9 @@ namespace TpIntegrador.Controllers
         [HttpGet]
         public ActionResult Buscar()
         {
-            List<Propuestas> resultado= ProposalService.Buscar();
+            int id = int.Parse(Request["id"]);
+            string busqueda = Request["Busqueda"];
+            List<Propuestas> resultado= ProposalService.BusquedaPropuestasAjenasPorParametro(busqueda, id);
             return View(resultado);
         }
     }
