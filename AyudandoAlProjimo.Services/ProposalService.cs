@@ -66,14 +66,21 @@ namespace AyudandoAlProjimo.Services
             return AgregarPropuesta(p);
         }
 
+        public List<Propuestas> ObtenerCincoPropuestasMasValoradas()
+        {
+            return context.Propuestas.OrderByDescending(x => x.Valoracion).Take(5).ToList();
+        }
+
         public List<Propuestas> BusquedaMisPropuestas(int id)
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == id).ToList();
         }
+
         public List<Propuestas> BusquedaMisPropuestasActivas(int id)
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == id && p.Estado == 1).ToList();
         }
+
         public List<Propuestas> BusquedaPropuestasAjenas(int id)
         {
             List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id)
@@ -82,6 +89,7 @@ namespace AyudandoAlProjimo.Services
                 .ToList();
             return lista;
         }
+
         public List<Propuestas> BusquedaPropuestasAjenas()
         {
             List<Propuestas> lista = context.Propuestas
@@ -90,6 +98,7 @@ namespace AyudandoAlProjimo.Services
                 .ToList();
             return lista;
         }
+
         public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
         {
             List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda)).ToList();
