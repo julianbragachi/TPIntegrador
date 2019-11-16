@@ -12,14 +12,7 @@
             <div class="card-content">
                 <div class="row d-flex">
                     <div class="col s4 avatar-my-profile-container">
-                        @*@if (!string.IsNullOrEmpty(Model.Foto))
-                        {
-                            <img src="@Model.Foto" height="250" class="img-responsive" alt="@Model.Nombre @Model.Apellido" /><br />
-                        }
-                        else*@
-         @*               {*@
-                            <img src="@(string.IsNullOrEmpty(Model.Foto) ? "https://www.w3schools.com/howto/img_avatar.png" : Model.Foto)" style="border-radius: 50%; max-width: 80%; margin-bottom: 20px;" />
-           @*             }*@
+                        <img src="@(string.IsNullOrEmpty(Model.Foto) ? "https://www.w3schools.com/howto/img_avatar.png" : Model.Foto)" style="border-radius: 50%; max-width: 80%; margin-bottom: 20px;" />
                         <div>
                             <input type="file" name="Foto" accept="image/*" />
                             <p>

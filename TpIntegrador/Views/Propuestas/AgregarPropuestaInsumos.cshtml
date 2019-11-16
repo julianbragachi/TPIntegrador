@@ -4,7 +4,7 @@
     ViewBag.Title = "Nueva propuesta";
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("AgregarPropuestaInsumos", "Propuestas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container">
         @if (ViewBag.Error != null)
@@ -54,13 +54,6 @@
                         @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">add_photo_alternate</i>
-                        @Html.EditorFor(x => x.Foto, new { htmlAttributes = new { @class = "validate", @id = "photo", @required = true } })
-                        <label for="photo">Foto (link)</label>
-                        @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
-                    </div>
-
                     <div class="col s12">
                         <p>Insumos:</p>
                     </div>
@@ -103,12 +96,17 @@
                         </div>
 
                         <div class="input-field col s6">
-                            <i class="material-icons prefix">add_photo_alternate</i>
+                            <i class="material-icons prefix">phone</i>
                             @Html.EditorFor(x => x.Referencias[i].Telefono, new { htmlAttributes = new { @class = "validate", @id = "photo", @required = true } })
                             <label for="photo">Telefono del referente</label>
                             @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
                         </div>
                     }
+
+                    <input type="file" name="Foto" accept="image/*" />
+                    <p>
+                        @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                    </p>
 
                 </div>
 

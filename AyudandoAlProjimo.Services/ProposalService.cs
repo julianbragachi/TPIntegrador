@@ -20,7 +20,8 @@ namespace AyudandoAlProjimo.Services
 
             Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
-            pm.Insumos.ForEach(x => {
+            pm.Insumos.ForEach(x =>
+            {
                 PropuestasDonacionesInsumos pdi = new PropuestasDonacionesInsumos();
 
                 pdi.Cantidad = x.Cantidad;
@@ -68,7 +69,7 @@ namespace AyudandoAlProjimo.Services
 
         public List<Propuestas> ObtenerCincoPropuestasMasValoradas()
         {
-            return context.Propuestas.OrderByDescending(x => x.Valoracion).Take(5).ToList();
+            return context.Propuestas.Where(x => x.Estado == 1).OrderByDescending(x => x.Valoracion).Take(5).ToList();
         }
 
         public List<Propuestas> BusquedaMisPropuestas(int id)
@@ -103,7 +104,7 @@ namespace AyudandoAlProjimo.Services
         {
             List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
-            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id && 
+            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
                 (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
@@ -162,7 +163,7 @@ namespace AyudandoAlProjimo.Services
 
             var hasLessThan3ProposalActives = BusquedaMisPropuestasActivas(u.IdUsuario).Count < 3;
 
-            if(!hasLessThan3ProposalActives)
+            if (!hasLessThan3ProposalActives)
             {
                 return ErrorCodeAddProposalEnum.InvalidProposalCount;
             }
@@ -190,13 +191,14 @@ namespace AyudandoAlProjimo.Services
             p.Foto = pm.Foto;
             p.IdUsuarioCreador = idUsuario;
             p.Valoracion = 0;
+            p.Estado = 1;
 
             return p;
         }
 
         public void Valorar(int id, int idUser, string valor)
         {
-            var result =context.PropuestasValoraciones.Where(p => p.IdPropuesta == id)
+            var result = context.PropuestasValoraciones.Where(p => p.IdPropuesta == id)
                                 .Where(p => p.IdUsuario == idUser).FirstOrDefault();
 
             if (result == null)
@@ -206,9 +208,9 @@ namespace AyudandoAlProjimo.Services
                 valoracion.IdUsuario = idUser;
                 if (valor == "Like")
                 {
-                    valoracion.Valoracion = true;  
+                    valoracion.Valoracion = true;
                 }
-                else if(valor == "Dislike")
+                else if (valor == "Dislike")
                 {
                     valoracion.Valoracion = false;
                 }
@@ -220,7 +222,7 @@ namespace AyudandoAlProjimo.Services
             }
             else
             {
-                if(valor == "Like")
+                if (valor == "Like")
                 {
                     result.Valoracion = true;
                 }
@@ -243,8 +245,8 @@ namespace AyudandoAlProjimo.Services
             int a = context.PropuestasValoraciones
                         .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
             int b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
-            
-            propuesta.Valoracion = (a/b) * 100;
+
+            propuesta.Valoracion = (a / b) * 100;
             context.SaveChanges();
         }
 
