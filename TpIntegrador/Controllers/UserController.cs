@@ -49,7 +49,7 @@ namespace TpIntegrador.Controllers
         public ActionResult Home()
         {
             int idUsar= Convert.ToInt32(Session["ID"]);
-            return View(ProposalService.BusquedaPropuestasAjenas(idUsar));
+            return View(ProposalService.BusquedaMisPropuestasActivas(idUsar));
         }
     }
 }
