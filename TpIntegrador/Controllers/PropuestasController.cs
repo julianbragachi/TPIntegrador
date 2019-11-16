@@ -167,12 +167,12 @@ namespace TpIntegrador.Controllers
             return Redirect("/Home/Index");
         }
 
-        [CheckSession]
-        [HttpGet]
-        public ActionResult Busqueda()
-        {
-            return View();
-        }
+        //[CheckSession]
+        //[HttpGet]
+        //public ActionResult Busqueda()
+        //{
+        //    return View();
+        //}
 
         [HttpGet]
         public ActionResult Buscar()

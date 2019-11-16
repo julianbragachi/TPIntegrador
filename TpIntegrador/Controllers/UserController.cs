@@ -14,6 +14,7 @@ namespace TpIntegrador.Controllers
     public class UserController : Controller
     {
         private readonly RegisterService rs = new RegisterService();
+        private ProposalService ProposalService = new ProposalService();
 
         [HttpGet]
         public ActionResult Register()
@@ -41,6 +42,14 @@ namespace TpIntegrador.Controllers
         {
             ViewBag.Mensaje = rs.ActivarUsuario(token);
             return View();
+        }
+
+        [CheckSession]
+        [HttpGet]
+        public ActionResult Home()
+        {
+            int idUsar= Convert.ToInt32(Session["ID"]);
+            return View(ProposalService.BusquedaPropuestasAjenas(idUsar));
         }
     }
 }

@@ -200,6 +200,7 @@
     <Content Include="Views\Propuestas\Busqueda.cshtml" />
     <Content Include="Views\Propuestas\Buscar.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
+    <Content Include="Views\User\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AyudandoAlProjimo.Data\AyudandoAlProjimo.Data.csproj">
