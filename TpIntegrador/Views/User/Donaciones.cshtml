@@ -1,0 +1,64 @@
+﻿@model List<AyudandoAlProjimo.Data.ViewModels.DonacionesViewModel>
+@{
+    Layout = Session["ID"] == null ? "~/Views/Shared/AnonimoLayout.cshtml" : "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "User Home";
+}
+
+
+<h2>Donaciones</h2>
+
+<table>
+    <tr>
+        <th>Fecha Donación</th>
+        <th>Nombre</th>
+        <th>Tipo De Donacion</th>
+        <th>Estado</th>
+        <th>Total Recaudado</th>
+        <th>Mi Donación</th>
+        <th>Detalle Propuesta</th>
+    </tr>
+    @foreach (var donacion in @Model)
+    {
+        switch (donacion.tipo)
+        {
+            case "insumo":
+                <tr>
+                    <td>-</td>
+                    <td>@donacion.donacionesInsumos.PropuestasDonacionesInsumos.Propuestas.Nombre</td>
+                    <td>@donacion.donacionesInsumos.PropuestasDonacionesInsumos.Nombre</td>
+                    <td>Insumo</td>
+                    <td>@donacion.donacionesInsumos.PropuestasDonacionesInsumos.Propuestas.Estado</td>
+                    <td>@donacion.total @donacion.donacionesInsumos.PropuestasDonacionesInsumos.Nombre</td>
+                    <td>@donacion.donacionesInsumos.PropuestasDonacionesInsumos.Cantidad</td>
+                </tr>
+                break;
+
+            case "monetario":
+                <tr>
+                    <td>@donacion.donacionesMonetarias.FechaCreacion</td>
+                    <td>@donacion.donacionesMonetarias.PropuestasDonacionesMonetarias.Propuestas.Nombre</td>
+                    <td>Monetario</td>
+                    <td>@donacion.donacionesMonetarias.PropuestasDonacionesMonetarias.Propuestas.Estado</td>
+                    <td>@donacion.total $</td>
+                    <td>@donacion.donacionesMonetarias.Dinero</td>
+                </tr>
+                break;
+
+            case "horastrabajo":
+                <tr>
+                    <td>-</td>
+                    <td>@donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Nombre</td>
+                    <td>@donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Profesion</td>
+                    <td>Horas Trabajo</td>
+                    <td>@donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Estado</td>
+                    <td>@donacion.total Horas</td>
+                    <td>@donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.CantidadHoras</td>
+                </tr>
+                break;
+
+            default:
+                break;
+        }
+    }
+</table>
+
