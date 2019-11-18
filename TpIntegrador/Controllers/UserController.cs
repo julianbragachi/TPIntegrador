@@ -15,6 +15,7 @@ namespace TpIntegrador.Controllers
     {
         private readonly RegisterService rs = new RegisterService();
         private ProposalService ProposalService = new ProposalService();
+        private UserService userService = new UserService();
 
         [HttpGet]
         public ActionResult Register()
@@ -51,5 +52,13 @@ namespace TpIntegrador.Controllers
             int idUsar= Convert.ToInt32(Session["ID"]);
             return View(ProposalService.BusquedaMisPropuestasActivas(idUsar));
         }
+
+        [CheckSession]
+        public ActionResult Donaciones()
+        {
+            int idUser = Convert.ToInt32(Session["ID"]); 
+            return View(userService.BuscarDonaciones(idUser));
+        }
+
     }
 }
