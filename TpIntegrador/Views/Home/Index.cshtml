@@ -29,27 +29,26 @@
                                 @propuesta.Descripcion
                             </p>
                         </div>
-                        <div class="card-action">
-                            @Html.ActionLink("Ver Detalles", "VerDetalles", "Propuestas", new { id = @propuesta.IdPropuesta }, null)
+                        <div class="card-action d-flex" style="justify-content: space-between">
+                            <div>
+                                @Html.ActionLink("Ver Detalles", "VerDetalles", "Propuestas", new { id = @propuesta.IdPropuesta }, null)
+                            </div>
+                            <div>
+                                <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Like" } )">
+                                    <i class="tiny material-icons">
+                                        thumb_up_alt
+                                    </i>
+                                    Me gusta
+                                </a>
+
+                                <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Dislike" } )">
+                                    <i class="tiny material-icons">
+                                        thumb_down_alt
+                                    </i>
+                                    No me gusta
+                                </a>
+                            </div>
                         </div>
-
-                        <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Like" } )" class="btn btn-primary">
-                            <i class="material-icons">
-                                thumb_up_alt
-                            </i>
-                            <span>
-                                <strong>Like</strong>
-                            </span>
-                        </a>
-
-                        <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Dislike" } )" class="btn btn-primary">
-                            <i class="material-icons">
-                                thumb_down_alt
-                            </i>
-                            <span>
-                                <strong>Dislike</strong>
-                            </span>
-                        </a>
                     </div>
                 </div>
             }
@@ -81,8 +80,25 @@
                                     @propuesta.Descripcion
                                 </p>
                             </div>
-                            <div class="card-action">
-                                @Html.ActionLink("Ver Detalles", "VerDetalles", "Propuestas", new { id = @propuesta.IdPropuesta }, null)
+                            <div class="card-action d-flex" style="justify-content: space-between">
+                                <div>
+                                    @Html.ActionLink("Ver Detalles", "VerDetalles", "Propuestas", new { id = @propuesta.IdPropuesta }, null)
+                                </div>
+                                <div>
+                                    <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Like" } )">
+                                        <i class="tiny material-icons">
+                                            thumb_up_alt
+                                        </i>
+                                        Me gusta
+                                    </a>
+
+                                    <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Dislike" } )">
+                                        <i class="tiny material-icons">
+                                            thumb_down_alt
+                                        </i>
+                                        No me gusta
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
