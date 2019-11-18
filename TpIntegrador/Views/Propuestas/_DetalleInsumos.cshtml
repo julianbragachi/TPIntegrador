@@ -1,0 +1,31 @@
+﻿
+
+@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
+
+<table>
+    <thead>
+        <tr>
+            <th>Insumo</th>
+            <th>Objetivo</th>
+            <th>Recaudado</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var d in Model.Propuesta.PropuestasDonacionesInsumos)
+        {
+        <tr>
+            <td>@d.Nombre</td>
+            <td>@d.Cantidad</td>
+            <td>@d.DonacionesInsumos.Sum(x => x.Cantidad)</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<ul class="tabla-objetivos">
+    <li>
+        <p><strong>@(Math.Round((Model.Propuesta.FechaFin - DateTime.Now).TotalDays))</strong></p>
+        <span class="info-text">Días restantes</span>
+    </li>
+</ul>

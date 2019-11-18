@@ -22,7 +22,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
         public string TelefonoContacto { get; set; }
 
         [Required]
-        public int TipoDonacion { get; set; }
+        public TipoPropuestaEnum TipoDonacion { get; set; }
 
         [Required]
         public string Foto { get; set; }

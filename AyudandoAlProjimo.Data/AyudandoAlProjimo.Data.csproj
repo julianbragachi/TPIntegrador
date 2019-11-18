@@ -85,6 +85,7 @@
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoPropuestaEnum.cs" />
     <Compile Include="Propuestas.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>

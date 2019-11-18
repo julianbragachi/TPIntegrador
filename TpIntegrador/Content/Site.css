@@ -3,6 +3,10 @@
     src: url("WCManoNegraBta.otf") format("opentype")
 }
 
+strong {
+    font-weight: bold;
+}
+
 body {
     position: relative;
     min-height: 100vh;
@@ -23,6 +27,10 @@ m-2 {
 
 .margin-top-bottom-50 {
     margin: 50px 0;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
 }
 
 .fixed-top-navbar {
@@ -70,4 +78,51 @@ m-2 {
 .text-danger {
     color: red;
     font-weight: 500;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald',Helvetica,Arial,Lucida,sans-serif;
+}
+
+    h2.no-margin {
+        margin: 0;
+    }
+
+.title-propuesta {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 5px;
+}
+
+.title-autor-propuesta {
+    color: #737373;
+    font-size: 18px;
+    margin-bottom: 15px !important;
+    font-family: oswald;
+}
+
+.title-recaudado {
+    margin-top: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    color: #696969;
+}
+
+.tabla-objetivos {
+    padding: 0;
+    margin: 0;
+    margin-top: 20px;
+    list-style: none;
+    font-size: 16px;
+    font-family: rubik,sans-serif;
+    color: #696969; 
+}
+
+    .tabla-objetivos li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+.info-text {
+    font-size: 12px;
 }

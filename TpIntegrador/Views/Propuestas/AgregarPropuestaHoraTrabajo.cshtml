@@ -54,13 +54,6 @@
                         @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
                     </div>
 
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">add_photo_alternate</i>
-                        @Html.EditorFor(x => x.Foto, new { htmlAttributes = new { @class = "validate", @id = "photo", @required = true } })
-                        <label for="photo">Foto (link)</label>
-                        @Html.ValidationMessageFor(x => x.TelefonoContacto, "", new { @class = "text-danger" })
-                    </div>
-
                     <div class="input-field col s6">
                         <i class="material-icons prefix">timer</i>
                         @Html.EditorFor(x => x.CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "hourstime" } })

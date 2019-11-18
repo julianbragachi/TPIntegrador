@@ -1,0 +1,21 @@
+﻿
+@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
+
+<ul class="tabla-objetivos">
+    <li>
+        <p><strong>@Model.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras</strong></p>
+        <span class="info-text">Objetivo (Horas)</span>
+    </li>
+    <li>
+        <p><strong>@Model.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion</strong></p>
+        <span class="info-text">Profesion sugerida</span>
+    </li>
+    <li>
+        <p><strong>@Model.DonacionesHorasTrabajo.Sum(x => x.Cantidad)</strong></p>
+        <span class="info-text">Recaudado (Horas)</span>
+    </li>
+    <li>
+        <p><strong>@(Math.Round((Model.Propuesta.FechaFin - DateTime.Now).TotalDays))</strong></p>
+        <span class="info-text">Días restantes</span>
+    </li>
+</ul>
