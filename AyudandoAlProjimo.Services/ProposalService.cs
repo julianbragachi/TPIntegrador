@@ -215,7 +215,7 @@ namespace AyudandoAlProjimo.Services
                 {
                     result.Valoracion = true;
                 }
-                else if (valor == "false")
+                else if (valor == "Dislike")
                 {
                     result.Valoracion = false;
                 }

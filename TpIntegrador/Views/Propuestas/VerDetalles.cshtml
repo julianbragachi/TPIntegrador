@@ -5,10 +5,13 @@
 }
 
 <h2>VerDetalles</h2>
-
+@if (TempData["Mensaje"] != null)
+{
+    <div>
+        <h3>@TempData["Mensaje"]</h3>
+    </div>
+}
 <div>
-    <h4>PropuestaViewModel</h4>
-    <hr />
     <dl class="dl-horizontal">
     </dl>
 </div>
@@ -20,5 +23,6 @@
     {
         @donacion.Usuarios.Nombre
     }
+    @Html.ActionLink("Denunciar", "Denunciar", "User", new { id = @Model.Propuesta.IdPropuesta }, null)
     @Html.ActionLink("Back to List", "Index")
 </p>
