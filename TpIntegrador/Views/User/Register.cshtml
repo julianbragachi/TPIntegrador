@@ -12,6 +12,7 @@
                 <div class="row no-margin">
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "validate", @required = true } })

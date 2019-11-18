@@ -6,40 +6,32 @@ using System.Web.Mvc;
 using TpIntegrador.Filters;
 using AyudandoAlProjimo.Services;
 using AyudandoAlProjimo.Data;
+using AyudandoAlProjimo.Data.ViewModels;
 
 namespace TpIntegrador.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         private readonly ProposalService ps = new ProposalService();
         public ActionResult Index()
         {
-            if (HttpContext.Session["ID"] != null)
-            {
-                List<Propuestas> lista = ps.BusquedaPropuestasAjenas((int)HttpContext.Session["ID"]);
-                return View(lista);
-            }
-            else
-            {
-                List<Propuestas> lista = ps.BusquedaPropuestasAjenas();
-                return View(lista);
-            }
-        }
-        
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+            HomeIndexViewModel model = new HomeIndexViewModel();
+            model.IsLoggedIn = Session["ID"] != null;
+            model.MasValoradas = ps.ObtenerCincoPropuestasMasValoradas();
+            model.OnlyActiveProposals = Convert.ToBoolean(Request.QueryString.Get("onlyActive"));
 
-            return View();
-        }
-        
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            if (model.IsLoggedIn)
+            {
+                model.MisPropuestas = model.OnlyActiveProposals ?
+                    ps.BusquedaMisPropuestasActivas((int)Session["ID"]) :
+                    ps.BusquedaMisPropuestas((int)Session["ID"]);
+            }
 
-            return View();
+
+            return View(model);
         }
+
         public ActionResult Error(int error = 0)
         {
             switch (error)

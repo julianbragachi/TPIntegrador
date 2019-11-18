@@ -4,10 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AyudandoAlProjimo.Data.ViewModels;
-using AyudandoAlProjimo.Services;
 using AyudandoAlProjimo.Data;
 using TpIntegrador.Utilities;
 using TpIntegrador.Filters;
+using AyudandoAlProjimo.Services;
 
 namespace TpIntegrador.Controllers
 {
@@ -16,6 +16,8 @@ namespace TpIntegrador.Controllers
         private readonly RegisterService rs = new RegisterService();
         private readonly UserService us = new UserService();
         private readonly ProposalService ps = new ProposalService();
+        private ProposalService ProposalService = new ProposalService();
+        private UserService userService = new UserService();
 
         [HttpGet]
         public ActionResult Register()
@@ -23,6 +25,7 @@ namespace TpIntegrador.Controllers
             RegistroViewModel rvm = new RegistroViewModel();
             return View(rvm);
         }
+
         [HttpPost]
         public ActionResult Register(RegistroViewModel rvm)
         {
@@ -30,43 +33,34 @@ namespace TpIntegrador.Controllers
             {
                 string link = Url.Action("ConfirmEmail", "User", null, Request.Url.Scheme);
                 rs.Registrar(rvm, link);
+
                 return Redirect("/Home/Index");
             }
+
             return View(rvm);
         }
+
         [HttpGet]
         public ActionResult ConfirmEmail(string token)
         {
             ViewBag.Mensaje = rs.ActivarUsuario(token);
             return View();
         }
-        [CheckUser]
-        [HttpGet]
-        public ActionResult VerPerfil()
-        {
-            return View(us.TraerPerfilDelUsuario((int)Session["ID"]));
-        }
-        [CheckUser]
-        [HttpGet]
-        public ActionResult ModificarPerfil()
-        {
-            return View(us.TraerPerfilDelUsuario((int)Session["ID"]));
-        }
-        [HttpPost]
-        public ActionResult ModificarPerfil(Usuarios pvm)
-        {
-            Usuarios usuarioBD = us.TraerPerfilDelUsuario((int)Session["ID"]);
-            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
-            {
-                //TODO: Agregar validacion para confirmar que el archivo es una imagen
-                if (!string.IsNullOrEmpty(pvm.Foto))
-                {
-                    //recordar eliminar la foto anterior si tenia
-                    if (!string.IsNullOrEmpty(usuarioBD.Foto))
-                    {
-                        ImagenesUtility.Borrar(usuarioBD.Foto);
-                    }
 
+        [CheckSession]
+        [HttpGet]
+        public ActionResult Home()
+        {
+            int idUsar= Convert.ToInt32(Session["ID"]);
+            return View(ProposalService.BusquedaMisPropuestasActivas(idUsar));
+        }
+
+        [CheckSession]
+        public ActionResult Donaciones()
+        {
+            int idUser = Convert.ToInt32(Session["ID"]); 
+            return View(userService.BuscarDonaciones(idUser));
+        }
                     //creo un nombre significativo en este caso apellidonombre pero solo un caracter del nombre, ejemplo BatistutaG
                     string nombreSignificativo = pvm.Nombre + pvm.Apellido;
                     //Guardar Imagen

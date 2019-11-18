@@ -1,0 +1,49 @@
+﻿@model List<AyudandoAlProjimo.Data.Propuestas>
+@{
+    Layout = Session["ID"] == null ? "~/Views/Shared/AnonimoLayout.cshtml" : "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "User Home";
+}
+
+@{
+
+    int idUser = (int)Session["ID"];
+}
+
+<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
+<h2>Buscar</h2>
+
+<div class="row">
+    <form class="col s12" action="@Url.Action("Buscar", "Propuestas")" method="get">
+        <div class="row">
+
+            <input type="hidden" value="@idUser" name="id" />
+
+            <div class="input-field col s6">
+                <input placeholder="Ingrese su busqueda" name="Busqueda" type="text" class="validate">
+            </div>
+
+            <div class="input-field col s6">
+                <input type="submit" class="waves-effect waves-light btn">
+            </div>
+        </div>
+    </form>
+</div>
+
+<h2>Propuestas de los demas</h2>
+
+<table>
+    <tr>
+        <th> columna 1</th>
+        <th> columna 1</th>
+        <th> columna 1</th>
+    </tr>
+    @foreach (var propuesta in @Model)
+    {
+        <tr>
+            <th> @propuesta.FechaCreacion</th>
+            <th> @propuesta.Descripcion</th>
+            <th> @propuesta.Usuarios.Nombre</th>
+        </tr>
+    }
+</table>

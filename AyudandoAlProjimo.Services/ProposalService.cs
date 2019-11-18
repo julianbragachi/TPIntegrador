@@ -15,12 +15,12 @@ namespace AyudandoAlProjimo.Services
 
         public int AgregarPropuestaInsumos(AgregarPropuestaInsumosViewModel pm, Usuarios user)
         {
-            //Tipo 1 para insumos
-            pm.TipoDonacion = 1;
+            pm.TipoDonacion = TipoPropuestaEnum.Insumos;
 
             Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
-            pm.Insumos.ForEach(x => {
+            pm.Insumos.ForEach(x =>
+            {
                 PropuestasDonacionesInsumos pdi = new PropuestasDonacionesInsumos();
 
                 pdi.Cantidad = x.Cantidad;
@@ -35,8 +35,7 @@ namespace AyudandoAlProjimo.Services
 
         public int AgregarPropuestaMonetaria(AgregarPropuestaMonetariaViewModel pm, Usuarios user)
         {
-            //Tipo 3 para monetarias
-            pm.TipoDonacion = 3;
+            pm.TipoDonacion = TipoPropuestaEnum.Monetaria;
 
             Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
@@ -52,8 +51,8 @@ namespace AyudandoAlProjimo.Services
 
         public int AgregarPropuestaHoraTrabajo(AgregarPropuestaHoraTrabajoViewModel pm, Usuarios user)
         {
-            //Tipo 2 para horas de trabajo
-            pm.TipoDonacion = 2;
+            pm.TipoDonacion = TipoPropuestaEnum.HorasTrabajo;
+
             Propuestas p = MapDTOToEntities(pm, user.IdUsuario);
 
             PropuestasDonacionesHorasTrabajo pht = new PropuestasDonacionesHorasTrabajo();
@@ -66,14 +65,21 @@ namespace AyudandoAlProjimo.Services
             return AgregarPropuesta(p);
         }
 
+        public List<Propuestas> ObtenerCincoPropuestasMasValoradas()
+        {
+            return context.Propuestas.Where(x => x.Estado == 1).OrderByDescending(x => x.Valoracion).Take(5).ToList();
+        }
+
         public List<Propuestas> BusquedaMisPropuestas(int id)
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == id).ToList();
         }
+
         public List<Propuestas> BusquedaMisPropuestasActivas(int id)
         {
             return context.Propuestas.Where(p => p.IdUsuarioCreador == id && p.Estado == 1).ToList();
         }
+
         public List<Propuestas> BusquedaPropuestasAjenas(int id)
         {
             List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id)
@@ -82,6 +88,7 @@ namespace AyudandoAlProjimo.Services
                 .ToList();
             return lista;
         }
+
         public List<Propuestas> BusquedaPropuestasAjenas()
         {
             List<Propuestas> lista = context.Propuestas
@@ -90,12 +97,13 @@ namespace AyudandoAlProjimo.Services
                 .ToList();
             return lista;
         }
-        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string texto)
+
+        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
         {
-            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(texto)).ToList();
+            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
-            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != 1 && 
-                (p.Nombre.Contains(texto) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
+            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
+                (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
@@ -107,32 +115,47 @@ namespace AyudandoAlProjimo.Services
             try
             {
                 Propuestas propuesta = context.Propuestas.Where(p => p.IdPropuesta == id).Single();
+                Usuarios usuarioCreador = UserService.TraerPerfilDelUsuario(propuesta.IdUsuarioCreador);
                 PropuestaViewModel pvm = new PropuestaViewModel
                 {
                     Propuesta = propuesta,
+                    UsuarioCreador = usuarioCreador,
                 };
+
                 switch (propuesta.TipoDonacion)
                 {
-                    case 1:
+                    case (int)TipoPropuestaEnum.HorasTrabajo:
                         PropuestasDonacionesHorasTrabajo propuestadht = context.PropuestasDonacionesHorasTrabajo.
                             Where(pdht => pdht.IdPropuesta == propuesta.IdPropuesta).Single();
                         pvm.DonacionesHorasTrabajo = context.DonacionesHorasTrabajo
                             .Include("Usuarios")
                             .Where(p => p.IdPropuestaDonacionHorasTrabajo == propuestadht.IdPropuesta).ToList();
+
+                        pvm.PorcentajeRealizacion = (pvm.DonacionesHorasTrabajo.Sum(x => x.Cantidad) * 100) / propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras;
+
                         return pvm;
-                    case 2:
-                        PropuestasDonacionesInsumos propuestai = context.PropuestasDonacionesInsumos.
-                            Where(pdi => pdi.IdPropuesta == propuesta.IdPropuesta).Single();
-                        pvm.DonacionesInsumos = context.DonacionesInsumos
-                            .Where(p => p.IdPropuestaDonacionInsumo == propuestai.IdPropuesta).ToList();
+                    case (int)TipoPropuestaEnum.Insumos:
+                        int cantidadTotalDeInsumos = propuesta.PropuestasDonacionesInsumos.Sum(x => x.Cantidad);
+                        int cantidadTotalDeDonaciones = 0;
+
+                        foreach (var p in propuesta.PropuestasDonacionesInsumos)
+                            cantidadTotalDeDonaciones += p.DonacionesInsumos.Sum(x => x.Cantidad);
+                        
+
+                        pvm.PorcentajeRealizacion = (cantidadTotalDeDonaciones * 100) / cantidadTotalDeInsumos;
+
                         return pvm;
-                    case 3:
+                    case (int)TipoPropuestaEnum.Monetaria:
                         PropuestasDonacionesMonetarias propuestam = context.PropuestasDonacionesMonetarias.
                             Where(pdm => pdm.IdPropuesta == propuesta.IdPropuesta).Single();
                         pvm.DonacionesMonetarias = context.DonacionesMonetarias
                             .Where(p => p.IdPropuestaDonacionMonetaria == propuestam.IdPropuesta).ToList();
+
+                        pvm.PorcentajeRealizacion = (pvm.DonacionesMonetarias.Sum(x => x.Dinero) * 100) / propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero;
+
                         return pvm;
                 }
+
                 return null;
             }
             catch (Exception)
@@ -153,7 +176,7 @@ namespace AyudandoAlProjimo.Services
 
             var hasLessThan3ProposalActives = BusquedaMisPropuestasActivas(u.IdUsuario).Count < 3;
 
-            if(!hasLessThan3ProposalActives)
+            if (!hasLessThan3ProposalActives)
             {
                 return ErrorCodeAddProposalEnum.InvalidProposalCount;
             }
@@ -176,18 +199,28 @@ namespace AyudandoAlProjimo.Services
             p.Descripcion = pm.Descripcion;
             p.FechaCreacion = DateTime.Now;
             p.FechaFin = DateTime.Parse(pm.FechaFin);
-            p.TipoDonacion = pm.TipoDonacion;
+            p.TipoDonacion = (int)pm.TipoDonacion;
             p.TelefonoContacto = pm.TelefonoContacto;
             p.Foto = pm.Foto;
             p.IdUsuarioCreador = idUsuario;
             p.Valoracion = 0;
+            p.Estado = 1;
+
+            foreach (var r in pm.Referencias)
+            {
+                PropuestasReferencias referencia = new PropuestasReferencias();
+                referencia.Nombre = r.Nombre;
+                referencia.Telefono = r.Telefono;
+
+                p.PropuestasReferencias.Add(referencia);
+            }
 
             return p;
         }
 
         public void Valorar(int id, int idUser, string valor)
         {
-            var result =context.PropuestasValoraciones.Where(p => p.IdPropuesta == id)
+            var result = context.PropuestasValoraciones.Where(p => p.IdPropuesta == id)
                                 .Where(p => p.IdUsuario == idUser).FirstOrDefault();
 
             if (result == null)
@@ -197,9 +230,9 @@ namespace AyudandoAlProjimo.Services
                 valoracion.IdUsuario = idUser;
                 if (valor == "Like")
                 {
-                    valoracion.Valoracion = true;  
+                    valoracion.Valoracion = true;
                 }
-                else if(valor == "Dislike")
+                else if (valor == "Dislike")
                 {
                     valoracion.Valoracion = false;
                 }
@@ -211,7 +244,7 @@ namespace AyudandoAlProjimo.Services
             }
             else
             {
-                if(valor == "Like")
+                if (valor == "Like")
                 {
                     result.Valoracion = true;
                 }
@@ -234,9 +267,10 @@ namespace AyudandoAlProjimo.Services
             int a = context.PropuestasValoraciones
                         .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
             int b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
-            
-            propuesta.Valoracion = (a/b) * 100;
+
+            propuesta.Valoracion = (a / b) * 100;
             context.SaveChanges();
         }
+
     }
 }

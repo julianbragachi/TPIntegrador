@@ -1,28 +1,70 @@
 ﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
 
 @{
-    ViewBag.Title = "VerDetalles";
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = Model.Propuesta.Nombre;
 }
 
-<h2>VerDetalles</h2>
-@if (TempData["Mensaje"] != null)
-{
-    <div>
-        <h3>@TempData["Mensaje"]</h3>
+<div class="container">
+    <div class="card margin-top-bottom-50">
+        <div class="card-content">
+            <div class="row">
+                <div class="col s6">
+                    <img src="@Model.Propuesta.Foto" style="max-width: 100%;" />
+                </div>
+
+                <div class="col s6">
+                    <h2 class="title-propuesta no-margin">@Model.Propuesta.Nombre</h2>
+                    <p class="title-autor-propuesta">Por: @Model.UsuarioCreador.Nombre @Model.UsuarioCreador.Apellido (@Model.UsuarioCreador.Email), Fecha: @Model.Propuesta.FechaCreacion</p>
+
+                    <p class="title-recaudado margin-bottom-20">
+                        Valoracion: <strong>@Model.Propuesta.Valoracion</strong>
+                    </p>
+
+                    <div class="margin-bottom-20">
+                        <p style="margin-bottom: 5px;" class="title-recaudado">Referentes:</p>
+                        @foreach (var item in Model.Propuesta.PropuestasReferencias)
+                        {
+                            <p class="d-flex"><i style="margin-right: 10px;" class="material-icons prefix">account_circle</i>@item.Nombre (@item.Telefono)</p>
+                        }
+                    </div>
+
+                    @{
+                        switch (Model.Propuesta.TipoDonacion)
+                        {
+                            case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.Monetaria:
+                                Html.RenderPartial("_DetalleMonetaria");
+                                break;
+                            case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.HorasTrabajo:
+                                Html.RenderPartial("_DetalleHoras");
+                                break;
+                            case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.Insumos:
+                                Html.RenderPartial("_DetalleInsumos");
+                                break;
+                        }
+                    }
+
+                    <div class="title-recaudado">
+                        Porcentaje realizacion: <strong>@Model.PorcentajeRealizacion%</strong>
+                        <div class="progress">
+                            <div class="determinate" style="width: @Model.PorcentajeRealizacion%"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn waves-effect waves-light" type="button">
+                        Apoyar al proyecto
+                    </button>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <h2 class="title-propuesta no-margin">Más información sobre el proyecto</h2>
+                    <p>@Model.Propuesta.Descripcion</p>
+                </div>
+            </div>
+        </div>
     </div>
-}
-<div>
-    <dl class="dl-horizontal">
-    </dl>
 </div>
-<p>
-    @Model.Propuesta.FechaFin
-    @Model.Propuesta.Nombre
-    @Model.Propuesta.Descripcion
-    @foreach (var donacion in Model.DonacionesMonetarias)
-    {
-        @donacion.Usuarios.Nombre
-    }
-    @Html.ActionLink("Denunciar", "Denunciar", "User", new { id = @Model.Propuesta.IdPropuesta }, null)
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

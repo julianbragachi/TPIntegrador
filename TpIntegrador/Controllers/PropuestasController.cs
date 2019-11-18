@@ -7,6 +7,7 @@ using AyudandoAlProjimo.Data;
 using AyudandoAlProjimo.Data.ViewModels;
 using AyudandoAlProjimo.Services;
 using TpIntegrador.Filters;
+using TpIntegrador.Utilities;
 
 namespace TpIntegrador.Controllers
 {
@@ -15,6 +16,7 @@ namespace TpIntegrador.Controllers
         private ProposalService ProposalService = new ProposalService();
         private UserService UserService = new UserService();
 
+        [CheckSession]
         public ActionResult AgregarPropuesta()
         {
             var isLoggedIn = isValidUserSession();
@@ -24,6 +26,7 @@ namespace TpIntegrador.Controllers
             return View();
         }
 
+        [CheckSession]
         public ActionResult AgregarPropuestaMonetaria()
         {
             var isLoggedIn = isValidUserSession();
@@ -32,75 +35,12 @@ namespace TpIntegrador.Controllers
 
             AgregarPropuestaMonetariaViewModel p = new AgregarPropuestaMonetariaViewModel();
 
-            p.TipoDonacion = 0;
+            p.TipoDonacion = TipoPropuestaEnum.Monetaria;
 
             return View(p);
         }
 
-        [HttpPost]
-        public ActionResult AgregarPropuestaMonetaria(AgregarPropuestaMonetariaViewModel p)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(p);
-            }
-
-            var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
-            var error = ProposalService.ValidateBeforeCreate(user);
-
-            if(error != ErrorCodeAddProposalEnum.None)
-            {
-                ViewBag.Error = error;
-
-                return View(p);
-            }
-
-            ProposalService.AgregarPropuestaMonetaria(p, user);
-
-            return View(p);
-        }
-
-        public ActionResult AgregarPropuestaHoraTrabajo()
-        {
-            var isLoggedIn = isValidUserSession();
-
-            if (!isLoggedIn) return Redirect("/Ingresar/Login");
-
-            AgregarPropuestaHoraTrabajoViewModel p = new AgregarPropuestaHoraTrabajoViewModel();
-
-            p.TipoDonacion = 1;
-
-            return View(p);
-        }
-
-        [HttpPost]
-        public ActionResult AgregarPropuestaHoraTrabajo(AgregarPropuestaHoraTrabajoViewModel p)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(p);
-            }
-
-            var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
-            var error = ProposalService.ValidateBeforeCreate(user);
-
-            if (error != ErrorCodeAddProposalEnum.None)
-            {
-                ViewBag.Error = error;
-
-                return View(p);
-            }
-
-            ProposalService.AgregarPropuestaHoraTrabajo(p, user);
-
-            return View(p);
-        }
-        [HttpGet]
-        public ActionResult VerDetalles(int id)
-        {
-            return View(ProposalService.VerPropuestaYDonaciones(id));
-        }
-
+        [CheckSession]
         public ActionResult AgregarPropuestaInsumos()
         {
             var isLoggedIn = isValidUserSession();
@@ -109,18 +49,30 @@ namespace TpIntegrador.Controllers
 
             AgregarPropuestaInsumosViewModel p = new AgregarPropuestaInsumosViewModel();
 
-            p.TipoDonacion = 2;
+            p.TipoDonacion = TipoPropuestaEnum.Insumos;
+
+            return View(p);
+        }
+
+        [CheckSession]
+        public ActionResult AgregarPropuestaHoraTrabajo()
+        {
+            var isLoggedIn = isValidUserSession();
+
+            if (!isLoggedIn) return Redirect("/Ingresar/Login");
+
+            AgregarPropuestaHoraTrabajoViewModel p = new AgregarPropuestaHoraTrabajoViewModel();
+
+            p.TipoDonacion = TipoPropuestaEnum.HorasTrabajo;
 
             return View(p);
         }
 
         [HttpPost]
-        public ActionResult AgregarPropuestaInsumos(AgregarPropuestaInsumosViewModel p)
+        public ActionResult AgregarPropuestaMonetaria(AgregarPropuestaMonetariaViewModel p)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(p);
-            }
+            if (!ModelState.IsValid) return View(p);
+
 
             var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
             var error = ProposalService.ValidateBeforeCreate(user);
@@ -132,14 +84,71 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
+            p.Foto = GetPathForPhoto(p);
+
+            ProposalService.AgregarPropuestaMonetaria(p, user);
+
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult AgregarPropuestaHoraTrabajo(AgregarPropuestaHoraTrabajoViewModel p)
+        {
+            if (!ModelState.IsValid) return View(p);
+
+            var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
+            var error = ProposalService.ValidateBeforeCreate(user);
+
+            if (error != ErrorCodeAddProposalEnum.None)
+            {
+                ViewBag.Error = error;
+
+                return View(p);
+            }
+
+            p.Foto = GetPathForPhoto(p);
+
+            ProposalService.AgregarPropuestaHoraTrabajo(p, user);
+
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult AgregarPropuestaInsumos(AgregarPropuestaInsumosViewModel p)
+        {
+            if (!ModelState.IsValid) return View(p);
+
+            var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
+            var error = ProposalService.ValidateBeforeCreate(user);
+
+            if (error != ErrorCodeAddProposalEnum.None)
+            {
+                ViewBag.Error = error;
+
+                return View(p);
+            }
+
+            p.Foto = GetPathForPhoto(p);
+
             ProposalService.AgregarPropuestaInsumos(p, user);
 
-            return View(p);
+            return Redirect("/Home/Index");
+        }
+
+        [HttpGet]
+        public ActionResult VerDetalles(int id)
+        {
+            return View(ProposalService.VerPropuestaYDonaciones(id));
         }
 
         private bool isValidUserSession()
         {
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;
+        }
+
+        private string GetPathForPhoto(AgregarPropuestaBase p)
+        {
+            return ImagenesUtility.Guardar(Request.Files[0], p.Nombre + "-FOTO");
         }
 
         [CheckSession]
@@ -150,6 +159,22 @@ namespace TpIntegrador.Controllers
         {
             ProposalService.Valorar(id, (int)Session["ID"], valor);
             return Redirect("/Home/Index");
+        }
+
+        //[CheckSession]
+        //[HttpGet]
+        //public ActionResult Busqueda()
+        //{
+        //    return View();
+        //}
+
+        [HttpGet]
+        public ActionResult Buscar()
+        {
+            int id = int.Parse(Request["id"]);
+            string busqueda = Request["Busqueda"];
+            List<Propuestas> resultado = ProposalService.BusquedaPropuestasAjenasPorParametro(busqueda, id);
+            return View(resultado);
         }
     }
 }
