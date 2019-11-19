@@ -9,6 +9,8 @@ namespace AyudandoAlProjimo.Data.ViewModels
 {
     public class InsumosViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Nombre { get; set; }
 

@@ -91,8 +91,29 @@ namespace AyudandoAlProjimo.Services
             d.Cantidad = f.Cantidad;
             d.IdUsuario = userId;
             d.IdPropuestaDonacionHorasTrabajo = idPropuestaDonacionHorasTrabajo;
-    
+
             context.Propuestas.Where(x => x.IdPropuesta == idPropuesta).Single().PropuestasDonacionesHorasTrabajo.Single().DonacionesHorasTrabajo.Add(d);
+
+            return context.SaveChanges();
+        }
+
+        public int AgregarDonacionInsumos(RealizarDonacionInsumosFormulario f, int userId, int idPropuesta)
+        {
+            Propuestas p = BuscarPorId(idPropuesta);
+
+            foreach (var item in f.Insumos)
+            {
+                DonacionesInsumos d = new DonacionesInsumos();
+                d.IdPropuestaDonacionInsumo = item.Id;
+                d.Cantidad = item.Cantidad;
+                d.IdUsuario = userId;
+                
+                context.Propuestas
+                    .Where(x => x.IdPropuesta == idPropuesta)
+                    .Single().PropuestasDonacionesInsumos
+                    .Where(x => x.IdPropuestaDonacionInsumo == item.Id)
+                    .Single().DonacionesInsumos.Add(d);
+            }
 
             return context.SaveChanges();
         }

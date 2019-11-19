@@ -36,6 +36,21 @@ namespace TpIntegrador.Controllers
         }
 
         [CheckSession]
+        public ActionResult DonarInsumos(int id)
+        {
+            RealizarDonacionInsumosViewModel m = new RealizarDonacionInsumosViewModel();
+            m.Propuesta = ProposalService.BuscarPorId(id);
+            m.Formulario = new RealizarDonacionInsumosFormulario();
+            m.Formulario.Insumos = new List<InsumosViewModel>();
+            foreach (var item in m.Propuesta.PropuestasDonacionesInsumos)
+            {
+                m.Formulario.Insumos.Add(new InsumosViewModel() { Id = item.IdPropuestaDonacionInsumo, Cantidad = 0, Nombre = item.Nombre });
+            }
+
+            return View(m);
+        }
+
+        [CheckSession]
         public ActionResult DonarMonetario(int id)
         {
             RealizarDonacionMonetariaViewModel m = new RealizarDonacionMonetariaViewModel();
@@ -205,6 +220,23 @@ namespace TpIntegrador.Controllers
             }
 
             ProposalService.AgregarDonacionHoras(m.Formulario, (int)Session["ID"], id);
+
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult DonarInsumos(RealizarDonacionInsumosViewModel m)
+        {
+            int id = Int32.Parse(RouteData.Values["id"].ToString());
+
+            if (!ModelState.IsValid)
+            {
+                m.Propuesta = ProposalService.BuscarPorId(id);
+
+                return View(m);
+            }
+
+            ProposalService.AgregarDonacionInsumos(m.Formulario, (int)Session["ID"], id);
 
             return Redirect("/Home/Index");
         }
