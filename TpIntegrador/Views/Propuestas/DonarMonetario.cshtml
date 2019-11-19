@@ -1,0 +1,64 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.RealizarDonacionMonetariaViewModel
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Nueva propuesta";
+}
+
+<div class="container">
+    <div class="card margin-top-bottom-50">
+        <div class="card-content">
+            <div class="row no-margin">
+                <h2 class="title-propuesta no-margin">Donación para @Model.Propuesta.Nombre</h2>
+
+                <p class="title-recaudado margin-bottom-20">
+                    CBU: <strong>@Model.Propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().CBU</strong>
+                </p>
+
+                <div class="margin-bottom-20">
+                    <ul class="tabla-objetivos">
+                        <li>
+                            <p>
+                                <strong>$@(Model.Propuesta.PropuestasDonacionesMonetarias.Count > 0 ? Model.Propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero : 0)</strong>
+                            </p>
+                            <span class="info-text">Objetivo</span>
+                        </li>
+                        <li>
+                            <p>
+                                <strong>@(Model.Propuesta.PropuestasDonacionesMonetarias.Count > 0 ? Model.Propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().DonacionesMonetarias.Sum(x => x.Dinero) : 0)</strong>
+                            </p>
+                            <span class="info-text">Recaudado</span>
+                        </li>
+                        <li>
+                            <p><strong>@(Math.Round((Model.Propuesta.FechaFin - DateTime.Now).TotalDays))</strong></p>
+                            <span class="info-text">Días restantes</span>
+                        </li>
+                    </ul>
+                </div>
+
+                @using (Html.BeginForm("DonarMonetario", "Propuestas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="row margin-bottom-20">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">attach_money</i>
+                            @Html.EditorFor(model => model.Formulario.Dinero, new { htmlAttributes = new { @class = "validate" } })
+                            <label>Usuario</label>
+                            @Html.ValidationMessageFor(model => model.Formulario.Dinero, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="input-field col s6">
+                            <input type="file" name="Formulario.ArchivoTransferencia" accept="image/*" />
+                            <p>
+                                @Html.ValidationMessageFor(model => model.Formulario.ArchivoTransferencia, "", new { @class = "text-danger" })
+                            </p>
+                        </div>
+
+                        <div class="right">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar<i class="material-icons right">edit</i></button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

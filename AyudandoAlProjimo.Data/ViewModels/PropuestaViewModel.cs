@@ -14,7 +14,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
         public List<DonacionesMonetarias> DonacionesMonetarias { get; set; }
 
         public Usuarios UsuarioCreador { get; set; }
-        public decimal PorcentajeRealizacion { get; set; }
+        public int PorcentajeRealizacion { get; set; }
 
     }
 }

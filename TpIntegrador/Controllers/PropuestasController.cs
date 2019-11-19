@@ -17,6 +17,35 @@ namespace TpIntegrador.Controllers
         private UserService UserService = new UserService();
 
         [CheckSession]
+        public ActionResult Donar(int id)
+        {
+            var p = ProposalService.BuscarPorId(id);
+
+            switch (p.TipoDonacion)
+            {
+                case (int)TipoPropuestaEnum.Monetaria:
+                    return Redirect("/Propuestas/DonarMonetario/" + id);
+                case (int)TipoPropuestaEnum.Insumos:
+                    return Redirect("/Propuestas/DonarInsumos/" + id);
+                case (int)TipoPropuestaEnum.HorasTrabajo:
+                    return Redirect("/Propuestas/DonarHoras/" + id);
+            }
+
+            return View();
+
+        }
+
+        [CheckSession]
+        public ActionResult DonarMonetario(int id)
+        {
+            RealizarDonacionMonetariaViewModel m = new RealizarDonacionMonetariaViewModel();
+            m.Formulario = new RealizarDonacionMonetariaFormulario();
+            m.Propuesta = ProposalService.BuscarPorId(id);
+
+            return View(m);
+        }
+
+        [CheckSession]
         public ActionResult AgregarPropuesta()
         {
             var isLoggedIn = isValidUserSession();
@@ -84,7 +113,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p);
+            p.Foto = GetPathForPhoto(p.Nombre);
 
             ProposalService.AgregarPropuestaMonetaria(p, user);
 
@@ -106,7 +135,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p);
+            p.Foto = GetPathForPhoto(p.Foto);
 
             ProposalService.AgregarPropuestaHoraTrabajo(p, user);
 
@@ -128,9 +157,28 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p);
+            p.Foto = GetPathForPhoto(p.Foto);
 
             ProposalService.AgregarPropuestaInsumos(p, user);
+
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult DonarMonetario(RealizarDonacionMonetariaViewModel m)
+        {
+            int id = Int32.Parse(RouteData.Values["id"].ToString());
+
+            if (!ModelState.IsValid)
+            {
+                m.Propuesta = ProposalService.BuscarPorId(id);
+                return View(m);
+            }
+
+            var name = m.Propuesta.Nombre + "-" + Session["ID"];
+            m.Formulario.ArchivoTransferencia = GetPathForPhoto(name);
+
+            ProposalService.AgregarDonacionMonetaria(m.Formulario, (int)Session["ID"], id);
 
             return Redirect("/Home/Index");
         }
@@ -146,9 +194,9 @@ namespace TpIntegrador.Controllers
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;
         }
 
-        private string GetPathForPhoto(AgregarPropuestaBase p)
+        private string GetPathForPhoto(string name)
         {
-            return ImagenesUtility.Guardar(Request.Files[0], p.Nombre + "-FOTO");
+            return ImagenesUtility.Guardar(Request.Files[0], name + "-FOTO");
         }
 
         [CheckSession]
