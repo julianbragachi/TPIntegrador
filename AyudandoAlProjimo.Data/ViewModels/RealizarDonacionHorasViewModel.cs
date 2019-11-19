@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 
 namespace AyudandoAlProjimo.Data.ViewModels
 {
-    public class InsumosViewModel
+    public class RealizarDonacionHorasViewModel
     {
-        public int Id { get; set; }
+        public RealizarDonacionHorasFormulario Formulario { get; set; }
 
+        public Propuestas Propuesta { get; set; }
+    }
+
+    public class RealizarDonacionHorasFormulario
+    {
         [Required]
-        public string Nombre { get; set; }
+        public int Profesion { get; set; }
 
         [Required]
         public int Cantidad { get; set; }
-
-
     }
 }

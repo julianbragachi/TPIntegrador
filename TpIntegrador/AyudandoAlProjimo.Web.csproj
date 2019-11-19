@@ -229,6 +229,9 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\AcercaDe.cshtml" />
     <Content Include="Views\AcercaDe\Index.cshtml" />
+    <Content Include="Views\Propuestas\DonarMonetario.cshtml" />
+    <Content Include="Views\Propuestas\DonarHoras.cshtml" />
+    <Content Include="Views\Propuestas\DonarInsumos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

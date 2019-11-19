@@ -65,6 +65,64 @@ namespace AyudandoAlProjimo.Services
             return AgregarPropuesta(p);
         }
 
+        public int AgregarDonacionMonetaria(RealizarDonacionMonetariaFormulario f, int userId, int idPropuesta)
+        {
+            Propuestas p = BuscarPorId(idPropuesta);
+            var idPropuestaDonacionMonetaria = p.PropuestasDonacionesMonetarias.FirstOrDefault().IdPropuestaDonacionMonetaria;
+            DonacionesMonetarias d = new DonacionesMonetarias();
+
+            d.FechaCreacion = DateTime.Now;
+            d.ArchivoTransferencia = f.ArchivoTransferencia;
+            d.Dinero = f.Dinero;
+            d.IdUsuario = userId;
+            d.IdPropuestaDonacionMonetaria = idPropuestaDonacionMonetaria;
+
+            context.Propuestas.Where(x => x.IdPropuesta == idPropuesta).Single().PropuestasDonacionesMonetarias.Single().DonacionesMonetarias.Add(d);
+
+            return context.SaveChanges();
+        }
+
+        public int AgregarDonacionHoras(RealizarDonacionHorasFormulario f, int userId, int idPropuesta)
+        {
+            Propuestas p = BuscarPorId(idPropuesta);
+            var idPropuestaDonacionHorasTrabajo = p.PropuestasDonacionesHorasTrabajo.FirstOrDefault().IdPropuestaDonacionHorasTrabajo;
+            DonacionesHorasTrabajo d = new DonacionesHorasTrabajo();
+
+            d.Cantidad = f.Cantidad;
+            d.IdUsuario = userId;
+            d.IdPropuestaDonacionHorasTrabajo = idPropuestaDonacionHorasTrabajo;
+
+            context.Propuestas.Where(x => x.IdPropuesta == idPropuesta).Single().PropuestasDonacionesHorasTrabajo.Single().DonacionesHorasTrabajo.Add(d);
+
+            return context.SaveChanges();
+        }
+
+        public int AgregarDonacionInsumos(RealizarDonacionInsumosFormulario f, int userId, int idPropuesta)
+        {
+            Propuestas p = BuscarPorId(idPropuesta);
+
+            foreach (var item in f.Insumos)
+            {
+                DonacionesInsumos d = new DonacionesInsumos();
+                d.IdPropuestaDonacionInsumo = item.Id;
+                d.Cantidad = item.Cantidad;
+                d.IdUsuario = userId;
+                
+                context.Propuestas
+                    .Where(x => x.IdPropuesta == idPropuesta)
+                    .Single().PropuestasDonacionesInsumos
+                    .Where(x => x.IdPropuestaDonacionInsumo == item.Id)
+                    .Single().DonacionesInsumos.Add(d);
+            }
+
+            return context.SaveChanges();
+        }
+
+        public Propuestas BuscarPorId(int id)
+        {
+            return context.Propuestas.Where(p => p.IdPropuesta == id).FirstOrDefault();
+        }
+
         public List<Propuestas> ObtenerCincoPropuestasMasValoradas()
         {
             return context.Propuestas.Where(x => x.Estado == 1).OrderByDescending(x => x.Valoracion).Take(5).ToList();
@@ -122,16 +180,15 @@ namespace AyudandoAlProjimo.Services
                     UsuarioCreador = usuarioCreador,
                 };
 
+                var porcentajeRealizacion = 0;
+
                 switch (propuesta.TipoDonacion)
                 {
                     case (int)TipoPropuestaEnum.HorasTrabajo:
-                        PropuestasDonacionesHorasTrabajo propuestadht = context.PropuestasDonacionesHorasTrabajo.
-                            Where(pdht => pdht.IdPropuesta == propuesta.IdPropuesta).Single();
-                        pvm.DonacionesHorasTrabajo = context.DonacionesHorasTrabajo
-                            .Include("Usuarios")
-                            .Where(p => p.IdPropuestaDonacionHorasTrabajo == propuestadht.IdPropuesta).ToList();
+                        pvm.DonacionesHorasTrabajo = propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().DonacionesHorasTrabajo.ToList();
 
-                        pvm.PorcentajeRealizacion = (pvm.DonacionesHorasTrabajo.Sum(x => x.Cantidad) * 100) / propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras;
+                        porcentajeRealizacion = (int)(pvm.DonacionesHorasTrabajo.Sum(x => x.Cantidad) * 100) / propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras;
+                        pvm.PorcentajeRealizacion = porcentajeRealizacion > 100 ? 100 : (int)porcentajeRealizacion;
 
                         return pvm;
                     case (int)TipoPropuestaEnum.Insumos:
@@ -140,18 +197,15 @@ namespace AyudandoAlProjimo.Services
 
                         foreach (var p in propuesta.PropuestasDonacionesInsumos)
                             cantidadTotalDeDonaciones += p.DonacionesInsumos.Sum(x => x.Cantidad);
-                        
 
-                        pvm.PorcentajeRealizacion = (cantidadTotalDeDonaciones * 100) / cantidadTotalDeInsumos;
+                        porcentajeRealizacion = (cantidadTotalDeDonaciones * 100) / cantidadTotalDeInsumos;
+                        pvm.PorcentajeRealizacion = porcentajeRealizacion > 100 ? 100 : (int)porcentajeRealizacion;
 
                         return pvm;
                     case (int)TipoPropuestaEnum.Monetaria:
-                        PropuestasDonacionesMonetarias propuestam = context.PropuestasDonacionesMonetarias.
-                            Where(pdm => pdm.IdPropuesta == propuesta.IdPropuesta).Single();
-                        pvm.DonacionesMonetarias = context.DonacionesMonetarias
-                            .Where(p => p.IdPropuestaDonacionMonetaria == propuestam.IdPropuesta).ToList();
-
-                        pvm.PorcentajeRealizacion = (pvm.DonacionesMonetarias.Sum(x => x.Dinero) * 100) / propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero;
+                        pvm.DonacionesMonetarias = propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().DonacionesMonetarias.ToList();
+                        porcentajeRealizacion = (int)((pvm.DonacionesMonetarias.Sum(x => x.Dinero) * 100) / propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero);
+                        pvm.PorcentajeRealizacion = porcentajeRealizacion > 100 ? 100 : (int)porcentajeRealizacion;
 
                         return pvm;
                 }
