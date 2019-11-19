@@ -82,6 +82,21 @@ namespace AyudandoAlProjimo.Services
             return context.SaveChanges();
         }
 
+        public int AgregarDonacionHoras(RealizarDonacionHorasFormulario f, int userId, int idPropuesta)
+        {
+            Propuestas p = BuscarPorId(idPropuesta);
+            var idPropuestaDonacionHorasTrabajo = p.PropuestasDonacionesHorasTrabajo.FirstOrDefault().IdPropuestaDonacionHorasTrabajo;
+            DonacionesHorasTrabajo d = new DonacionesHorasTrabajo();
+
+            d.Cantidad = f.Cantidad;
+            d.IdUsuario = userId;
+            d.IdPropuestaDonacionHorasTrabajo = idPropuestaDonacionHorasTrabajo;
+    
+            context.Propuestas.Where(x => x.IdPropuesta == idPropuesta).Single().PropuestasDonacionesHorasTrabajo.Single().DonacionesHorasTrabajo.Add(d);
+
+            return context.SaveChanges();
+        }
+
         public Propuestas BuscarPorId(int id)
         {
             return context.Propuestas.Where(p => p.IdPropuesta == id).FirstOrDefault();
@@ -149,11 +164,7 @@ namespace AyudandoAlProjimo.Services
                 switch (propuesta.TipoDonacion)
                 {
                     case (int)TipoPropuestaEnum.HorasTrabajo:
-                        PropuestasDonacionesHorasTrabajo propuestadht = context.PropuestasDonacionesHorasTrabajo.
-                            Where(pdht => pdht.IdPropuesta == propuesta.IdPropuesta).Single();
-                        pvm.DonacionesHorasTrabajo = context.DonacionesHorasTrabajo
-                            .Include("Usuarios")
-                            .Where(p => p.IdPropuestaDonacionHorasTrabajo == propuestadht.IdPropuesta).ToList();
+                        pvm.DonacionesHorasTrabajo = propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().DonacionesHorasTrabajo.ToList();
 
                         porcentajeRealizacion = (int)(pvm.DonacionesHorasTrabajo.Sum(x => x.Cantidad) * 100) / propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras;
                         pvm.PorcentajeRealizacion = porcentajeRealizacion > 100 ? 100 : (int)porcentajeRealizacion;

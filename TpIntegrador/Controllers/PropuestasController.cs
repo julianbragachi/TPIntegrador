@@ -46,6 +46,16 @@ namespace TpIntegrador.Controllers
         }
 
         [CheckSession]
+        public ActionResult DonarHoras(int id)
+        {
+            RealizarDonacionHorasViewModel m = new RealizarDonacionHorasViewModel();
+            m.Formulario = new RealizarDonacionHorasFormulario();
+            m.Propuesta = ProposalService.BuscarPorId(id);
+
+            return View(m);
+        }
+
+        [CheckSession]
         public ActionResult AgregarPropuesta()
         {
             var isLoggedIn = isValidUserSession();
@@ -179,6 +189,22 @@ namespace TpIntegrador.Controllers
             m.Formulario.ArchivoTransferencia = GetPathForPhoto(name);
 
             ProposalService.AgregarDonacionMonetaria(m.Formulario, (int)Session["ID"], id);
+
+            return Redirect("/Home/Index");
+        }
+
+        [HttpPost]
+        public ActionResult DonarHoras(RealizarDonacionHorasViewModel m)
+        {
+            int id = Int32.Parse(RouteData.Values["id"].ToString());
+
+            if (!ModelState.IsValid)
+            {
+                m.Propuesta = ProposalService.BuscarPorId(id);
+                return View(m);
+            }
+
+            ProposalService.AgregarDonacionHoras(m.Formulario, (int)Session["ID"], id);
 
             return Redirect("/Home/Index");
         }
