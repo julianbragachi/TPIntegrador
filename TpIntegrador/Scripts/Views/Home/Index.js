@@ -56,9 +56,18 @@ function buildProposalCard(propuesta) {
                     <img class="materialboxed" src="${propuesta.Foto}">
                     <span class="card-title">${propuesta.Nombre}</span>
                 </div>
+
                 <div class="card-content">
+                    <p class="title-recaudado margin-bottom-20">Por: <strong>${propuesta.Usuarios.Nombre} ${propuesta.Usuarios.Apellido} (${propuesta.Usuarios.Email}, Fecha: ${propuesta.FechaCreacion}</strong></p>
+                    <p class="title-recaudado margin-bottom-20">Valoracion: <strong>${propuesta.Valoracion}</strong></p>
+                    <div class="margin-bottom-20">
+                        <p style="margin-bottom: 5px;" class="title-recaudado">Referentes:</p>
+                        ${buildReferentes(propuesta.PropuestasReferencias)}
+                    </div>
+                    <p><strong>Mas Informacion:</strong></p>
                     <p>${propuesta.Descripcion}</p>
                 </div>
+
                 <div class="card-action d-flex" style="justify-content: space-between">
                     <div>
                         <a href="/Propuestas/VerDetalles/${propuesta.$id}">Ver detalles</a>
@@ -76,4 +85,14 @@ function buildProposalCard(propuesta) {
                 </div>
             </div>
         </div>`;
+}
+
+function buildReferentes(referencias) {
+    let html = '';
+
+    referencias.forEach(function (item) {
+        html += `<p class="d-flex"><i style="margin-right: 10px;" class="material-icons prefix">account_circle</i>${item.Nombre} (${item.Telefono})</p>`;
+    })
+
+    return html;
 }

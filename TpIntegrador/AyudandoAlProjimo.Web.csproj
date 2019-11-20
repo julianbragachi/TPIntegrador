@@ -138,6 +138,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\DonacionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngresarController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
@@ -173,9 +174,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\BaseLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Propuestas\DonarMonetario.cshtml" />
-    <Content Include="Views\Propuestas\DonarHoras.cshtml" />
-    <Content Include="Views\Propuestas\DonarInsumos.cshtml" />
+    <Content Include="Views\Donaciones\DonarMonetario.cshtml" />
+    <Content Include="Views\Donaciones\DonarHoras.cshtml" />
+    <Content Include="Views\Donaciones\DonarInsumos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -195,7 +196,6 @@
     <Content Include="Views\Propuestas\AgregarPropuestaMonetaria.cshtml" />
     <Content Include="Views\Ingresar\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\UserPrueba\Index.cshtml" />
     <Content Include="Views\Admin\Complaints.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaHoraTrabajo.cshtml" />

@@ -65,9 +65,17 @@
                             <span class="card-title">@propuesta.Nombre</span>
                         </div>
                         <div class="card-content">
-                            <p>
-                                @propuesta.Descripcion
-                            </p>
+                            <p class="title-recaudado margin-bottom-20">Por: <strong>@propuesta.Usuarios.Nombre @propuesta.Usuarios.Apellido (@propuesta.Usuarios.Email), Fecha: @propuesta.FechaCreacion</strong></p>
+                            <p class="title-recaudado margin-bottom-20">Valoracion: <strong>@propuesta.Valoracion</strong></p>
+                            <div class="margin-bottom-20">
+                                <p style="margin-bottom: 5px;" class="title-recaudado">Referentes:</p>
+                                @foreach (var item in propuesta.PropuestasReferencias)
+                                {
+                                    <p class="d-flex"><i style="margin-right: 10px;" class="material-icons prefix">account_circle</i>@item.Nombre (@item.Telefono)</p>
+                                }
+                            </div>
+                            <p><strong>Mas Informacion:</strong></p>
+                            <p>@propuesta.Descripcion</p>
                         </div>
                         <div class="card-action d-flex" style="justify-content: space-between">
                             <div>
@@ -116,9 +124,17 @@
                                 <span class="card-title">@propuesta.Nombre</span>
                             </div>
                             <div class="card-content">
-                                <p>
-                                    @propuesta.Descripcion
-                                </p>
+                                <p class="title-recaudado margin-bottom-20">Por: <strong>@propuesta.Usuarios.Nombre @propuesta.Usuarios.Apellido (@propuesta.Usuarios.Email), Fecha: @propuesta.FechaCreacion</strong></p>
+                                <p class="title-recaudado margin-bottom-20">Valoracion: <strong>@propuesta.Valoracion</strong></p>
+                                <div class="margin-bottom-20">
+                                    <p style="margin-bottom: 5px;" class="title-recaudado">Referentes:</p>
+                                    @foreach (var item in propuesta.PropuestasReferencias)
+                                    {
+                                        <p class="d-flex"><i style="margin-right: 10px;" class="material-icons prefix">account_circle</i>@item.Nombre (@item.Telefono)</p>
+                                    }
+                                </div>
+                                <p><strong>Mas Informacion:</strong></p>
+                                <p>@propuesta.Descripcion</p>
                             </div>
                             <div class="card-action d-flex" style="justify-content: space-between">
                                 <div>
