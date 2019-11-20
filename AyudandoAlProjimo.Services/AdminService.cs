@@ -13,15 +13,16 @@ namespace AyudandoAlProjimo.Services
 
         public List<Denuncias> ListarDenuncias()
         {
+            if (ctx.Denuncias.Count() == 0) return new List<Denuncias>();
+
             //denuncias estado=1
             //estado = 2 desestimar
             //estado = 3 aceptada
-            var result = ctx.Denuncias
+            List<Denuncias> result = ctx.Denuncias
                             .Include("MotivoDenuncia")
                             .Where(d => d.Estado == 1)
                             .OrderByDescending(d => d.FechaCreacion)
                             .ToList();
-
             return result;
         }
 
@@ -34,6 +35,7 @@ namespace AyudandoAlProjimo.Services
             var propuesta = ctx.Propuestas.Find(denuncia.IdPropuesta);
             propuesta.Estado = 1;
             ctx.SaveChanges();
+            VerificarLasCincoDenunciasDIferentes(id);
         }
 
         public void AceptarDenuncia(int id)
@@ -43,6 +45,20 @@ namespace AyudandoAlProjimo.Services
             var propuesta = ctx.Propuestas.Find(denuncia.IdPropuesta);
             propuesta.Estado = 0;
             ctx.SaveChanges();
+        }
+        public void VerificarLasCincoDenunciasDIferentes(int id)
+        {
+            int cantidad = ctx.Denuncias.Where(d => d.IdPropuesta == id && d.Estado == 1).Count();
+            if (cantidad>=5)
+            {
+                Propuestas propuesta = ctx.Propuestas.Where(p => p.IdPropuesta == id).Single();
+                propuesta.Estado = 0;
+                ctx.SaveChanges();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

@@ -51,7 +51,31 @@
                         </div>
                     </div>
 
-                    @Html.ActionLink("Apoyar al proyecto", "Donar", "Propuestas", new { id = Model.Propuesta.IdPropuesta }, new { @class = "btn waves-effect waves-light" })
+
+                    @if (TempData["Mensaje" + Model.Propuesta.IdPropuesta] != null)
+                    {
+                        <div>
+                            <p>@TempData["Mensaje" + Model.Propuesta.IdPropuesta]</p>
+                        </div>
+                    }
+
+                    @Html.ActionLink("Apoyar al proyecto", "Index", "Donaciones", new { id = Model.Propuesta.IdPropuesta }, new { @class = "btn waves-effect waves-light" })
+
+                    <a class="btn waves-effect waves-light" href="@Url.Action("Valoracion", "Propuestas", new { id = Model.Propuesta.IdPropuesta, valor = "Like" } )">
+                        <i class="material-icons left">thumb_up_alt</i>
+                        Me gusta
+                    </a>
+
+                    <a class="btn waves-effect waves-light" href="@Url.Action("Valoracion", "Propuestas", new { id = Model.Propuesta.IdPropuesta, valor = "Dislike" } )">
+                        <i class="tiny material-icons left">thumb_down_alt</i>
+                        No me gusta
+                    </a>
+
+                    <p style="margin-top: 10px;">
+                        <a href=@Url.Action("Denunciar","User", new { id=Model.Propuesta.IdPropuesta}) class="btn waves-effect waves-light red">
+                            Denunciar
+                        </a>
+                    </p>
                 </div>
 
             </div>

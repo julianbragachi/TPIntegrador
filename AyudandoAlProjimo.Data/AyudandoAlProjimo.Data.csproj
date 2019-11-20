@@ -107,6 +107,7 @@
     <Compile Include="Usuarios.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DenunciaViewModel.cs" />
     <Compile Include="ViewModels\DonacionesViewModel.cs" />
     <Compile Include="ViewModels\RealizarDonacionInsumosViewModel.cs" />
     <Compile Include="ViewModels\RealizarDonacionHorasViewModel.cs" />

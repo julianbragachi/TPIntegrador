@@ -13,6 +13,46 @@
 </div>
 
 <div class="section white">
+    @if (Model.IsLoggedIn)
+    {
+        <div class="row container">
+            <h2 class="header" style="font-family: 'WCManoNegraBta';">Buscar propuestas</h2>
+            <div class="row">
+                <form class="col s12" onsubmit="handleSearchSubmit(event, '@Session["ID"]')">
+                    <div class="row d-flex" style="align-items: center;">
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">search</i>
+                            <input type="text" id="autocomplete-input" class="autocomplete" />
+                            <label for="autocomplete-input">Ingrese nombre de propuesta o nombre del usuario</label>
+                        </div>
+                        <div class="col s4">
+                            <input type="submit" value="buscar" class="waves-effect waves-light btn white-text" style="color: white;" />
+                        </div>
+                    </div>
+                </form>
+
+                <div id="loader-search" class="col s12 center-align" style="display: none;">
+
+                    <div class="preloader-wrapper small active">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="result-search" class="col s12" style="display: none;">
+
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="row container">
         <h2 class="header" style="font-family: 'WCManoNegraBta';">Propuestas mas Valoradas</h2>
         <div class="row">
@@ -25,9 +65,17 @@
                             <span class="card-title">@propuesta.Nombre</span>
                         </div>
                         <div class="card-content">
-                            <p>
-                                @propuesta.Descripcion
-                            </p>
+                            <p class="title-recaudado margin-bottom-20">Por: <strong>@propuesta.Usuarios.Nombre @propuesta.Usuarios.Apellido (@propuesta.Usuarios.Email), Fecha: @propuesta.FechaCreacion</strong></p>
+                            <p class="title-recaudado margin-bottom-20">Valoracion: <strong>@propuesta.Valoracion</strong></p>
+                            <div class="margin-bottom-20">
+                                <p style="margin-bottom: 5px;" class="title-recaudado">Referentes:</p>
+                                @foreach (var item in propuesta.PropuestasReferencias)
+                                {
+                                    <p class="d-flex"><i style="margin-right: 10px;" class="material-icons prefix">account_circle</i>@item.Nombre (@item.Telefono)</p>
+                                }
+                            </div>
+                            <p><strong>Mas Informacion:</strong></p>
+                            <p>@propuesta.Descripcion</p>
                         </div>
                         <div class="card-action d-flex" style="justify-content: space-between">
                             <div>
@@ -76,26 +124,33 @@
                                 <span class="card-title">@propuesta.Nombre</span>
                             </div>
                             <div class="card-content">
-                                <p>
-                                    @propuesta.Descripcion
-                                </p>
+                                <p class="title-recaudado margin-bottom-20">Por: <strong>@propuesta.Usuarios.Nombre @propuesta.Usuarios.Apellido (@propuesta.Usuarios.Email), Fecha: @propuesta.FechaCreacion</strong></p>
+                                <p class="title-recaudado margin-bottom-20">Valoracion: <strong>@propuesta.Valoracion</strong></p>
+                                <div class="margin-bottom-20">
+                                    <p style="margin-bottom: 5px;" class="title-recaudado">Referentes:</p>
+                                    @foreach (var item in propuesta.PropuestasReferencias)
+                                    {
+                                        <p class="d-flex"><i style="margin-right: 10px;" class="material-icons prefix">account_circle</i>@item.Nombre (@item.Telefono)</p>
+                                    }
+                                </div>
+                                <p><strong>Mas Informacion:</strong></p>
+                                <p>@propuesta.Descripcion</p>
                             </div>
                             <div class="card-action d-flex" style="justify-content: space-between">
                                 <div>
                                     @Html.ActionLink("Ver Detalles", "VerDetalles", "Propuestas", new { id = @propuesta.IdPropuesta }, null)
+                                    <a href="@Url.Action("ModificarPropuesta", "Propuestas", new { id = @propuesta.IdPropuesta} )">
+                                        Modificar
+                                    </a>
                                 </div>
                                 <div>
                                     <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Like" } )">
-                                        <i class="tiny material-icons">
-                                            thumb_up_alt
-                                        </i>
+                                        <i class="tiny material-icons">thumb_up_alt</i>
                                         Me gusta
                                     </a>
 
                                     <a href="@Url.Action("Valoracion", "Propuestas", new { id = propuesta.IdPropuesta, valor = "Dislike" } )">
-                                        <i class="tiny material-icons">
-                                            thumb_down_alt
-                                        </i>
+                                        <i class="tiny material-icons">thumb_down_alt</i>
                                         No me gusta
                                     </a>
                                 </div>
@@ -106,8 +161,6 @@
             </div>
         </div>
     }
-
-
 </div>
 
 <div class="parallax-container">

@@ -49,56 +49,34 @@ namespace AyudandoAlProjimo.Services
             }
             context.SaveChanges();
         }
-
-        public List<DonacionesViewModel> BuscarDonaciones(int idUser)
+        public Boolean VerificarExistenciaDeDenunciaDelUsuario(int usuario, int propuesta)
         {
-            List<DonacionesViewModel> listaDonaciones = new List<DonacionesViewModel>();
-
-            List<DonacionesInsumos> lista1= context.DonacionesInsumos
-                .Where(d => d.IdUsuario == idUser).ToList();
-                                                            
-
-            List<DonacionesMonetarias> lista2= context.DonacionesMonetarias
-                .Where(d => d.IdUsuario == idUser).ToList();
-
-            List<DonacionesHorasTrabajo> lista3= context.DonacionesHorasTrabajo
-                .Where(d => d.IdUsuario == idUser).ToList();
-
-
-            foreach (var insumo in lista1)
+            var denunciaExistente = context.Denuncias.Any(d => d.IdUsuario == usuario && d.IdPropuesta == propuesta);
+            if (denunciaExistente)
             {
-                DonacionesViewModel dvm = new DonacionesViewModel();
-                dvm.donacionesInsumos = insumo;
-                dvm.tipo = "insumo";
-                dvm.total = context.DonacionesInsumos
-                        .Where(p => p.IdPropuestaDonacionInsumo == insumo.IdPropuestaDonacionInsumo)
-                        .Sum(p => p.Cantidad);
-                listaDonaciones.Add(dvm);
+                return true;
             }
-
-            foreach (var monetaria in lista2)
+            else
             {
-                DonacionesViewModel dvm = new DonacionesViewModel();
-                dvm.donacionesMonetarias = monetaria;
-                dvm.tipo = "monetario";
-                dvm.total = Decimal.ToInt32(context.DonacionesMonetarias
-                    .Where(p => p.IdPropuestaDonacionMonetaria == monetaria.IdPropuestaDonacionMonetaria)
-                    .Sum(p => p.Dinero)); 
-                listaDonaciones.Add(dvm);
+                return false;
             }
-
-            foreach (var horastrabajo in lista3)
-            {
-                DonacionesViewModel dvm = new DonacionesViewModel();
-                dvm.donacionesHorasTrabajo = horastrabajo;
-                dvm.tipo = "horastrabajo";
-                dvm.total = context.DonacionesHorasTrabajo
-                    .Where(p => p.IdPropuestaDonacionHorasTrabajo == horastrabajo.IdPropuestaDonacionHorasTrabajo)
-                    .Sum(p => p.Cantidad);
-                listaDonaciones.Add(dvm);
-            }
-
-            return listaDonaciones;
         }
+        public void DenunciarPropuesta(DenunciaViewModel dvm, int idUser)
+        {
+            MotivoDenuncia motivo = context.MotivoDenuncia.Single(m => m.Descripcion == dvm.Motivo);
+            Denuncias denuncia = new Denuncias
+            {
+                IdMotivo = motivo.IdMotivoDenuncia,
+                IdUsuario = idUser,
+                IdPropuesta = dvm.Id,
+                Comentarios = dvm.Comentarios,
+                FechaCreacion = DateTime.Now,
+                Estado = 1
+            };
+            context.Denuncias.Add(denuncia);
+            context.SaveChanges();
+            AdminService AS = new AdminService();
+            AS.VerificarLasCincoDenunciasDIferentes(dvm.Id);
+		}
     }
 }

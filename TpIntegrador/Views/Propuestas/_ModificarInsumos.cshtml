@@ -1,0 +1,22 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
+
+<div id="container-insumos">
+    <div id="insumo-0">
+        @foreach (var d in Model.Propuesta.PropuestasDonacionesInsumos)
+        {
+            <div class="input-field col s6">
+                <i class="material-icons prefix">build</i>
+                @Html.Editor(d.Nombre, new { htmlAttributes = new { @class = "validate" } })
+                <label for="moneyDestination">Nombre</label>
+                @Html.ValidationMessage(d.Nombre, "", new { @class = "text-danger" })
+            </div>
+
+        <div class="input-field col s6">
+            <i class="material-icons prefix">poll</i>
+            @Html.Editor(d.Nombre, new { htmlAttributes = new { @class = "validate" } })
+            <label>Cantidad</label>
+            @Html.ValidationMessageFor(d.Cantidad, "", new { @class = "text-danger" })
+        </div>
+        }
+    </div>
+</div>

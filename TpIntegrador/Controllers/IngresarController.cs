@@ -36,7 +36,7 @@ namespace TpIntegrador.Controllers
                     HttpCookie returnCookie = Request.Cookies["returnUrl"];
                     if ((returnCookie == null) || string.IsNullOrEmpty(returnCookie.Value))
                     {
-                        return Redirect("/User/Home");
+                        return Redirect("/Home/Index");
                     }
                     else
                     {

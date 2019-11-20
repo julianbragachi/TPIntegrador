@@ -107,7 +107,7 @@ namespace AyudandoAlProjimo.Services
                 d.IdPropuestaDonacionInsumo = item.Id;
                 d.Cantidad = item.Cantidad;
                 d.IdUsuario = userId;
-                
+
                 context.Propuestas
                     .Where(x => x.IdPropuesta == idPropuesta)
                     .Single().PropuestasDonacionesInsumos
@@ -158,13 +158,14 @@ namespace AyudandoAlProjimo.Services
 
         public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
         {
-            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda)).ToList();
+            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda) || u.Nombre.Contains(busqueda) || u.Apellido.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
             List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
                 (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
+
             return lista;
         }
 
@@ -271,7 +272,57 @@ namespace AyudandoAlProjimo.Services
 
             return p;
         }
-
+        public void ModificarPropuestaBase(PropuestaViewModel pvm)
+        {
+            Propuestas p = context.Propuestas.Find(pvm.Propuesta.IdPropuesta);
+            p.Nombre = pvm.Propuesta.Nombre;
+            p.Descripcion = pvm.Propuesta.Descripcion;
+            p.FechaFin = pvm.Propuesta.FechaFin;
+            p.TelefonoContacto = pvm.Propuesta.TelefonoContacto;
+            p.Foto = pvm.Propuesta.Foto;
+            context.SaveChanges();
+            switch (pvm.Propuesta.TipoDonacion)
+            {
+                case (int)TipoPropuestaEnum.HorasTrabajo:
+                    ModificarPropuestaHorasTrabajo(p.PropuestasDonacionesHorasTrabajo.FirstOrDefault(), pvm);
+                    break;
+                //case (int)TipoPropuestaEnum.Insumos:
+                //    break;
+                case (int)TipoPropuestaEnum.Monetaria:
+                    ModificarPropuestaMonetaria(p.PropuestasDonacionesMonetarias.FirstOrDefault(), pvm);
+                    break;
+            }
+        }
+        private void ModificarPropuestaHorasTrabajo(PropuestasDonacionesHorasTrabajo propuesta, PropuestaViewModel pvm)
+        {
+            PropuestasDonacionesHorasTrabajo propuestaModificada = context.PropuestasDonacionesHorasTrabajo
+                .Find(propuesta.IdPropuestaDonacionHorasTrabajo);
+            if (pvm.PropuestaDonacionesHorasTrabajo.CantidadHoras == 0)
+            {
+                propuestaModificada.CantidadHoras = propuesta.CantidadHoras;
+            }
+            else
+            {
+                propuestaModificada.CantidadHoras = pvm.PropuestaDonacionesHorasTrabajo.CantidadHoras;
+            }
+            propuestaModificada.Profesion = pvm.PropuestaDonacionesHorasTrabajo.Profesion;
+            context.SaveChanges();
+        }
+        private void ModificarPropuestaMonetaria(PropuestasDonacionesMonetarias propuesta, PropuestaViewModel pvm)
+        {
+            PropuestasDonacionesMonetarias propuestaModificada = context.PropuestasDonacionesMonetarias
+                .Find(propuesta.IdPropuestaDonacionMonetaria);
+            propuestaModificada.Dinero = pvm.PropuestasDonacionesMonetarias.Dinero;
+            context.SaveChanges();
+        }
+        //private void ModificarPropuestaInsumos(PropuestasDonacionesInsumos propuesta)
+        //{
+        //    PropuestasDonacionesInsumos propuestaModificada = context.PropuestasDonacionesHorasTrabajo
+        //        .Find(propuesta.IdPropuestaDonacionHorasTrabajo);
+        //    propuestaModificada.Profesion = propuesta.Profesion;
+        //    propuestaModificada.CantidadHoras = propuesta.CantidadHoras;
+        //    context.SaveChanges();
+        //}
         public void Valorar(int id, int idUser, string valor)
         {
             var result = context.PropuestasValoraciones.Where(p => p.IdPropuesta == id)
