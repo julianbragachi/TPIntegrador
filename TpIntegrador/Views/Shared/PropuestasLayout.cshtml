@@ -8,9 +8,11 @@
             <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
             <li>@Html.ActionLink("Crear propuesta", "AgregarPropuesta", "Propuestas")</li>
             <li>@Html.ActionLink("Mi perfil", "Index", "Perfil")</li>
-            <li>@Html.ActionLink("Acerca de", "Contact", "Home")</li>
-            <li>@Html.ActionLink("Denuncias", "Complaints", "Admin")</li>
             <li>@Html.ActionLink("Mis Donaciones", "MisDonaciones", "Donaciones")</li>
+            @if ((int)Session["User"] == 1)
+            {
+                <li>@Html.ActionLink("Denuncias", "Complaints", "Admin")</li>
+            }
         </ul>
     </div>
 </nav>

@@ -13,10 +13,12 @@ namespace AyudandoAlProjimo.Services
 
         public List<Denuncias> ListarDenuncias()
         {
+            if (ctx.Denuncias.Count() == 0) return new List<Denuncias>();
+
             //denuncias estado=1
             //estado = 2 desestimar
             //estado = 3 aceptada
-            var result = ctx.Denuncias
+            List<Denuncias> result = ctx.Denuncias
                             .Include("MotivoDenuncia")
                             .Where(d => d.Estado == 1)
                             .OrderByDescending(d => d.FechaCreacion)
