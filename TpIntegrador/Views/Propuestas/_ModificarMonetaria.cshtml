@@ -1,0 +1,8 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
+
+    <div class="input-field col s6">
+        <i class="material-icons prefix">attach_money</i>
+        @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero, new { htmlAttributes = new { @class = "validate", @id = "Dinero", @required = true } })
+        <label for="cash">Dinero</label>
+        @Html.ValidationMessageFor(x => x.Propuesta.PropuestasDonacionesMonetarias.FirstOrDefault().Dinero, "", new { @class = "text-danger" })
+    </div>

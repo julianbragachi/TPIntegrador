@@ -15,6 +15,6 @@ namespace AyudandoAlProjimo.Data.ViewModels
 
         public Usuarios UsuarioCreador { get; set; }
         public decimal PorcentajeRealizacion { get; set; }
-
+        public List<InsumosViewModel> Insumos { get; set; }
     }
 }

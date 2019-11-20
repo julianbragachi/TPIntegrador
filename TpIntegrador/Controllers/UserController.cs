@@ -16,8 +16,6 @@ namespace TpIntegrador.Controllers
         private readonly RegisterService rs = new RegisterService();
         private readonly UserService us = new UserService();
         private readonly ProposalService ps = new ProposalService();
-        private ProposalService ProposalService = new ProposalService();
-        private UserService userService = new UserService();
 
         [HttpGet]
         public ActionResult Register()
@@ -52,34 +50,23 @@ namespace TpIntegrador.Controllers
         public ActionResult Home()
         {
             int idUsar= Convert.ToInt32(Session["ID"]);
-            return View(ProposalService.BusquedaMisPropuestasActivas(idUsar));
+            return View(ps.BusquedaMisPropuestasActivas(idUsar));
         }
 
         [CheckSession]
         public ActionResult Donaciones()
         {
             int idUser = Convert.ToInt32(Session["ID"]); 
-            return View(userService.BuscarDonaciones(idUser));
+            return View(us.BuscarDonaciones(idUser));
         }
-                    //creo un nombre significativo en este caso apellidonombre pero solo un caracter del nombre, ejemplo BatistutaG
-                    string nombreSignificativo = pvm.Nombre + pvm.Apellido;
-                    //Guardar Imagen
-                    string pathRelativoImagen = ImagenesUtility.Guardar(Request.Files[0], nombreSignificativo);
-                    usuarioBD.Foto = pathRelativoImagen;
-                }
-            }
-            usuarioBD.Nombre = pvm.Nombre;
-            usuarioBD.Apellido = pvm.Apellido;
-            us.ActualizarPerfilDelUsuario(usuarioBD);
-            return Redirect("/Home/Index");
-        }
+
         [HttpGet]
         public ActionResult Denunciar(int id)
         {
             Boolean b = us.VerificarExistenciaDeDenunciaDelUsuario((int)Session["ID"],id);
             if (b)
             {
-                TempData["Mensaje"] = "Ya ha emitido una denuncia para esta propuesta.";
+                TempData["Mensaje"+id] = "Ya ha emitido una denuncia para esta propuesta.";
                 return Redirect("/Propuestas/VerDetalles/" + id);
             }
             else

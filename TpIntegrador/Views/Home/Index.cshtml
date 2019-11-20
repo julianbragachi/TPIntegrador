@@ -83,6 +83,14 @@
                             </div>
                             <div class="card-action">
                                 @Html.ActionLink("Ver Detalles", "VerDetalles", "Propuestas", new { id = @propuesta.IdPropuesta }, null)
+                                <a href="@Url.Action("ModificarPropuesta", "Propuestas", new { id = @propuesta.IdPropuesta} )" class="btn btn-primary">
+                                    <i class="material-icons right">
+                                        edit
+                                    </i>
+                                    <span>
+                                        <strong>Modificar</strong>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>

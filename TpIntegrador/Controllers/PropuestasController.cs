@@ -140,7 +140,11 @@ namespace TpIntegrador.Controllers
         {
             return View(ProposalService.VerPropuestaYDonaciones(id));
         }
-
+        [HttpGet]
+        public ActionResult ModificarPropuesta(int id)
+        {
+            return View(ProposalService.VerPropuestaYDonaciones(id));
+        }
         private bool isValidUserSession()
         {
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;
@@ -152,21 +156,12 @@ namespace TpIntegrador.Controllers
         }
 
         [CheckSession]
-        //Falta modificar para que rediriga al boton Megusta 
-        //si no esta logeado al apretar el boton
         [HttpGet]
         public ActionResult Valoracion(int id, string valor)
         {
             ProposalService.Valorar(id, (int)Session["ID"], valor);
             return Redirect("/Home/Index");
         }
-
-        //[CheckSession]
-        //[HttpGet]
-        //public ActionResult Busqueda()
-        //{
-        //    return View();
-        //}
 
         [HttpGet]
         public ActionResult Buscar()

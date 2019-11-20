@@ -75,6 +75,8 @@ namespace AyudandoAlProjimo.Services
             };
             context.Denuncias.Add(denuncia);
             context.SaveChanges();
+            AdminService AS = new AdminService();
+            AS.VerificarLasCincoDenunciasDIferentes(dvm.Id);
 		}
 
         public List<DonacionesViewModel> BuscarDonaciones(int idUser)

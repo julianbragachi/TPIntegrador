@@ -54,7 +54,15 @@
                     <button class="btn waves-effect waves-light" type="button">
                         Apoyar al proyecto
                     </button>
-
+                    <a href=@Url.Action("Denunciar","User", new { id=Model.Propuesta.IdPropuesta}) class="btn waves-effect deep-orange" type="button">
+                        Denunciar
+                    </a>
+                    @if (TempData["Mensaje"+Model.Propuesta.IdPropuesta] != null)
+                    {
+                        <div>
+                                <p>@TempData["Mensaje"+Model.Propuesta.IdPropuesta]</p>
+                        </div>
+                    }
                 </div>
 
             </div>
