@@ -128,6 +128,17 @@ namespace TpIntegrador.Controllers
         {
             return View(ProposalService.VerPropuestaYDonaciones(id));
         }
+        [HttpPost]
+        public ActionResult ModificarPropuesta(PropuestaViewModel pvm)
+        {
+            if (ModelState.IsValid)
+            {
+                pvm.Propuesta.Foto = GetPathForPhoto(pvm.Propuesta.Foto);
+                ProposalService.ModificarPropuestaBase(pvm);
+                return Redirect("/Propuestas/VerDetalles/" + pvm.Propuesta.IdPropuesta);
+            }
+            return View(pvm);
+        }
         private bool isValidUserSession()
         {
             return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;

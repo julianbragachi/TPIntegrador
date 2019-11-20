@@ -21,7 +21,6 @@ namespace AyudandoAlProjimo.Services
                             .Where(d => d.Estado == 1)
                             .OrderByDescending(d => d.FechaCreacion)
                             .ToList();
-
             return result;
         }
 

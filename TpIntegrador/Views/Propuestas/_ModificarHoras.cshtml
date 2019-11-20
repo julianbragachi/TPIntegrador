@@ -1,14 +1,25 @@
 ﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
 
-    <div class="input-field col s6">
+    <div class="input-field col s3">
         <i class="material-icons prefix">access_time</i>
-        @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras", @required = true } })
-        <label for="access_time">Cantidad de Horas</label>
+        @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras", disabled = true} })
+    <label for="access_time">Actual Cantidad de Horas</label>
         @Html.ValidationMessageFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, "", new { @class = "text-danger" })
     </div>
-    <div class="input-field col s6">
+    <div class="input-field col s3">
+        <i class="material-icons prefix">access_time</i>
+        @Html.EditorFor(x => x.PropuestaDonacionesHorasTrabajo.CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras"} })
+        <label for="access_time">Nueva Cantidad de Horas</label>
+        @Html.ValidationMessageFor(x => x.PropuestaDonacionesHorasTrabajo.CantidadHoras, "", new { @class = "text-danger" })
+    </div>
+    <div class="input-field col s3">
         <i class="material-icons prefix">wc</i>
-        @Html.DropDownListFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion,
+        @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras", disabled = true } })
+        <label for="wc">Profesion</label>
+        </div>
+    <div class="input-field col s3">
+        <i class="material-icons prefix">wc</i>
+        @Html.DropDownListFor(x => x.PropuestaDonacionesHorasTrabajo.Profesion,
             new SelectList(new[] {
                 new { ID = "1", Name = "Albañil" },
                 new { ID = "2", Name = "Plomero" },
@@ -21,6 +32,6 @@
                 new { ID = "9", Name = "Cocinero" },
                 new { ID = "10", Name = "Otro" },
             }, "ID", "Name", 1)
-            , new { @class = "with-gap", @id = "DonationType" , @required = true})
+            , new { @class = "with-gap", @id = "DonationType" , required = true})
         <label for="moneyDestination">Profesion</label>
     </div>
