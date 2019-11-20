@@ -13,6 +13,46 @@
 </div>
 
 <div class="section white">
+    @if (Model.IsLoggedIn)
+    {
+        <div class="row container">
+            <h2 class="header" style="font-family: 'WCManoNegraBta';">Buscar propuestas</h2>
+            <div class="row">
+                <form class="col s12" onsubmit="handleSearchSubmit(event, '@Session["ID"]')">
+                    <div class="row d-flex" style="align-items: center;">
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">search</i>
+                            <input type="text" id="autocomplete-input" class="autocomplete" />
+                            <label for="autocomplete-input">Ingrese nombre de propuesta o nombre del usuario</label>
+                        </div>
+                        <div class="col s4">
+                            <input type="submit" value="buscar" class="waves-effect waves-light btn white-text" style="color: white;" />
+                        </div>
+                    </div>
+                </form>
+
+                <div id="loader-search" class="col s12 center-align" style="display: none;">
+
+                    <div class="preloader-wrapper small active">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="result-search" class="col s12" style="display: none;">
+
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="row container">
         <h2 class="header" style="font-family: 'WCManoNegraBta';">Propuestas mas Valoradas</h2>
         <div class="row">

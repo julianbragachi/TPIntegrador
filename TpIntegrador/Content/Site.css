@@ -126,3 +126,12 @@ h1, h2, h3, h4, h5, h6 {
 .info-text {
     font-size: 12px;
 }
+
+.container-card-propuestas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.container-card-propuestas div {
+    padding: 0 0.75rem;
+}

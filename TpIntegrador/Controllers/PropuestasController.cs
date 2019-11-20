@@ -274,13 +274,13 @@ namespace TpIntegrador.Controllers
         //    return View();
         //}
 
-        [HttpGet]
-        public ActionResult Buscar()
-        {
-            int id = int.Parse(Request["id"]);
-            string busqueda = Request["Busqueda"];
-            List<Propuestas> resultado = ProposalService.BusquedaPropuestasAjenasPorParametro(busqueda, id);
-            return View(resultado);
-        }
+        //[HttpGet]
+        //public ActionResult Buscar()
+        //{
+        //    int id = int.Parse(Request["id"]);
+        //    string busqueda = Request["Busqueda"];
+        //    List<Propuestas> resultado = ProposalService.BusquedaPropuestasAjenasPorParametro(busqueda, id);
+        //    return View(resultado);
+        //}
     }
 }

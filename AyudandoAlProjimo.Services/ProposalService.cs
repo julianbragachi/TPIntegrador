@@ -107,7 +107,7 @@ namespace AyudandoAlProjimo.Services
                 d.IdPropuestaDonacionInsumo = item.Id;
                 d.Cantidad = item.Cantidad;
                 d.IdUsuario = userId;
-                
+
                 context.Propuestas
                     .Where(x => x.IdPropuesta == idPropuesta)
                     .Single().PropuestasDonacionesInsumos
@@ -158,13 +158,14 @@ namespace AyudandoAlProjimo.Services
 
         public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
         {
-            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda)).ToList();
+            List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda) || u.Nombre.Contains(busqueda) || u.Apellido.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
             List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
                 (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
+
             return lista;
         }
 
