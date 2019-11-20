@@ -13,6 +13,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
         [Required]
         public decimal Dinero { get; set; }
         [Required]
+        [StringLength(80)]
         public string CBU { get; set; }
     }
 }

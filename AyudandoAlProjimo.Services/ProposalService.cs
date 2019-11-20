@@ -376,6 +376,17 @@ namespace AyudandoAlProjimo.Services
             propuesta.Valoracion = ((decimal)a / (decimal)b) * 100;
             context.SaveChanges();
         }
-
+        public void VerificarPropuestasPorTerminar()
+        {
+            List<Propuestas> lista = context.Propuestas.Where(p => p.Estado == 1).ToList();
+            foreach(var l in lista)
+            {
+                if (l.FechaFin <= DateTime.Now)
+                {
+                    l.Estado = 0;
+                }
+            }
+            context.SaveChanges();
+        }
     }
 }
