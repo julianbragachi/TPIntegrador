@@ -15,6 +15,7 @@ namespace TpIntegrador
             bundles.Add(new ScriptBundle("~/bundles/Views").Include(
                         "~/Scripts/Views/_Layout.js",
                         "~/Scripts/Views/Home/Index.js",
+                        "~/Scripts/Views/Donaciones/MisDonaciones.js",
                         "~/Scripts/Views/Propuestas/AgregarPropuestas.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -68,6 +68,13 @@ namespace TpIntegrador.Controllers
             return View(m);
         }
 
+        [CheckSession]
+        public ActionResult MisDonaciones()
+        {
+            ViewBag.SessionID = Session["ID"];
+            return View();
+        }
+
         [HttpPost]
         public ActionResult DonarMonetario(RealizarDonacionMonetariaViewModel m)
         {

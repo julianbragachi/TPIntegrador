@@ -50,18 +50,15 @@
                             <div class="determinate" style="width: @Model.PorcentajeRealizacion%"></div>
                         </div>
                     </div>
-                    <button class="btn waves-effect waves-light" type="button">
-                        Apoyar al proyecto
-                    </button>
-                    <a href=@Url.Action("Denunciar","User", new { id=Model.Propuesta.IdPropuesta}) class="btn waves-effect deep-orange" type="button">
-                        Denunciar
-                    </a>
-                    @if (TempData["Mensaje"+Model.Propuesta.IdPropuesta] != null)
+
+
+                    @if (TempData["Mensaje" + Model.Propuesta.IdPropuesta] != null)
                     {
                         <div>
-                                <p>@TempData["Mensaje"+Model.Propuesta.IdPropuesta]</p>
+                            <p>@TempData["Mensaje" + Model.Propuesta.IdPropuesta]</p>
                         </div>
                     }
+
                     @Html.ActionLink("Apoyar al proyecto", "Index", "Donaciones", new { id = Model.Propuesta.IdPropuesta }, new { @class = "btn waves-effect waves-light" })
 
                     <a class="btn waves-effect waves-light" href="@Url.Action("Valoracion", "Propuestas", new { id = Model.Propuesta.IdPropuesta, valor = "Like" } )">
@@ -73,6 +70,12 @@
                         <i class="tiny material-icons left">thumb_down_alt</i>
                         No me gusta
                     </a>
+
+                    <p style="margin-top: 10px;">
+                        <a href=@Url.Action("Denunciar","User", new { id=Model.Propuesta.IdPropuesta}) class="btn waves-effect waves-light red">
+                            Denunciar
+                        </a>
+                    </p>
                 </div>
 
             </div>

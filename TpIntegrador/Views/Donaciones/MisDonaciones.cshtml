@@ -1,0 +1,34 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.RealizarDonacionInsumosViewModel
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Mis donaciones";
+}
+
+<div class="container">
+    <div class="card margin-top-bottom-50">
+        <div class="card-content">
+            <div class="row no-margin">
+                <h2 class="title-propuesta no-margin">Mis donaciones</h2>
+
+                <input type="hidden" value="@ViewBag.SessionID" id="hdnSessionID" />
+
+                <div class="col s12 center-align" id="loader-mispropuestas">
+                    <div class="preloader-wrapper active">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="mispropuestas-container" style="margin-top: 20px;"></div>
+
+            </div>
+        </div>
+    </div>
+</div>

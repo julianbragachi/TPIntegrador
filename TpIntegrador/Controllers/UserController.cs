@@ -53,13 +53,6 @@ namespace TpIntegrador.Controllers
             return View(ps.BusquedaMisPropuestasActivas(idUsar));
         }
 
-        [CheckSession]
-        public ActionResult Donaciones()
-        {
-            int idUser = Convert.ToInt32(Session["ID"]); 
-            return View(us.BuscarDonaciones(idUser));
-        }
-
         [HttpGet]
         public ActionResult Denunciar(int id)
         {
@@ -78,6 +71,7 @@ namespace TpIntegrador.Controllers
                 return View(d);
             }
         }
+        
         [HttpPost]
         public ActionResult Denunciar (DenunciaViewModel d)
         {

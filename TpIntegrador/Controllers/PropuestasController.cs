@@ -146,8 +146,6 @@ namespace TpIntegrador.Controllers
             return Redirect("/Home/Index");
         }
 
-        [HttpGet]
-        public ActionResult Buscar()
         private string GetPathForPhoto(string name)
         {
             return ImagenesUtility.Guardar(Request.Files[0], name + "-FOTO");
