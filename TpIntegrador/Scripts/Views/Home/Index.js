@@ -37,12 +37,13 @@ function handleSearchSubmit(e, userId) {
             resultContainer.append(`<div class="card-panel red"><span class="white-text">No se han encontrados resultados para <strong>${query}</strong></span></div>`);
         }
 
-
         resultContainer.show();
     }).fail(function (e) {
         console.log({ e });
+        resultContainer.empty();
         loaderContainer.hide();
-        resultContainer.hide();
+        resultContainer.append(`<div class="card-panel red"><span class="white-text">Ups, hubo un erro al buscar la informacion.</span></div>`);
+        resultContainer.show();
     })
 
 }
