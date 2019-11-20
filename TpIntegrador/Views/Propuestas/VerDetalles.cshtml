@@ -50,7 +50,6 @@
                             <div class="determinate" style="width: @Model.PorcentajeRealizacion%"></div>
                         </div>
                     </div>
-
                     <button class="btn waves-effect waves-light" type="button">
                         Apoyar al proyecto
                     </button>
@@ -63,6 +62,8 @@
                                 <p>@TempData["Mensaje"+Model.Propuesta.IdPropuesta]</p>
                         </div>
                     }
+                    @Html.ActionLink("Apoyar al proyecto", "Index", "Donaciones", new { id = Model.Propuesta.IdPropuesta }, new { @class = "btn waves-effect waves-light" })
+
                 </div>
 
             </div>

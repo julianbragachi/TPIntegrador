@@ -109,6 +109,9 @@
     </Compile>
     <Compile Include="ViewModels\DenunciaViewModel.cs" />
     <Compile Include="ViewModels\DonacionesViewModel.cs" />
+    <Compile Include="ViewModels\RealizarDonacionInsumosViewModel.cs" />
+    <Compile Include="ViewModels\RealizarDonacionHorasViewModel.cs" />
+    <Compile Include="ViewModels\RealizarDonacionMonetariaViewModel.cs" />
     <Compile Include="ViewModels\HomeIndexViewModel.cs" />
     <Compile Include="ViewModels\InsumosViewModel.cs" />
     <Compile Include="ViewModels\PerfilViewModel.cs" />

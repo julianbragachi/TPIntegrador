@@ -1,0 +1,58 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.RealizarDonacionInsumosViewModel
+@{
+    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Donar Insumos";
+}
+
+<div class="container">
+    <div class="card margin-top-bottom-50">
+        <div class="card-content">
+            <div class="row no-margin">
+                <h2 class="title-propuesta no-margin">Donación para @Model.Propuesta.Nombre</h2>
+
+                @using (Html.BeginForm())
+                {
+                    <div class="row margin-bottom-20">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Insumo</th>
+                                    <th>Objetivo</th>
+                                    <th>Cantidad a donar</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @for (int i = 0; i < Model.Formulario.Insumos.Count; i++)
+                                {
+                                    <input type="hidden" value="@Model.Formulario.Insumos[i].Id" name="Formulario.Insumos[@i.ToString()].Id" />
+                                    <input type="hidden" value="@Model.Formulario.Insumos[i].Nombre" name="Formulario.Insumos[@i.ToString()].Nombre" />
+                                    <tr>
+                                        <td>
+                                            @Model.Formulario.Insumos[i].Nombre
+                                        </td>
+                                        <td>@Model.Propuesta.PropuestasDonacionesInsumos.Where(x => x.IdPropuestaDonacionInsumo == Model.Formulario.Insumos[i].Id).Single().Cantidad</td>
+                                        <td>@Html.EditorFor(x => x.Formulario.Insumos[i].Cantidad, new { htmlAttributes = new { @class = "validate" } })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <ul class="tabla-objetivos">
+                            <li>
+                                <p><strong>@(Math.Round((Model.Propuesta.FechaFin - DateTime.Now).TotalDays))</strong></p>
+                                <span class="info-text">Días restantes</span>
+                            </li>
+                        </ul>
+
+                        <div class="right">
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Enviar<i class="material-icons right">edit</i></button>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

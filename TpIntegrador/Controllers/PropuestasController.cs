@@ -19,20 +19,12 @@ namespace TpIntegrador.Controllers
         [CheckSession]
         public ActionResult AgregarPropuesta()
         {
-            var isLoggedIn = isValidUserSession();
-
-            if (!isLoggedIn) return Redirect("/Ingresar/Login");
-
             return View();
         }
 
         [CheckSession]
         public ActionResult AgregarPropuestaMonetaria()
         {
-            var isLoggedIn = isValidUserSession();
-
-            if (!isLoggedIn) return Redirect("/Ingresar/Login");
-
             AgregarPropuestaMonetariaViewModel p = new AgregarPropuestaMonetariaViewModel();
 
             p.TipoDonacion = TipoPropuestaEnum.Monetaria;
@@ -43,10 +35,6 @@ namespace TpIntegrador.Controllers
         [CheckSession]
         public ActionResult AgregarPropuestaInsumos()
         {
-            var isLoggedIn = isValidUserSession();
-
-            if (!isLoggedIn) return Redirect("/Ingresar/Login");
-
             AgregarPropuestaInsumosViewModel p = new AgregarPropuestaInsumosViewModel();
 
             p.TipoDonacion = TipoPropuestaEnum.Insumos;
@@ -57,10 +45,6 @@ namespace TpIntegrador.Controllers
         [CheckSession]
         public ActionResult AgregarPropuestaHoraTrabajo()
         {
-            var isLoggedIn = isValidUserSession();
-
-            if (!isLoggedIn) return Redirect("/Ingresar/Login");
-
             AgregarPropuestaHoraTrabajoViewModel p = new AgregarPropuestaHoraTrabajoViewModel();
 
             p.TipoDonacion = TipoPropuestaEnum.HorasTrabajo;
@@ -73,7 +57,6 @@ namespace TpIntegrador.Controllers
         {
             if (!ModelState.IsValid) return View(p);
 
-
             var user = UserService.TraerPerfilDelUsuario((int)Session["ID"]);
             var error = ProposalService.ValidateBeforeCreate(user);
 
@@ -84,7 +67,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p);
+            p.Foto = GetPathForPhoto(p.Nombre);
 
             ProposalService.AgregarPropuestaMonetaria(p, user);
 
@@ -106,7 +89,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p);
+            p.Foto = GetPathForPhoto(p.Foto);
 
             ProposalService.AgregarPropuestaHoraTrabajo(p, user);
 
@@ -128,7 +111,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p);
+            p.Foto = GetPathForPhoto(p.Foto);
 
             ProposalService.AgregarPropuestaInsumos(p, user);
 
@@ -165,11 +148,9 @@ namespace TpIntegrador.Controllers
 
         [HttpGet]
         public ActionResult Buscar()
+        private string GetPathForPhoto(string name)
         {
-            int id = int.Parse(Request["id"]);
-            string busqueda = Request["Busqueda"];
-            List<Propuestas> resultado = ProposalService.BusquedaPropuestasAjenasPorParametro(busqueda, id);
-            return View(resultado);
+            return ImagenesUtility.Guardar(Request.Files[0], name + "-FOTO");
         }
     }
 }
