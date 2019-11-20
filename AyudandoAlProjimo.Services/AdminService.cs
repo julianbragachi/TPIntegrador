@@ -34,6 +34,7 @@ namespace AyudandoAlProjimo.Services
             var propuesta = ctx.Propuestas.Find(denuncia.IdPropuesta);
             propuesta.Estado = 1;
             ctx.SaveChanges();
+            VerificarLasCincoDenunciasDIferentes(id);
         }
 
         public void AceptarDenuncia(int id)
@@ -43,6 +44,20 @@ namespace AyudandoAlProjimo.Services
             var propuesta = ctx.Propuestas.Find(denuncia.IdPropuesta);
             propuesta.Estado = 0;
             ctx.SaveChanges();
+        }
+        public void VerificarLasCincoDenunciasDIferentes(int id)
+        {
+            int cantidad = ctx.Denuncias.Where(d => d.IdPropuesta == id && d.Estado == 1).Count();
+            if (cantidad>=5)
+            {
+                Propuestas propuesta = ctx.Propuestas.Where(p => p.IdPropuesta == id).Single();
+                propuesta.Estado = 0;
+                ctx.SaveChanges();
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

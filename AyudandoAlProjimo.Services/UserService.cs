@@ -49,6 +49,35 @@ namespace AyudandoAlProjimo.Services
             }
             context.SaveChanges();
         }
+        public Boolean VerificarExistenciaDeDenunciaDelUsuario(int usuario, int propuesta)
+        {
+            var denunciaExistente = context.Denuncias.Any(d => d.IdUsuario == usuario && d.IdPropuesta == propuesta);
+            if (denunciaExistente)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void DenunciarPropuesta(DenunciaViewModel dvm, int idUser)
+        {
+            MotivoDenuncia motivo = context.MotivoDenuncia.Single(m => m.Descripcion == dvm.Motivo);
+            Denuncias denuncia = new Denuncias
+            {
+                IdMotivo = motivo.IdMotivoDenuncia,
+                IdUsuario = idUser,
+                IdPropuesta = dvm.Id,
+                Comentarios = dvm.Comentarios,
+                FechaCreacion = DateTime.Now,
+                Estado = 1
+            };
+            context.Denuncias.Add(denuncia);
+            context.SaveChanges();
+            AdminService AS = new AdminService();
+            AS.VerificarLasCincoDenunciasDIferentes(dvm.Id);
+		}
 
         public List<DonacionesViewModel> BuscarDonaciones(int idUser)
         {

@@ -1,0 +1,19 @@
+﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
+
+<div id="container-insumos">
+    <div id="insumo-0">
+        <div class="input-field col s6">
+            <i class="material-icons prefix">build</i>
+            @Html.EditorFor(x => x.Insumos[0].Nombre, new { htmlAttributes = new { @class = "validate" } })
+            <label for="moneyDestination">Nombre</label>
+            @Html.ValidationMessageFor(x => x.Insumos[0].Nombre, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="input-field col s6">
+            <i class="material-icons prefix">poll</i>
+            @Html.EditorFor(x => x.Insumos[0].Cantidad, new { htmlAttributes = new { @class = "validate" } })
+            <label>Cantidad</label>
+            @Html.ValidationMessageFor(x => x.Insumos[0].Cantidad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

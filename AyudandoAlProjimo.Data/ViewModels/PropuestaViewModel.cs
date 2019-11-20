@@ -12,9 +12,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
         public List<DonacionesHorasTrabajo> DonacionesHorasTrabajo { get; set; }
         public List<DonacionesInsumos> DonacionesInsumos { get; set; }
         public List<DonacionesMonetarias> DonacionesMonetarias { get; set; }
-
         public Usuarios UsuarioCreador { get; set; }
         public int PorcentajeRealizacion { get; set; }
-
     }
 }

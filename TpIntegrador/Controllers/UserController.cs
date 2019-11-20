@@ -14,8 +14,8 @@ namespace TpIntegrador.Controllers
     public class UserController : Controller
     {
         private readonly RegisterService rs = new RegisterService();
-        private ProposalService ProposalService = new ProposalService();
-        private UserService userService = new UserService();
+        private readonly UserService us = new UserService();
+        private readonly ProposalService ps = new ProposalService();
 
         [HttpGet]
         public ActionResult Register()
@@ -50,15 +50,43 @@ namespace TpIntegrador.Controllers
         public ActionResult Home()
         {
             int idUsar= Convert.ToInt32(Session["ID"]);
-            return View(ProposalService.BusquedaMisPropuestasActivas(idUsar));
+            return View(ps.BusquedaMisPropuestasActivas(idUsar));
         }
 
         [CheckSession]
         public ActionResult Donaciones()
         {
             int idUser = Convert.ToInt32(Session["ID"]); 
-            return View(userService.BuscarDonaciones(idUser));
+            return View(us.BuscarDonaciones(idUser));
         }
 
+        [HttpGet]
+        public ActionResult Denunciar(int id)
+        {
+            Boolean b = us.VerificarExistenciaDeDenunciaDelUsuario((int)Session["ID"],id);
+            if (b)
+            {
+                TempData["Mensaje"+id] = "Ya ha emitido una denuncia para esta propuesta.";
+                return Redirect("/Propuestas/VerDetalles/" + id);
+            }
+            else
+            {
+                DenunciaViewModel d = new DenunciaViewModel
+                {
+                    Id = id
+                };
+                return View(d);
+            }
+        }
+        [HttpPost]
+        public ActionResult Denunciar (DenunciaViewModel d)
+        {
+            if (ModelState.IsValid)
+            {
+                us.DenunciarPropuesta(d, (int)Session["ID"]);
+                return Redirect("/Propuestas/VerDetalles/" + d.Id);
+            }
+            return View(d);
+        }
     }
 }

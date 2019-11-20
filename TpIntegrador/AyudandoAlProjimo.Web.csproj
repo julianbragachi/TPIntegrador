@@ -174,6 +174,18 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\BaseLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Propuestas\ModificarPropuesta.cshtml" />
+    <Content Include="Views\Propuestas\_ModificarHoras.cshtml" />
+    <Content Include="Views\Propuestas\_ModificarMonetaria.cshtml" />
     <Content Include="Views\Donaciones\DonarMonetario.cshtml" />
     <Content Include="Views\Donaciones\DonarHoras.cshtml" />
     <Content Include="Views\Donaciones\DonarInsumos.cshtml" />
@@ -201,6 +213,9 @@
     <Content Include="Views\Propuestas\AgregarPropuestaHoraTrabajo.cshtml" />
     <Content Include="Views\Propuestas\VerDetalles.cshtml" />
     <Content Include="Views\Propuestas\AgregarPropuestaInsumos.cshtml" />
+    <Content Include="Views\User\Denunciar.cshtml" />
+    <Content Include="Views\Propuestas\Busqueda.cshtml" />
+    <Content Include="Views\Propuestas\Buscar.cshtml" />
     <Content Include="Views\Perfil\Index.cshtml" />
     <Content Include="Views\User\Home.cshtml" />
     <Content Include="Views\User\Donaciones.cshtml" />
@@ -248,6 +263,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties content_4bootstrap-reboot_1css_1map__JsonSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

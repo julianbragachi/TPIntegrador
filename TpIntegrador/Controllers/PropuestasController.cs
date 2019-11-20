@@ -123,10 +123,22 @@ namespace TpIntegrador.Controllers
         {
             return View(ProposalService.VerPropuestaYDonaciones(id));
         }
+        [HttpGet]
+        public ActionResult ModificarPropuesta(int id)
+        {
+            return View(ProposalService.VerPropuestaYDonaciones(id));
+        }
+        private bool isValidUserSession()
+        {
+            return Session["ID"] != null && UserService.TraerPerfilDelUsuario((int)Session["ID"]) != null;
+        }
+
+        private string GetPathForPhoto(AgregarPropuestaBase p)
+        {
+            return ImagenesUtility.Guardar(Request.Files[0], p.Nombre + "-FOTO");
+        }
 
         [CheckSession]
-        //Falta modificar para que rediriga al boton Megusta 
-        //si no esta logeado al apretar el boton
         [HttpGet]
         public ActionResult Valoracion(int id, string valor)
         {
@@ -134,6 +146,8 @@ namespace TpIntegrador.Controllers
             return Redirect("/Home/Index");
         }
 
+        [HttpGet]
+        public ActionResult Buscar()
         private string GetPathForPhoto(string name)
         {
             return ImagenesUtility.Guardar(Request.Files[0], name + "-FOTO");
