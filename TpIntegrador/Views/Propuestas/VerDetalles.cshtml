@@ -1,7 +1,7 @@
 ﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
 
 @{
-    Layout = "~/Views/Shared/PropuestasLayout.cshtml";
+    Layout = Session["ID"] == null ? "~/Views/Shared/AnonimoLayout.cshtml" : "~/Views/Shared/PropuestasLayout.cshtml";
     ViewBag.Title = Model.Propuesta.Nombre;
 }
 
