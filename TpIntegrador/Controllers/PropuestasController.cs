@@ -67,7 +67,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p.Nombre);
+            p.Foto = GetPathForPhoto(user.UserName + p.Nombre);
 
             ProposalService.AgregarPropuestaMonetaria(p, user);
 
@@ -89,7 +89,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p.Foto);
+            p.Foto = GetPathForPhoto(user.UserName + p.Nombre);
 
             ProposalService.AgregarPropuestaHoraTrabajo(p, user);
 
@@ -111,7 +111,7 @@ namespace TpIntegrador.Controllers
                 return View(p);
             }
 
-            p.Foto = GetPathForPhoto(p.Foto);
+            p.Foto = GetPathForPhoto(user.UserName + p.Nombre);
 
             ProposalService.AgregarPropuestaInsumos(p, user);
 
@@ -133,7 +133,7 @@ namespace TpIntegrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                pvm.Propuesta.Foto = GetPathForPhoto(pvm.Propuesta.Foto);
+                pvm.Propuesta.Foto = GetPathForPhoto(pvm.Propuesta.Usuarios.UserName + pvm.Propuesta.Nombre);
                 ProposalService.ModificarPropuestaBase(pvm);
                 return Redirect("/Propuestas/VerDetalles/" + pvm.Propuesta.IdPropuesta);
             }

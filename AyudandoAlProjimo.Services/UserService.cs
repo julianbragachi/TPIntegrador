@@ -73,6 +73,10 @@ namespace AyudandoAlProjimo.Services
                 FechaCreacion = DateTime.Now,
                 Estado = 1
             };
+            if (dvm.Comentarios == null)
+            {
+                denuncia.Comentarios = "Sin comentario";
+            }
             context.Denuncias.Add(denuncia);
             context.SaveChanges();
             AdminService AS = new AdminService();

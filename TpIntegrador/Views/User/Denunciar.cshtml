@@ -27,7 +27,7 @@
 
                     <div class="input-field col s12">
                         <i class="material-icons prefix">edit</i>
-                        @Html.TextAreaFor(x => x.Comentarios, new { @class = "validate materialize-textarea", @id = "description", @required = true })
+                        @Html.TextAreaFor(x => x.Comentarios, new { @class = "validate materialize-textarea", @id = "description", value =""})
                         <label for="description">Comentarios</label>
                         @Html.ValidationMessageFor(x => x.Comentarios, "", new { @class = "text-danger" })
                     </div>
