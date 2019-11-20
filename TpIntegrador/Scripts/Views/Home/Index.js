@@ -50,7 +50,7 @@ function handleSearchSubmit(e, userId) {
 
 function buildProposalCard(propuesta) {
     return `
-        <div class="col m6 s12">
+        <div class="masonry-item">
             <div class="card hoverable">
                 <div class="card-image">
                     <img class="materialboxed" src="${propuesta.Foto}">
