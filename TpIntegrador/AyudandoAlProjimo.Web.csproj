@@ -141,6 +141,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AcercaDeController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DonacionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -185,6 +186,13 @@
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
     <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\AcercaDe.cshtml" />
+    <Content Include="Views\AcercaDe\Index.cshtml" />
     <Content Include="Views\Propuestas\ModificarPropuesta.cshtml" />
     <Content Include="Views\Propuestas\_ModificarHoras.cshtml" />
     <Content Include="Views\Propuestas\_ModificarMonetaria.cshtml" />

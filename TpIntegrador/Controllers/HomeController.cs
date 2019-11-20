@@ -54,5 +54,12 @@ namespace TpIntegrador.Controllers
 
             return View("~/views/Home/Error.cshtml");
         }
+
+        [HttpGet]
+        [ActionName("Acerca-de")]
+        public ActionResult Acercade()
+        {
+            return View("Acercade");
+        }
     }
 }
