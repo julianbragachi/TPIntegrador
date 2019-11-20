@@ -369,11 +369,11 @@ namespace AyudandoAlProjimo.Services
         private void CalcularValoracion(int id)
         {
             Propuestas propuesta = context.Propuestas.Where(p => p.IdPropuesta == id).FirstOrDefault();
-            int a = context.PropuestasValoraciones
+            var a = context.PropuestasValoraciones
                         .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
-            int b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
-
-            propuesta.Valoracion = (a / b) * 100;
+            var b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
+            
+            propuesta.Valoracion = ((decimal)a / (decimal)b) * 100;
             context.SaveChanges();
         }
 

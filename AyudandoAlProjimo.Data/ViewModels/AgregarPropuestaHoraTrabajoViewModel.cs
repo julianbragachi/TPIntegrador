@@ -11,7 +11,8 @@ namespace AyudandoAlProjimo.Data.ViewModels
     {
         [Required]
         public int CantidadHoras { get; set; }
-  
+        [Required]
+        [StringLength(50)]
         public string Profesion { get; set; }
     }
 }
