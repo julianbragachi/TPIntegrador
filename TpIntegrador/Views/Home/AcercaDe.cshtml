@@ -1,9 +1,46 @@
-﻿
-@{
-    ViewBag.Title = "AcercaDe";
+﻿@{
+    Layout = Session["ID"] == null ? "~/Views/Shared/AnonimoLayout.cshtml" : "~/Views/Shared/PropuestasLayout.cshtml";
+    ViewBag.Title = "Acerca De";
 }
 
-<h2>AcercaDe</h2>
+<div class="container">
 
-<h1> Estoy acá!!!</h1>
+    <p class="flow-text">
+        Nuestros servicios
+        Ofrecemos una plataforma de recaudación digital de fondos para que Asociaciones Civiles, Cooperativas, Delegaciones, Fundaciones, ONGs, Organizaciones de la Sociedad Civil y otras Organizaciones sin fines de lucro puedan mejorar la gestión de sus donaciones con tarjeta de crédito y débito, simplificando el proceso al máximo: desde la intención de la donación hasta que la misma llega a la cuenta bancaria de la organización.
+    </p>
+
+    <p class="flow-text">
+        ¿Cómo se benefician las organizaciones que se suman a Nuestra Comunidad?
+        Ofrecemos una alternativa automática que evita el procesamiento de las donaciones de forma manual, lenta y engorrosa.
+        Simplificamos la generación de formularios de captación, la gestión de las donaciones y el vínculo con distintos procesadores de pago seguros.
+        No es necesario ningún conocimiento técnico para insertar los formularios de captación de donaciones en sus sitios web, redes o Whatsapp.
+        Cuentan con informes detallados para analizar y planificar su recaudación.
+        Disponen de los datos de sus donantes para realizar acciones de fidelización.
+        Sus datos están protegidos bajo estándares de seguridad internacionales.
+        Proveemos informes, materiales y capacitaciones gratuitas sobre recaudación de fondos.
+        Requisitos para utilizar nuestros servicios
+        Ser una Organización sin fines de lucro y presentar comprobantes de personería jurídica y de inscripción al sistema tributario.
+    </p>
+
+    <p class="flow-text">
+        Integrar un procesador de pago a elección (dependiendo del país) que permita cobrar las donaciones y transferir el dinero a la cuenta bancaria de cada organización:
+
+        CentralPos
+        Mercado Pago
+        Nuestro modelo de autosustentabilidad
+        Para continuar mejorando el proceso de recaudación digital de fondos, solicitamos a las organizaciones que forman parte de Nuestra Comunidad una colaboración del 2,7% de toda donación efectiva procesada a través de nuestra plataforma.
+    </p>
+
+    <p class="flow-text">
+        Nuestras alianzas con CentralPos y Mercado Pago nos permiten brindar una tarifa preferencial a las organizaciones, convirtiéndonos en la alternativa digital más económica para canalizar donaciones en América Latina.
+
+        Sumándote a Nuestra Comunidad, vas a ayudar a que organizaciones más pequeñas puedan crecer. Toda organización que recaude hasta $2.000 por mes podrá utilizar nuestra plataforma de manera gratuita.
+
+        Si ya contás con un aproximado de 5.000 donantes mensuales, contactanos y evaluaremos el costo en tu caso particular.
+
+    </p>
+
+</div>
+
 
