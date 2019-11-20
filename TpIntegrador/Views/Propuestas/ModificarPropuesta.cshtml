@@ -4,70 +4,75 @@
     ViewBag.Title = "Modificar Propuesta";
 }
 
-@using (Html.BeginForm("ModificarPropuesta", "Propuestas", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-        <div class="card">
-            <div class="card-content">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        @Html.EditorFor(x => x.Propuesta.Nombre, new { htmlAttributes = new { @class = "validate", @id = "NombrePropuesta", @required = true } })
-                        <label for="namePropuesta">Nombre de la propuesta</label>
-                        @Html.ValidationMessageFor(x => x.Propuesta.Nombre, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">edit</i>
-                        @Html.TextAreaFor(x => x.Propuesta.Descripcion, new { @class = "validate materialize-textarea", @id = "Descripcion", @required = true })
-                        <label for="description">Descripcion</label>
-                        @Html.ValidationMessageFor(x => x.Propuesta.Descripcion, "", new { @class = "text-danger" })
-                    </div>
-                    @* Acá están los atributos ocultos necesarios.*@
-                    @Html.HiddenFor(x => x.Propuesta.IdPropuesta, new { required = true })
-                    @Html.HiddenFor(x => x.Propuesta.TipoDonacion, new { required = true })
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">date_range</i>
-                        @Html.EditorFor(x => x.Propuesta.FechaFin, new { htmlAttributes = new { @class = "validate", @id = "FechaFin", @required = true } })
-                        <label for="endDate" class="active">Fecha fin (dd/mm/aaaa)</label>
-                        @Html.ValidationMessageFor(x => x.Propuesta.FechaFin, "", new { @class = "text-danger" })
-                    </div>
+<div class="container">
+    <div class="card margin-top-bottom-50">
+        @using (Html.BeginForm("ModificarPropuesta", "Propuestas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="card">
+                <div class="card-content">
+                    <h2 class="title-propuesta no-margin" style="margin-bottom: 20px;">Modificar Propuesta</h2>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            @Html.EditorFor(x => x.Propuesta.Nombre, new { htmlAttributes = new { @class = "validate", @id = "NombrePropuesta", @required = true } })
+                            <label for="namePropuesta">Nombre de la propuesta</label>
+                            @Html.ValidationMessageFor(x => x.Propuesta.Nombre, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">edit</i>
+                            @Html.TextAreaFor(x => x.Propuesta.Descripcion, new { @class = "validate materialize-textarea", @id = "Descripcion", @required = true })
+                            <label for="description">Descripcion</label>
+                            @Html.ValidationMessageFor(x => x.Propuesta.Descripcion, "", new { @class = "text-danger" })
+                        </div>
+                        @* Acá están los atributos ocultos necesarios.*@
+                        @Html.HiddenFor(x => x.Propuesta.IdPropuesta, new { required = true })
+                        @Html.HiddenFor(x => x.Propuesta.TipoDonacion, new { required = true })
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">date_range</i>
+                            @Html.EditorFor(x => x.Propuesta.FechaFin, new { htmlAttributes = new { @class = "validate", @id = "FechaFin", @required = true } })
+                            <label for="endDate" class="active">Fecha fin (dd/mm/aaaa)</label>
+                            @Html.ValidationMessageFor(x => x.Propuesta.FechaFin, "", new { @class = "text-danger" })
+                        </div>
 
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">phone</i>
-                        @Html.EditorFor(x => x.Propuesta.TelefonoContacto, new { htmlAttributes = new { @class = "validate", @id = "phone", @required = true } })
-                        <label for="phone">Telefono de contacto</label>
-                        @Html.ValidationMessageFor(x => x.Propuesta.TelefonoContacto, "", new { @class = "text-danger" })
-                    </div>
-                    @{
-                        switch (Model.Propuesta.TipoDonacion)
-                        {
-                            case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.Monetaria:
-                                Html.RenderPartial("_ModificarMonetaria");
-                                break;
-                            case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.HorasTrabajo:
-                                Html.RenderPartial("_ModificarHoras");
-                                break;
-                                //case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.Insumos:
-                                //    Html.RenderPartial("_DetalleInsumos");
-                                //    break;
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">phone</i>
+                            @Html.EditorFor(x => x.Propuesta.TelefonoContacto, new { htmlAttributes = new { @class = "validate", @id = "phone", @required = true } })
+                            <label for="phone">Telefono de contacto</label>
+                            @Html.ValidationMessageFor(x => x.Propuesta.TelefonoContacto, "", new { @class = "text-danger" })
+                        </div>
+                        @{
+                            switch (Model.Propuesta.TipoDonacion)
+                            {
+                                case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.Monetaria:
+                                    Html.RenderPartial("_ModificarMonetaria");
+                                    break;
+                                case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.HorasTrabajo:
+                                    Html.RenderPartial("_ModificarHoras");
+                                    break;
+                                    //case (int)AyudandoAlProjimo.Data.TipoPropuestaEnum.Insumos:
+                                    //    Html.RenderPartial("_DetalleInsumos");
+                                    //    break;
+                            }
                         }
-                    }
-                    <div class="col 6 container">
-                        <img src="@(string.IsNullOrEmpty(Model.Propuesta.Foto) ? "https://news.bitcoin.com/wp-content/uploads/2019/06/india-petition.png" : Model.Propuesta.Foto)" style="max-width: 40%; margin-bottom: 20px;" />
-                        <div>
-                            <input type="file" name="Propuesta.Foto" accept="image/*" required/>
-                            <p>
-                                @Html.ValidationMessageFor(model => model.Propuesta.Foto, "", new { @class = "text-danger" })
-                            </p>
+                        <div class="col 6 container">
+                            <img src="@(string.IsNullOrEmpty(Model.Propuesta.Foto) ? "https://news.bitcoin.com/wp-content/uploads/2019/06/india-petition.png" : Model.Propuesta.Foto)" style="max-width: 40%; margin-bottom: 20px;" />
+                            <div>
+                                <input type="file" name="Propuesta.Foto" accept="image/*" required />
+                                <p>
+                                    @Html.ValidationMessageFor(model => model.Propuesta.Foto, "", new { @class = "text-danger" })
+                                </p>
+                            </div>
                         </div>
                     </div>
+
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                        Enviar
+                        <i class="material-icons right">send</i>
+                    </button>
+
+
                 </div>
-
-                <button class="btn waves-effect waves-light" type="submit" name="action">
-                    Enviar
-                    <i class="material-icons right">send</i>
-                </button>
-
-
             </div>
-        </div>
-}
+        }
+    </div>
+</div>
