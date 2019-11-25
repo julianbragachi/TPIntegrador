@@ -20,6 +20,7 @@ namespace AyudandoAlProjimo.Data.ViewModels
         public int Profesion { get; set; }
 
         [Required]
+        [Range(1,Int32.MaxValue, ErrorMessage = "No se puede donar horas negativas o nulas.")]
         public int Cantidad { get; set; }
     }
 }
