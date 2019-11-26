@@ -193,13 +193,15 @@ namespace AyudandoAlProjimo.Services
 
                         return pvm;
                     case (int)TipoPropuestaEnum.Insumos:
-                        int cantidadTotalDeInsumos = propuesta.PropuestasDonacionesInsumos.Sum(x => x.Cantidad);
-                        int cantidadTotalDeDonaciones = 0;
+                        List<int> porcentajes = new List<int>();
 
                         foreach (var p in propuesta.PropuestasDonacionesInsumos)
-                            cantidadTotalDeDonaciones += p.DonacionesInsumos.Sum(x => x.Cantidad);
+                        {
+                            var realizacion = (p.DonacionesInsumos.Sum(x => x.Cantidad) * 100) / p.Cantidad;
+                            porcentajes.Add(realizacion > 100 ? 100 : realizacion);
+                        }
 
-                        porcentajeRealizacion = (cantidadTotalDeDonaciones * 100) / cantidadTotalDeInsumos;
+                        porcentajeRealizacion = porcentajes.Sum() / porcentajes.Count();
                         pvm.PorcentajeRealizacion = porcentajeRealizacion > 100 ? 100 : (int)porcentajeRealizacion;
 
                         return pvm;
@@ -373,7 +375,7 @@ namespace AyudandoAlProjimo.Services
                         .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
             var b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
             
-            propuesta.Valoracion = ((decimal)a / (decimal)b) * 100;
+            propuesta.Valoracion = Math.Round(((decimal)a / (decimal)b) * 100);
             context.SaveChanges();
         }
         public void VerificarPropuestasPorTerminar()

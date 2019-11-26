@@ -63,7 +63,7 @@ namespace AyudandoAlProjimo.Services
         }
         public void DenunciarPropuesta(DenunciaViewModel dvm, int idUser)
         {
-            MotivoDenuncia motivo = context.MotivoDenuncia.Single(m => m.Descripcion == dvm.Motivo);
+            MotivoDenuncia motivo = context.MotivoDenuncia.Single(m => m.IdMotivoDenuncia == dvm.Id);
             Denuncias denuncia = new Denuncias
             {
                 IdMotivo = motivo.IdMotivoDenuncia,
