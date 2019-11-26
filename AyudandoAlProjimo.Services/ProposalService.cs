@@ -156,17 +156,19 @@ namespace AyudandoAlProjimo.Services
             return lista;
         }
 
-        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
+        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id, bool onlyActive = false)
         {
             List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda) || u.Nombre.Contains(busqueda) || u.Apellido.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
-            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
-                (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
+            var lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
+                (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)));
+
+            if (onlyActive) lista = lista.Where(x => x.Estado == 1);
+
+            return lista
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
-
-            return lista;
         }
 
         public PropuestaViewModel VerPropuestaYDonaciones(int id)
@@ -374,14 +376,14 @@ namespace AyudandoAlProjimo.Services
             var a = context.PropuestasValoraciones
                         .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
             var b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
-            
+
             propuesta.Valoracion = Math.Round(((decimal)a / (decimal)b) * 100);
             context.SaveChanges();
         }
         public void VerificarPropuestasPorTerminar()
         {
             List<Propuestas> lista = context.Propuestas.Where(p => p.Estado == 1).ToList();
-            foreach(var l in lista)
+            foreach (var l in lista)
             {
                 if (l.FechaFin <= DateTime.Now)
                 {
