@@ -57,7 +57,7 @@
                         <div class="col 6 container">
                             <img src="@(string.IsNullOrEmpty(Model.Propuesta.Foto) ? "https://news.bitcoin.com/wp-content/uploads/2019/06/india-petition.png" : Model.Propuesta.Foto)" style="max-width: 40%; margin-bottom: 20px;" />
                             <div>
-                                <input type="file" name="Propuesta.Foto" accept="image/*" required />
+                                @Html.TextBoxFor(m => m.Propuesta.Foto, new { type = "file" })
                                 <p>
                                     @Html.ValidationMessageFor(model => model.Propuesta.Foto, "", new { @class = "text-danger" })
                                 </p>

@@ -16,14 +16,14 @@ namespace AyudandoAlProjimo.Services
         {
             List<DonacionesViewModel> listaDonaciones = new List<DonacionesViewModel>();
 
-            List<DonacionesInsumos> lista1 = context.DonacionesInsumos
+            List<DonacionesInsumos> lista1 = context.DonacionesInsumos.Include("PropuestasDonacionesInsumos")
                 .Where(d => d.IdUsuario == idUser).ToList();
 
 
-            List<DonacionesMonetarias> lista2 = context.DonacionesMonetarias
+            List<DonacionesMonetarias> lista2 = context.DonacionesMonetarias.Include("PropuestasDonacionesMonetarias")
                 .Where(d => d.IdUsuario == idUser).ToList();
 
-            List<DonacionesHorasTrabajo> lista3 = context.DonacionesHorasTrabajo
+            List<DonacionesHorasTrabajo> lista3 = context.DonacionesHorasTrabajo.Include("PropuestasDonacionesHorasTrabajo")
                 .Where(d => d.IdUsuario == idUser).ToList();
 
 

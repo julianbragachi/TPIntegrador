@@ -1,37 +1,38 @@
 ﻿@model AyudandoAlProjimo.Data.ViewModels.PropuestaViewModel
 
-    <div class="input-field col s3">
-        <i class="material-icons prefix">access_time</i>
-        @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras", disabled = true} })
+<div class="input-field col s3">
+    <i class="material-icons prefix">access_time</i>
+    @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras", disabled = true } })
     <label for="access_time">Actual Cantidad de Horas</label>
-        @Html.ValidationMessageFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().CantidadHoras, "", new { @class = "text-danger" })
-    </div>
-    <div class="input-field col s3">
-        <i class="material-icons prefix">access_time</i>
-        @Html.EditorFor(x => x.PropuestaDonacionesHorasTrabajo.CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras"} })
-        <label for="access_time">Nueva Cantidad de Horas</label>
-        @Html.ValidationMessageFor(x => x.PropuestaDonacionesHorasTrabajo.CantidadHoras, "", new { @class = "text-danger" })
-    </div>
-    <div class="input-field col s3">
-        <i class="material-icons prefix">wc</i>
-        @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras", disabled = true } })
-        <label for="wc">Profesion</label>
-        </div>
-    <div class="input-field col s3">
-        <i class="material-icons prefix">wc</i>
-        @Html.DropDownListFor(x => x.PropuestaDonacionesHorasTrabajo.Profesion,
-            new SelectList(new[] {
-                new { ID = "Albañil", Name = "Albañil" },
-                new { ID = "Plomero", Name = "Plomero" },
-                new { ID = "Electricista", Name = "Electricista" },
-                new { ID = "Abogado", Name = "Abogado" },
-                new { ID = "Contador", Name = "Contador" },
-                new { ID = "Trabajador Social", Name = "Trabajador Social" },
-                new { ID = "Psicologa", Name = "Psicologa" },
-                new { ID = "Psicopedagoga", Name = "Psicopedagoga" },
-                new { ID = "Cocinero", Name = "Cocinero" },
-                new { ID = "Otro", Name = "Otro" },
-            }, "ID", "Name", 1)
-            , new { @class = "with-gap", @id = "DonationType" , required = true})
-        <label for="moneyDestination">Profesion</label>
-    </div>
+</div>
+<div class="input-field col s3">
+    <i class="material-icons prefix">access_time</i>
+    @Html.EditorFor(x => x.CantidadHoras, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras" } })
+    <label for="access_time">Nueva Cantidad de Horas</label>
+    @Html.ValidationMessageFor(x => x.CantidadHoras, "", new { @class = "text-danger" })
+</div>
+<div class="input-field col s3">
+    <i class="material-icons prefix">wc</i>
+    @Html.EditorFor(x => x.Propuesta.PropuestasDonacionesHorasTrabajo.FirstOrDefault().Profesion, new { htmlAttributes = new { @class = "validate", @id = "CantidadHoras", disabled = true } })
+    <label for="wc">Profesion</label>
+</div>
+<div class="input-field col s3">
+    <i class="material-icons prefix">wc</i>
+    @Html.DropDownListFor(x => x.PropuestaDonacionesHorasTrabajo.Profesion,
+        new SelectList(new[] {
+            new { ID = "Albañil", Name = "Albañil" },
+            new { ID = "Plomero", Name = "Plomero" },
+            new { ID = "Electricista", Name = "Electricista" },
+            new { ID = "Abogado", Name = "Abogado" },
+            new { ID = "Contador", Name = "Contador" },
+            new { ID = "Trabajador Social", Name = "Trabajador Social" },
+            new { ID = "Psicologa", Name = "Psicologa" },
+            new { ID = "Psicopedagoga", Name = "Psicopedagoga" },
+            new { ID = "Cocinero", Name = "Cocinero" },
+            new { ID = "Otro", Name = "Otro" },
+        }, "ID", "Name", 1)
+        , new { @class = "with-gap", @id = "DonationType", required = true })
+    <label for="moneyDestination">Profesion</label>
+</div>
+@* Solución temporanea *@
+@Html.HiddenFor(m => m.Dinero, new { @Value = 1 })

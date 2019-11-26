@@ -279,7 +279,10 @@ namespace AyudandoAlProjimo.Services
             p.Descripcion = pvm.Propuesta.Descripcion;
             p.FechaFin = pvm.Propuesta.FechaFin;
             p.TelefonoContacto = pvm.Propuesta.TelefonoContacto;
-            p.Foto = pvm.Propuesta.Foto;
+            if (pvm.Propuesta.Foto != null)
+            {
+                p.Foto = pvm.Propuesta.Foto;
+            }
             context.SaveChanges();
             switch (pvm.Propuesta.TipoDonacion)
             {
@@ -297,13 +300,13 @@ namespace AyudandoAlProjimo.Services
         {
             PropuestasDonacionesHorasTrabajo propuestaModificada = context.PropuestasDonacionesHorasTrabajo
                 .Find(propuesta.IdPropuestaDonacionHorasTrabajo);
-            if (pvm.PropuestaDonacionesHorasTrabajo.CantidadHoras == 0)
+            if (pvm.CantidadHoras == 0)
             {
                 propuestaModificada.CantidadHoras = propuesta.CantidadHoras;
             }
             else
             {
-                propuestaModificada.CantidadHoras = pvm.PropuestaDonacionesHorasTrabajo.CantidadHoras;
+                propuestaModificada.CantidadHoras = pvm.CantidadHoras;
             }
             propuestaModificada.Profesion = pvm.PropuestaDonacionesHorasTrabajo.Profesion;
             context.SaveChanges();
@@ -312,7 +315,7 @@ namespace AyudandoAlProjimo.Services
         {
             PropuestasDonacionesMonetarias propuestaModificada = context.PropuestasDonacionesMonetarias
                 .Find(propuesta.IdPropuestaDonacionMonetaria);
-            propuestaModificada.Dinero = pvm.PropuestasDonacionesMonetarias.Dinero;
+            propuestaModificada.Dinero = pvm.Dinero;
             context.SaveChanges();
         }
         //private void ModificarPropuestaInsumos(PropuestasDonacionesInsumos propuesta)
@@ -373,7 +376,7 @@ namespace AyudandoAlProjimo.Services
                         .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
             var b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
             
-            propuesta.Valoracion = ((decimal)a / (decimal)b) * 100;
+            propuesta.Valoracion = Math.Round(((decimal)a / (decimal)b) * 100);
             context.SaveChanges();
         }
         public void VerificarPropuestasPorTerminar()

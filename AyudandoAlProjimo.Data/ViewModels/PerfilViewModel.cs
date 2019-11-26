@@ -19,8 +19,6 @@ namespace AyudandoAlProjimo.Data.ViewModels
 
         [CustomValidation(typeof(PerfilViewModel), "ValidarEdadCorrespondiente")]
         public DateTime FechaNacimiento { get; set; }
-
-        [Required]
         public string Foto { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }

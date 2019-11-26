@@ -14,9 +14,9 @@
                     <div class="col s4 avatar-my-profile-container">
                         <img src="@(string.IsNullOrEmpty(Model.Foto) ? "https://www.w3schools.com/howto/img_avatar.png" : Model.Foto)" style="border-radius: 50%; max-width: 80%; margin-bottom: 20px;" />
                         <div>
-                            <input type="file" name="Foto" accept="image/*" />
+                            @Html.TextBoxFor(m => m.Foto, new { type = "file" })
                             <p>
-                                @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger", @required = false })
                             </p>
                         </div>
                     </div>

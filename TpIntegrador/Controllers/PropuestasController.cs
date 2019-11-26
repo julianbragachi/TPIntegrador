@@ -133,7 +133,10 @@ namespace TpIntegrador.Controllers
         {
             if (ModelState.IsValid)
             {
-                pvm.Propuesta.Foto = GetPathForPhoto(pvm.Propuesta.Usuarios.UserName + pvm.Propuesta.Nombre);
+                if (pvm.Propuesta.Foto != null)
+                {
+                    pvm.Propuesta.Foto = GetPathForPhoto(pvm.Propuesta.Foto +pvm.Propuesta.Nombre);
+                }
                 ProposalService.ModificarPropuestaBase(pvm);
                 return Redirect("/Propuestas/VerDetalles/" + pvm.Propuesta.IdPropuesta);
             }

@@ -58,17 +58,17 @@
                 <td>${item.total} $</td>
                 <td>${item.donacionesMonetarias.Dinero}</td>
                 <td>
-                    <a class="btn waves-effect waves-light" href="/Propuestas/VerDetalles/${item.donacionesMonetarias.$id}">Detalle</a>
+                    <a class="btn waves-effect waves-light" href="/Propuestas/VerDetalles/${item.donacionesMonetarias.PropuestasDonacionesMonetarias.Propuestas.IdPropuesta}">Detalle</a>
                 </td>`;
             case 'horastrabajo':
                 return `
                 <td>-</td>
-                <td>${item.donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Nombre}</td>
-                <td>${item.donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Profesion}</td>
+                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Nombre}</td>
+                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Profesion}</td>
                 <td>Horas Trabajo</td>
-                <td>${item.donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Estado}</td>
-                <td>${item.donacion.total} Horas</td>
-                <td>${item.donacion.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.CantidadHoras}</td>`;
+                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Estado}</td>
+                <td>${item.total} Horas</td>
+                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.CantidadHoras}</td>`;
         }
     }
 
