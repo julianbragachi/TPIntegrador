@@ -16,10 +16,10 @@
                     <div class="input-field col s12">
                         <i class="material-icons prefix">wc</i>
                         @Html.DropDownListFor(d => d.Motivo, new SelectList(new[] {
-                                            new { Valor = "Fraude", Name = "Fraude" },
-                                            new { Valor = "Indebida", Name = "Indebida" },
-                                            new { Valor = "Violación de derechos", Name = "Violación de derechos" },
-                                            new { Valor = "Contiene información política", Name = "Contiene información política" },
+                                            new { Valor = "1", Name = "Fraude" },
+                                            new { Valor = "2", Name = "Indebida" },
+                                            new { Valor = "3", Name = "Violación de derechos" },
+                                            new { Valor = "4", Name = "Contiene información política" },
                                         }, "Valor", "Name", 1))
                         @Html.ValidationMessageFor(d => d.Motivo, "", new { @class = "text-danger" })
                         <label class="active" for="moneyDestination">Motivo</label>

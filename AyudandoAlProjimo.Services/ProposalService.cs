@@ -156,17 +156,19 @@ namespace AyudandoAlProjimo.Services
             return lista;
         }
 
-        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id)
+        public List<Propuestas> BusquedaPropuestasAjenasPorParametro(string busqueda, int id, bool onlyActive = false)
         {
             List<Usuarios> listUsernames = context.Usuarios.Where(u => u.UserName.Contains(busqueda) || u.Nombre.Contains(busqueda) || u.Apellido.Contains(busqueda)).ToList();
             List<int> listaIdUsernames = listUsernames.Select(c => c.IdUsuario).ToList();
-            List<Propuestas> lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
-                (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)))
+            var lista = context.Propuestas.Where(p => p.IdUsuarioCreador != id &&
+                (p.Nombre.Contains(busqueda) || listaIdUsernames.Contains(p.IdUsuarioCreador)));
+
+            if (onlyActive) lista = lista.Where(x => x.Estado == 1);
+
+            return lista
                 .OrderByDescending(c => c.FechaFin)
                 .ThenByDescending(c => c.Valoracion)
                 .ToList();
-
-            return lista;
         }
 
         public PropuestaViewModel VerPropuestaYDonaciones(int id)
@@ -193,13 +195,15 @@ namespace AyudandoAlProjimo.Services
 
                         return pvm;
                     case (int)TipoPropuestaEnum.Insumos:
-                        int cantidadTotalDeInsumos = propuesta.PropuestasDonacionesInsumos.Sum(x => x.Cantidad);
-                        int cantidadTotalDeDonaciones = 0;
+                        List<int> porcentajes = new List<int>();
 
                         foreach (var p in propuesta.PropuestasDonacionesInsumos)
-                            cantidadTotalDeDonaciones += p.DonacionesInsumos.Sum(x => x.Cantidad);
+                        {
+                            var realizacion = (p.DonacionesInsumos.Sum(x => x.Cantidad) * 100) / p.Cantidad;
+                            porcentajes.Add(realizacion > 100 ? 100 : realizacion);
+                        }
 
-                        porcentajeRealizacion = (cantidadTotalDeDonaciones * 100) / cantidadTotalDeInsumos;
+                        porcentajeRealizacion = porcentajes.Sum() / porcentajes.Count();
                         pvm.PorcentajeRealizacion = porcentajeRealizacion > 100 ? 100 : (int)porcentajeRealizacion;
 
                         return pvm;
@@ -279,10 +283,7 @@ namespace AyudandoAlProjimo.Services
             p.Descripcion = pvm.Propuesta.Descripcion;
             p.FechaFin = pvm.Propuesta.FechaFin;
             p.TelefonoContacto = pvm.Propuesta.TelefonoContacto;
-            if (pvm.Propuesta.Foto != null)
-            {
-                p.Foto = pvm.Propuesta.Foto;
-            }
+            p.Foto = pvm.Propuesta.Foto;
             context.SaveChanges();
             switch (pvm.Propuesta.TipoDonacion)
             {
@@ -300,13 +301,13 @@ namespace AyudandoAlProjimo.Services
         {
             PropuestasDonacionesHorasTrabajo propuestaModificada = context.PropuestasDonacionesHorasTrabajo
                 .Find(propuesta.IdPropuestaDonacionHorasTrabajo);
-            if (pvm.CantidadHoras == 0)
+            if (pvm.PropuestaDonacionesHorasTrabajo.CantidadHoras == 0)
             {
                 propuestaModificada.CantidadHoras = propuesta.CantidadHoras;
             }
             else
             {
-                propuestaModificada.CantidadHoras = pvm.CantidadHoras;
+                propuestaModificada.CantidadHoras = pvm.PropuestaDonacionesHorasTrabajo.CantidadHoras;
             }
             propuestaModificada.Profesion = pvm.PropuestaDonacionesHorasTrabajo.Profesion;
             context.SaveChanges();
@@ -315,7 +316,7 @@ namespace AyudandoAlProjimo.Services
         {
             PropuestasDonacionesMonetarias propuestaModificada = context.PropuestasDonacionesMonetarias
                 .Find(propuesta.IdPropuestaDonacionMonetaria);
-            propuestaModificada.Dinero = pvm.Dinero;
+            propuestaModificada.Dinero = pvm.PropuestasDonacionesMonetarias.Dinero;
             context.SaveChanges();
         }
         //private void ModificarPropuestaInsumos(PropuestasDonacionesInsumos propuesta)
@@ -375,14 +376,14 @@ namespace AyudandoAlProjimo.Services
             var a = context.PropuestasValoraciones
                         .Where(p1 => p1.Valoracion == true && p1.IdPropuesta == propuesta.IdPropuesta).Count();
             var b = context.PropuestasValoraciones.Where(p1 => p1.IdPropuesta == id).Count();
-            
+
             propuesta.Valoracion = Math.Round(((decimal)a / (decimal)b) * 100);
             context.SaveChanges();
         }
         public void VerificarPropuestasPorTerminar()
         {
             List<Propuestas> lista = context.Propuestas.Where(p => p.Estado == 1).ToList();
-            foreach(var l in lista)
+            foreach (var l in lista)
             {
                 if (l.FechaFin <= DateTime.Now)
                 {
