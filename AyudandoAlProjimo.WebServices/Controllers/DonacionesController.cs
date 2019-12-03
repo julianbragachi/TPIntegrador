@@ -14,7 +14,7 @@ namespace AyudandoAlProjimo.WebServices.Controllers
     public class DonacionesController : ApiController
     {
         private DonacionesService DonacionesService = new DonacionesService();
-        public List<DonacionesViewModel> Get([FromUri] int userId)
+        public IEnumerable<DonacionesViewModel> Get([FromUri] int userId)
         {
             return DonacionesService.BuscarDonaciones(userId);
         }

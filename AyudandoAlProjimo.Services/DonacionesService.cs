@@ -21,7 +21,7 @@ namespace AyudandoAlProjimo.Services
 
 
             List<DonacionesMonetarias> lista2 = context.DonacionesMonetarias.Include("PropuestasDonacionesMonetarias")
-                .Where(d => d.IdUsuario == idUser).ToList();
+                .Where(d => d.IdUsuario == idUser).OrderByDescending(c => c.FechaCreacion).ToList();
 
             List<DonacionesHorasTrabajo> lista3 = context.DonacionesHorasTrabajo.Include("PropuestasDonacionesHorasTrabajo")
                 .Where(d => d.IdUsuario == idUser).ToList();
@@ -35,6 +35,13 @@ namespace AyudandoAlProjimo.Services
                 dvm.total = context.DonacionesInsumos
                         .Where(p => p.IdPropuestaDonacionInsumo == insumo.IdPropuestaDonacionInsumo)
                         .Sum(p => p.Cantidad);
+                DonacionesInsumosViewModel divm = new DonacionesInsumosViewModel();
+                divm.Cantidad = insumo.Cantidad;
+                divm.Estado = insumo.PropuestasDonacionesInsumos.Propuestas.Estado;
+                divm.Nombre = insumo.PropuestasDonacionesInsumos.Propuestas.Nombre;
+                divm.IdPropuestaDonacionInsumo = insumo.PropuestasDonacionesInsumos.Propuestas.IdPropuesta;
+                divm.NombreDonado = insumo.PropuestasDonacionesInsumos.Nombre;
+                dvm.DonacionesInsumosVM = divm;
                 listaDonaciones.Add(dvm);
             }
 
@@ -46,6 +53,13 @@ namespace AyudandoAlProjimo.Services
                 dvm.total = Decimal.ToInt32(context.DonacionesMonetarias
                     .Where(p => p.IdPropuestaDonacionMonetaria == monetaria.IdPropuestaDonacionMonetaria)
                     .Sum(p => p.Dinero));
+                DonacionesMonetariasViewModel dmvm = new DonacionesMonetariasViewModel();
+                dmvm.Dinero = monetaria.Dinero;
+                dmvm.Estado = monetaria.PropuestasDonacionesMonetarias.Propuestas.Estado;
+                dmvm.Nombre = monetaria.PropuestasDonacionesMonetarias.Propuestas.Nombre;
+                dmvm.IdPropuestaDonacionMonetaria = monetaria.PropuestasDonacionesMonetarias.Propuestas.IdPropuesta;
+                dmvm.Fecha = monetaria.FechaCreacion;
+                dvm.DonacionesMonetariasVM = dmvm;
                 listaDonaciones.Add(dvm);
             }
 
@@ -57,6 +71,12 @@ namespace AyudandoAlProjimo.Services
                 dvm.total = context.DonacionesHorasTrabajo
                     .Where(p => p.IdPropuestaDonacionHorasTrabajo == horastrabajo.IdPropuestaDonacionHorasTrabajo)
                     .Sum(p => p.Cantidad);
+                DonacionesHorasTrabajoViewModel dtvm = new DonacionesHorasTrabajoViewModel();
+                dtvm.Cantidad = horastrabajo.Cantidad;
+                dtvm.Estado = horastrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Estado;
+                dtvm.Nombre = horastrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Nombre;
+                dtvm.IdPropuestaDonacionHorasTrabajo = horastrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.IdPropuesta;
+                dvm.DonacionesHorasTrabajoVM = dtvm;
                 listaDonaciones.Add(dvm);
             }
 

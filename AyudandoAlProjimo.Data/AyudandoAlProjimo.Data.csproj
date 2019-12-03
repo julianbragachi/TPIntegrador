@@ -111,6 +111,9 @@
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DenunciaViewModel.cs" />
+    <Compile Include="ViewModels\DonacionesHorasTrabajoViewModel.cs" />
+    <Compile Include="ViewModels\DonacionesInsumosViewModel.cs" />
+    <Compile Include="ViewModels\DonacionesMonetariasViewModel.cs" />
     <Compile Include="ViewModels\DonacionesViewModel.cs" />
     <Compile Include="ViewModels\RealizarDonacionInsumosViewModel.cs" />
     <Compile Include="ViewModels\RealizarDonacionHorasViewModel.cs" />

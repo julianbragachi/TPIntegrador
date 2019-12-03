@@ -26,49 +26,60 @@
     const buildTBody = function (data) {
         let html = '';
 
-        data.forEach(function (item) {
-            html = `
-                <tbody>
-                    <tr>
-                        ${buildTD(item)}
-                    </tr>
-                </tbody>`;
+        data.forEach(function (item,index) {
+            html += `${buildTD(item)}`;
         });
 
         return html;
     }
 
-    const buildTD = function (item) {
+    const buildTD = function (item,index) {
         switch (item.tipo) {
             case 'insumo':
                 return `
+                <tbody>
+                <tr>
                 <td>-</td>
-                <td>${item.donacionesInsumos.PropuestasDonacionesInsumos.Propuestas.Nombre}</td>
-                <td>${item.donacionesInsumos.PropuestasDonacionesInsumos.Nombre}</td>
+                <td>${item.DonacionesInsumosVM.Nombre}</td>
                 <td>Insumo</td>
-                <td>${item.donacionesInsumos.PropuestasDonacionesInsumos.Propuestas.Estado}</td>
-                <td>${item.total} ${item.donacionesInsumos.PropuestasDonacionesInsumos.Nombre}</td>
-                <td>${item.donacionesInsumos.PropuestasDonacionesInsumos.Cantidad}</td>`;
+                <td>${item.DonacionesInsumosVM.Estado}</td>
+                <td>${item.total} ${item.DonacionesInsumosVM.NombreDonado}</td>
+                <td>${item.DonacionesInsumosVM.Cantidad}</td>
+                <td>
+                    <a class="btn waves-effect waves-light" href="/Propuestas/VerDetalles/${item.DonacionesInsumosVM.IdPropuestaDonacionInsumo}">Detalle</a>
+                </td>
+                </tr>
+                </tbody>`;
             case 'monetario':
                 return `
-                <td>-</td>
-                <td>${item.donacionesMonetarias.PropuestasDonacionesMonetarias.Propuestas.Nombre}</td>
+                <tbody>
+                <tr>
+                <td>${item.DonacionesMonetariasVM.Fecha}</td>
+                <td>${item.DonacionesMonetariasVM.Nombre}</td>
                 <td>Monetario</td>
-                <td>${item.donacionesMonetarias.PropuestasDonacionesMonetarias.Propuestas.Estado}</td>
+                <td>${item.DonacionesMonetariasVM.Estado}</td>
                 <td>${item.total} $</td>
-                <td>${item.donacionesMonetarias.Dinero}</td>
+                <td>${item.DonacionesMonetariasVM.Dinero}</td>
                 <td>
-                    <a class="btn waves-effect waves-light" href="/Propuestas/VerDetalles/${item.donacionesMonetarias.PropuestasDonacionesMonetarias.Propuestas.IdPropuesta}">Detalle</a>
-                </td>`;
+                    <a class="btn waves-effect waves-light" href="/Propuestas/VerDetalles/${item.DonacionesMonetariasVM.IdPropuestaDonacionMonetaria}">Detalle</a>
+                </td>
+                </tr>
+                </tbody>`;
             case 'horastrabajo':
                 return `
+                <tbody>
+                <tr>
                 <td>-</td>
-                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Nombre}</td>
-                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Profesion}</td>
+                <td>${item.DonacionesHorasTrabajoVM.Nombre}</td>
                 <td>Horas Trabajo</td>
-                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.Propuestas.Estado}</td>
+                <td>${item.DonacionesHorasTrabajoVM.Estado}</td>
                 <td>${item.total} Horas</td>
-                <td>${item.donacionesHorasTrabajo.PropuestasDonacionesHorasTrabajo.CantidadHoras}</td>`;
+                <td>${item.DonacionesHorasTrabajoVM.Cantidad}</td>
+                <td>
+                    <a class="btn waves-effect waves-light" href="/Propuestas/VerDetalles/${item.DonacionesHorasTrabajoVM.IdPropuestaDonacionHorasTrabajo}">Detalle</a>
+                </td>
+                </tr>
+                </tbody>`;
         }
     }
 
